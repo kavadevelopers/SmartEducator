@@ -41,7 +41,7 @@ class HomeController extends BaseController
     public function page($slug)
     {
         if ($slug == "admin") {
-            return Redirect($this->aUrl('login'));   
+            return Redirect($this->aUrl('/login'));   
         }else{
             $page = DB::table('pages')->where('slug',$slug)->first();
             if ($page) {
