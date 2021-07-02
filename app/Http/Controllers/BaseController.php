@@ -16,6 +16,11 @@ class BaseController extends Controller
 		return DB::table('z_setting')->where('id','1')->first();
 	}	
 
+	public static function aUrl($link)
+	{
+		return url('admin'.$link);
+	}
+
 	public static function getPageBanner($id)
 	{
 		$page = DB::table('pages')->where('id',$id)->first();

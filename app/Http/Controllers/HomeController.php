@@ -40,14 +40,18 @@ class HomeController extends BaseController
 
     public function page($slug)
     {
-        $page = DB::table('pages')->where('slug',$slug)->first();
-        if ($page) {
-            $data['_title']     = $page->name;
-            $data['content']    = $page->content;
-            $data['banner']      = $this->getPageBanner($page->id);
-            return view('web.page',$data);
+        if ($page == "admin") {
+            return Redirect($this->aUrl('login'));   
         }else{
-            return Response::view('errors.404',array(),404);
+            $page = DB::table('pages')->where('slug',$slug)->first();
+            if ($page) {
+                $data['_title']     = $page->name;
+                $data['content']    = $page->content;
+                $data['banner']      = $this->getPageBanner($page->id);
+                return view('web.page',$data);
+            }else{
+                return Response::view('errors.404',array(),404);
+            }
         }
     }
 }
