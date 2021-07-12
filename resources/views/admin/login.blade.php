@@ -94,6 +94,21 @@
                                     <div class="form-group form-primary">
                                         <input type="password" name="password" id="pass" class="form-control" placeholder="Password" required autocomplete="off">
                                     </div>
+                                    <div class="row m-t-25">
+                                        <div class="col-12">
+                                            <div class="checkbox-fade fade-in-primary d-" style="display:none;">
+                                                <label>
+                                                    <input type="checkbox" value="">
+                                                    <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                                                    <span class="text-inverse">Remember me</span>
+                                                </label>
+                                            </div>
+                                            <div class="forgot-phone text-right f-right">
+                                                <a href="<?= url(App\Http\Controllers\admin\BaseController::aUrl('/forget')); ?>" class="text-right f-w-600"> Forgot
+                                                    Password?</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row m-t-30">
                                         <div class="col-md-12">
                                             <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20" style="font-size: 18px" id="sign-in-button">

@@ -2,14 +2,6 @@
 <html lang="en">
 
 <head>
-    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 10]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
-    <!-- Meta -->
-    <!-- 1. AddChat css -->
     
     <title><?php if(isset($_title)){ echo $_title.' | '; } ?><?= App\Http\Controllers\admin\BaseController::getSetting()->name; ?></title>
     <meta charset="utf-8">
@@ -19,7 +11,7 @@
     <meta name="keywords" content="Kava Developers">
     <meta name="author" content="Kava Developers">
     <!-- Favicon icon -->
-    <link rel="icon" href="<?= url('public/') ?>/favicon.png" type="image/x-icon">
+    <link rel="icon" href="<?= url('public/uploads/settings/'.App\Http\Controllers\admin\BaseController::getSetting()->favicon) ?>" type="image/x-icon">
     <script type="text/javascript" src="<?= url('public/admin/') ?>/bower_components/jquery/js/jquery.min.js"></script>
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
@@ -157,13 +149,13 @@
                                     <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                         <?php if(App\Http\Controllers\admin\BaseController::getUser()->user_type == '0'){ ?>
                                             <li style="padding: 0;">
-                                                <a href="#" class="dis-block" style="padding: 0.7em 20px;">
+                                                <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/settings') ?>" class="dis-block" style="padding: 0.7em 20px;">
                                                     <i class="fa fa-gear fa-spin"></i> Settings
                                                 </a>
                                             </li>
                                         <?php } ?>
                                         <li style="padding: 0;">
-                                            <a href="#" class="dis-block" style="padding: 0.7em 20px;">
+                                            <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/profile') ?>" class="dis-block" style="padding: 0.7em 20px;">
                                                 <i class="feather icon-user"></i> Profile
                                             </a>
                                         </li>

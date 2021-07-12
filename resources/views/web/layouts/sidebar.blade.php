@@ -8,7 +8,7 @@
 	    <div class="logo">
 	        <h3>
 	        	<a href="home">
-	        		<img src="{{ URL::asset('public/web/asset/img/logo.png') }}" class="sidebar-logo" alt="">
+	        		<img src="<?= url('public/uploads/settings/'.App\Http\Controllers\admin\BaseController::getSetting()->logo) ?>" class="sidebar-logo" alt="">
 	        	</a>
 	        </h3>
 	    </div>

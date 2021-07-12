@@ -13,7 +13,7 @@ class BaseController extends Controller
 
 	public static function getSetting()
 	{
-		return DB::table('z_setting')->where('id','1')->first();
+		return DB::table('cms_zsettings')->where('id','1')->first();
 	}	
 
 	public static function aUrl($link)
@@ -36,4 +36,30 @@ class BaseController extends Controller
 		return $image;
 	}	
 
+	public static function strLimit($str,$length){
+		$append = '...';
+	    if (strlen($str) > $length) {
+	        $delim = "~\n~";
+	        $str = substr($str, 0, strpos(wordwrap($str, $length, $delim), $delim)) . $append;
+	    } 
+	    return $str;
+	}
+
+	public static function linksCheck($link)
+	{
+		if ($link == "home") {
+			return 'home';
+		}else if ($link == "about") {
+			return 'about-us';
+		}else if ($link == "blog") {
+			return 'blog';
+		}else if ($link == "contact") {
+			return 'contact-us';
+		}else if ($link == "listing") {
+			return 'listing';
+		}else{
+			$page = DB::table('pages')->where('id',$link)->first();
+			return $page->slug;
+		}
+	}
 }

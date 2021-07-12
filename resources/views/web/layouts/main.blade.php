@@ -10,8 +10,7 @@
 		<meta content="" name="keywords">
 
 		<!-- Favicons -->
-		<link href="{{ URL::asset('public/web/asset/img/favicon.png') }}" rel="icon">
-		<link href="{{ URL::asset('public/web/asset/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+		<link rel="icon" href="<?= url('public/uploads/settings/'.App\Http\Controllers\BaseController::getSetting()->favicon) ?>" type="image/x-icon">
 
 		<!-- Google Fonts -->
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -32,6 +31,7 @@
 
 		<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 		@stack('css')
+		@include('web.layouts.style')
 	</head>
 	<body>
 		<div id="preloader"></div>
@@ -80,5 +80,6 @@
 		<script src="{{ URL::asset('public/web/asset/vendor/aos/aos.js') }}"></script>
 		<script src="{{ URL::asset('public/web/asset/js/main.js') }}"></script>
 		@stack('js')
+		@include('web.layouts.script')
 	</body>
 </html>

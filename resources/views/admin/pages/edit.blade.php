@@ -42,7 +42,7 @@
                     </div>    
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Banner</label>
+                            <label>Banner <small>(size 1600 x 600) </small></label>
                             <input name="banner" type="file" class="form-control">
                         </div>
                     </div> 

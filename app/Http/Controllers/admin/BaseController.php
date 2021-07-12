@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Request;
+//use Illuminate\Http\Request;
 use DB;
 use Response;
 use Session;
@@ -28,7 +29,7 @@ class BaseController extends Controller
 
 	public static function getSetting()
 	{
-		return DB::table('z_setting')->where('id','1')->first();
+		return DB::table('cms_zsettings')->where('id','1')->first();
 	}	
 
 	public static function getUser()
@@ -50,4 +51,17 @@ class BaseController extends Controller
 		}
 		return $image;
 	}		
+
+	public static function menu($seg,$array)
+	{
+		$path = Request::segment($seg);
+	    foreach($array as $a)
+	    {
+	        if($path === $a)
+	        {
+	          	return array("active","active","pcoded-trigger");
+	          	break;  
+	        }
+	    }
+	}
 }

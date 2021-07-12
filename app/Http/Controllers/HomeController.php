@@ -10,27 +10,42 @@ class HomeController extends BaseController
 {
     public function index()
     {
-        return view('web.home');
+        $data['_title']     = 'Home';
+        $data['sliders']    = DB::table('cms_home_slider')->orderby('sort','asc')->get();
+        $data['steps']      = DB::table('cms_home_steps')->where('id','1')->first();
+        return view('web.home',$data);
     }
 
     public function about()
     {
-        return view('web.about');   
+        $data['_title']     = 'About us';
+        $data['sliders']    = DB::table('cms_about_slider')->orderby('sort','asc')->get();
+        $data['teams']    = DB::table('cms_about_team')->orderby('sort','asc')->get();
+        $data['content']    = DB::table('cms_about_content')->where('id','1')->first();
+        return view('web.about',$data);   
     }
 
     public function blog()
     {
-        return view('web.blog');   
+        $data['_title']     = 'Blog';
+        $data['content']    = DB::table('cms_blog_content')->where('id','1')->first();
+        $data['list']       = DB::table('cms_blog_list')->orderby('id','desc')->get();
+        $data['count']       = DB::table('cms_blog_list')->orderby('id','desc')->count();
+        return view('web.blog',$data);   
     }
 
     public function listing()
     {
-        return view('web.listing');   
+        $data['content']    = DB::table('cms_listing_content')->where('id','1')->first();
+        $data['_title']     = $data['content']->title;
+        return view('web.listing',$data);   
     }
 
     public function contact()
     {
-        return view('web.contact');   
+        $data['content']    = DB::table('cms_contact_content')->where('id','1')->first();
+        $data['_title']     = $data['content']->title;
+        return view('web.contact',$data);   
     }
 
     public function dashboard()

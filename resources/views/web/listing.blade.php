@@ -4,9 +4,9 @@
 
 
 <!-- ======= Hero Section ======= -->
-<section id="hero" class="d-flex align-items-center" style="background: url('<?= URL::asset("public/web/asset/img/listing.png") ?>') top left; background-size: cover;">
+<section id="hero" class="d-flex align-items-center" style="background: url('<?= URL::asset("public/uploads/listing/".$content->banner) ?>') top left; background-size: cover;">
 	<div class="container" data-aos="zoom-out" data-aos-delay="100">
-			<h1>Courses and Univercities</h1>
+			<h1><?= $content->title ?></h1>
 	</div>
 </section><!-- End Hero -->
 
@@ -14,7 +14,7 @@
 <section id="team contact-top" class="team section-bg">
     <div class="container" data-aos="fade-up">
         <div class="section-title">
-            <h3>CHOSE FROM YOUR DESIRED COLLEGES COURSES </h3>
+            <h3><?= $content->title2 ?></h3>
             <div class="title-border"></div>
             
         </div>
@@ -75,7 +75,7 @@
         </div>
         <div class="col-9">
         	<div class="section-title">
-	            <p style="    font-size: 18px; margin-top: 70px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+	            <p style="    font-size: 18px; margin-top: 70px;"><?= $content->stitle ?></p>
 	        </div>
 	        <div class="row">
 	        	<div class="col-lg-6">
@@ -135,11 +135,11 @@
 </section>
 
 
-<div class="footer-newsletter" style="background: url('<?= URL::asset("public/web/asset/img/listing-bottom.png") ?>') top left; background-size: cover;padding: 160px 0;">
+<div class="footer-newsletter" style="background: url('<?= URL::asset("public/uploads/listing/".$content->banner2) ?>') top left; background-size: cover;padding: 160px 0;">
       	<div class="container">
         	<div class="row justify-content-center">
           		<div class="col-lg-6">
-            		<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+            		<p><?= $content->con_banner ?></p>
           		</div>
         	</div>
       	</div>

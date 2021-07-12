@@ -3,13 +3,36 @@
 @section('content')
 
 <!-- ======= Hero Section ======= -->
-<section id="hero" class="d-flex align-items-center" style="background: url('<?= URL::asset("public/web/asset/img/hero-bg.png") ?>') top left; background-size: cover;">
-	<div class="container" data-aos="zoom-out" data-aos-delay="100">
-			<!-- <h1>Colleges and Univercities</h1> -->
-	</div>
-</section>
+<!-- <section id="hero" class="d-flex align-items-center">
+	
+</section> -->
 <!-- End Hero -->
-
+<section id="team contact-top" class="team section-bg" style="margin-top: 102px;">
+    <div class="container-fluid" data-aos="zoom-out" data-aos-delay="100" style="padding:0;">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <?php foreach($sliders as $k => $slider){ ?>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="<?= $k ?>" class="<?= $k==0?'active':'' ?>"></li>
+                <?php } ?>
+            </ol>
+            <div class="carousel-inner">
+                <?php foreach($sliders as $k => $slider){ ?>
+                    <div class="carousel-item <?= $k==0?'active':'' ?>">
+                        <img class="d-block w-100" src="<?= URL::asset("public/uploads/home/".$slider->image) ?>" alt="First slide">
+                    </div>
+                <?php } ?>    
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fa fa-chevron-left"></i></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"><i class="fa fa-chevron-right"></i></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+</section>
 <!-- ======= Team Section ======= -->
 <section id="team contact-top" class="team section-bg">
     <div class="container" data-aos="fade-up">
@@ -53,28 +76,28 @@
 </section>
 <!-- End Team Section -->
 
-<section id="team contact-top" class="team section-bg-white" style="background: url('<?= URL::asset("public/web/asset/img/map.png") ?>') top left; background-size: cover;">
+<section id="team contact-top" class="team section-bg-white" style="background: url('<?= URL::asset("public/uploads/home/".$steps->banner) ?>') top left; background-size: cover;">
     <div class="container-fluid" data-aos="fade-up">
         <div class="container">
         	<div class="row" style="padding-left: 8%;margin-top: 2%;margin-bottom: 2%;">
         		<div class="col-lg-4 no-gutters">
         			<img src="<?= URL::asset("public/web/asset/img/ring_1.png") ?>" class="img img-100">
         			<p class="p-of-home-blocks">
-        				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+        				<?= App\Http\Controllers\BaseController::strLimit($steps->step1,245) ?>
         			</p>
         			<span class="num-of-home-blocks-01">01</span>
         		</div>
         		<div class="col-lg-4 no-gutters">
         			<img src="<?= URL::asset("public/web/asset/img/ring_2.png") ?>" class="img img-100">
         			<p class="p-of-home-blocks">
-        				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+        				<?= App\Http\Controllers\BaseController::strLimit($steps->step2,245) ?>
         			</p>
         			<span class="num-of-home-blocks-02">02</span>
         		</div>
         		<div class="col-lg-4 no-gutters">
         			<img src="<?= URL::asset("public/web/asset/img/ring_3.png") ?>" class="img img-100">
         			<p class="p-of-home-blocks">
-        				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+        				<?= App\Http\Controllers\BaseController::strLimit($steps->step3,245) ?>
         			</p>
         			<span class="num-of-home-blocks-03">03</span>
         		</div>
