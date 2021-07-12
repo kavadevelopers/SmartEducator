@@ -54,15 +54,16 @@ class BaseController extends Controller
 
 	public static function menu($seg,$array)
 	{
-		return array("","","");
+		$ret = array("","","");
 		$path = Request::segment($seg);
 	    foreach($array as $a)
 	    {
 	        if($path === $a)
 	        {
-	          	return array("active","active","pcoded-trigger");
+	          	$ret = array("active","active","pcoded-trigger");
 	          	break;  
 	        }
 	    }
+	    return $ret;
 	}
 }
