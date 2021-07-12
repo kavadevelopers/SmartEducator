@@ -54,6 +54,7 @@ class BaseController extends Controller
 
 	public static function menu($seg,$array)
 	{
+		return array("","","");
 		$path = Request::segment($seg);
 	    foreach($array as $a)
 	    {
