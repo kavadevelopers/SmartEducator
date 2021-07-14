@@ -136,9 +136,9 @@ class BaseController extends Controller
 		$setting = DB::table('cms_zsettings')->where('id','1')->first();
 
 		$mail             	= new PHPMailer\PHPMailer();
-		$mail->isSMTP();
+		$mail->isSMTP(true);
         $mail->IsHTML(true);
-        $mail->SMTPDebug  	= 3;
+        $mail->SMTPDebug  	= 0;
         $mail->SMTPAuth   	= true;
         $mail->SMTPSecure 	= 'ssl';
         $mail->CharSet 		= "utf-8";
@@ -151,9 +151,9 @@ class BaseController extends Controller
         $mail->Body    		= $body;
         $mail->AddAddress($to);
         if ($mail->Send()) {
-            return 'Email Sended Successfully';
+            //return 'Email Sended Successfully';
         } else {
-            return 'Failed to Send Email';
+            //return 'Failed to Send Email';
         }
 	}
 }
