@@ -10,19 +10,12 @@ class LoginController extends BaseController
 
 	public function __construct()
 	{
-		// $this->middleware(function ($request, $next){
-		// 	if ($request->session()->has('AdminId')) {
-	 //   			return Redirect($this->aUrl('/dashboard'))->send();
-		// 	}
-		// 	return $next($request);
-	 //   	});
+		
 	}
 
 	public function index()
 	{
 		return view('admin.login');
-		// Session::forget('AdminId');
-		// print_r(Session::get('AdminId'));
 	}
 
 	public function login(Request $rec)
@@ -58,5 +51,39 @@ class LoginController extends BaseController
 	public function dashboard()
 	{
 		return view('admin.dashboard');
+	}
+
+	public function forget()
+	{
+		return view('admin.forget');
+	}
+
+	public function resetPassword(Request $rec)
+	{
+		$user = DB::table('z_user')->where('id',$rec->id)->first();	
+		if ($user) {
+			if ($user->code == $rec->code) {
+				DB::table('z_user')->where('id',$rec->id)->update(['password' => md5($rec->pass)]);
+				return $this->retJson(['_return' => true,'msg' => "Password Changed."]);		
+			}else{
+				return $this->retJson(['_return' => false,'msg' => "Verification code is not valid"]);		
+			}
+		}else{
+			return $this->retJson(['_return' => false,'msg' => "Error please try agin later"]);	
+		}
+	}
+
+	public function forgetCheck(Request $rec)
+	{
+		$user = DB::table('z_user')->where('email',$rec->email)->where('df','')->first();
+		if ($user) {
+			$otp = mt_rand(111111,999999);
+			DB::table('z_user')->where('id',$user->id)->update(['code' => $otp]);
+			$msg = "Your verification code is :- ".$otp;
+			@$this->sendEmail($user->email,'Verification code',$msg);
+			return $this->retJson(['_return' => true,'msg' => "Verification code sent to your Email address",'user' => $user->id]);	
+		}else{
+			return $this->retJson(['_return' => false,'msg' => "We can't find account assigned with this email"]);	
+		}
 	}
 }

@@ -22,7 +22,7 @@
 	        <div class="row">
 
 	        	<?php foreach ($list as $key => $value) { ?>
-	        		<div class="col-lg-3 col-md-6 align-items-stretch page-item" data-aos="fade-up" data-aos-delay="100">
+	        		<div class="col-lg-3 col-md-6 align-items-stretch page-item" data-aos="fade-up" data-aos-delay="100" style="cursor:pointer;" onclick="window.location='blog/<?= $value->id ?>'">
 		                <div class="member">
 		                    <div class="member-img">
 		                        <img src="<?= URL::asset("public/uploads/blog/".$value->thumb) ?>" class="img-fluid" alt="">

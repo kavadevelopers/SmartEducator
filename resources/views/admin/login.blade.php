@@ -104,7 +104,7 @@
                                                 </label>
                                             </div>
                                             <div class="forgot-phone text-right f-right">
-                                                <a href="<?= url(App\Http\Controllers\admin\BaseController::aUrl('/forget')); ?>" class="text-right f-w-600"> Forgot
+                                                <a href="<?= url(App\Http\Controllers\admin\BaseController::aUrl('/forget-password')); ?>" class="text-right f-w-600"> Forgot
                                                     Password?</a>
                                             </div>
                                         </div>

@@ -23,7 +23,7 @@
                         <img class="profile-bg-img img-fluid" src="<?= url('public/admin/assets/images/user-profile/bg-img1.jpg') ?>" alt="bg-img">
                         <div class="card-block user-info">
                             <div class="col-md-12">
-                                <div class="media-left">
+                                <!-- <div class="media-left">
                                     <a href="javascript:;" class="profile-image">
                                         <img class="user-img img-radius" src="<?= url('public/admin/') ?>/images/user/male.png" alt="user-img">
                                     </a>
@@ -37,7 +37,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

@@ -40,7 +40,7 @@
 	            </div>
 	            <div class="row">
 	            	<div class="col-lg-6 col-md-6 footer-contact">
-	                    <a href="home" class="logo mr-auto"><img src="<?= url('public/uploads/settings/'.App\Http\Controllers\admin\BaseController::getSetting()->logo) ?>" style="max-height: 90px;" alt=""></a>
+	                    <a href="<?= url('home') ?>" class="logo mr-auto"><img src="<?= url('public/uploads/settings/'.App\Http\Controllers\admin\BaseController::getSetting()->logo) ?>" style="max-height: 90px;" alt=""></a>
 	                </div>
 	                <div class="col-lg-6 col-md-6 footer-links">
 	                    <h4>HELP</h4>

@@ -20,7 +20,7 @@
 		   	<div class="col-lg-12 no-gutters">
 		   		<div class="row">
 					<div class="col-md-3">
-			      		<a href="home" class="logo mr-auto"><img src="<?= url('public/uploads/settings/'.App\Http\Controllers\admin\BaseController::getSetting()->logo) ?>" data-aos="zoom-out" data-aos-delay="100" alt=""></a>
+			      		<a href="<?= url('home') ?>" class="logo mr-auto"><img src="<?= url('public/uploads/settings/'.App\Http\Controllers\admin\BaseController::getSetting()->logo) ?>" data-aos="zoom-out" data-aos-delay="100" alt=""></a>
 					</div>
 					<div class="col-md-6">
 						<form action="" method="post" class="header-search">

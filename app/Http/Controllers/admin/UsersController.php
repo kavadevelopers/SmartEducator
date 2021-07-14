@@ -20,7 +20,7 @@ class UsersController extends BaseController
 
 	public function list()
 	{
-		$data['_title'] = 'Admin List';	
+		$data['_title'] = 'Users List';	
 		$data['list']	= DB::table('z_user')->where('id','!=','1')->where('df','')->orderby('id','desc')->get();
 		return view('admin.users.list',$data);	
 	}
@@ -28,13 +28,13 @@ class UsersController extends BaseController
 
 	public function add()
 	{
-		$data['_title'] = 'Admin Add';	
+		$data['_title'] = 'Add User';	
 		return view('admin.users.add',$data);	
 	}	
 
 	public function edit($id)
 	{
-		$data['_title'] = 'Edit Admin ';	
+		$data['_title'] = 'Edit User ';	
 		$data['item']	= DB::table('z_user')->where('id',$id)->first();
 		return view('admin.users.edit',$data);	
 	}
@@ -58,22 +58,29 @@ class UsersController extends BaseController
 				Session::flash('error', 'Username already exists'); 
 		    	return redirect()->back()->withInput();
 			}else{
-				$data = [
-					'user_type'		=> 	'1',
-					'name'			=> 	$rec->name,
-					'username'		=> 	$rec->username,
-					'password'		=> 	md5($rec->password),
-					'email'			=> 	$rec->email,
-					'mobile'		=> 	$rec->mobile,
-					'gender'		=> 	"Male",
-					'rights'		=> 	"",
-					'df'			=> 	"",
-					'block'			=> 	""
-				];
+				$user = DB::table('z_user')->where('email',$rec->email)->count();
+				if ($user > 0) {
+					Session::flash('error', 'Email already exists'); 
+		    		return redirect()->back()->withInput();	
+				}else{
+					$data = [
+						'user_type'		=> 	'1',
+						'name'			=> 	$rec->name,
+						'username'		=> 	$rec->username,
+						'password'		=> 	md5($rec->password),
+						'email'			=> 	$rec->email,
+						'mobile'		=> 	$rec->mobile,
+						'gender'		=> 	"Male",
+						'rights'		=> 	"",
+						'df'			=> 	"",
+						'block'			=> 	"",
+						'code'			=> 	""
+					];
 
-				DB::table('z_user')->insert($data);
-				Session::flash('success', 'Admin created.'); 
-	    		return Redirect($this->aUrl('/users'));	
+					DB::table('z_user')->insert($data);
+					Session::flash('success', 'Admin created.'); 
+		    		return Redirect($this->aUrl('/users'));	
+				}
 			}
 		}else{
 			Session::flash('error', 'Please enter valid username'); 
@@ -89,25 +96,31 @@ class UsersController extends BaseController
 				Session::flash('error', 'Username already exists'); 
 		    	return redirect()->back()->withInput();
 			}else{
-				$data = [
-					'name'			=> 	$rec->name,
-					'username'		=> 	$rec->username,
-					'email'			=> 	$rec->email,
-					'mobile'		=> 	$rec->mobile
-				];
-
-				DB::table('z_user')->where('id',$rec->id)->update($data);
-
-				if ($rec->pass != "") {
+				$user = DB::table('z_user')->where('email',$rec->email)->where('id','!=',$rec->id)->count();
+				if ($user > 0) {
+					Session::flash('error', 'Email already exists'); 
+			    	return redirect()->back()->withInput();
+				}else{
 					$data = [
-						'password'		=> 	md5($rec->password),
+						'name'			=> 	$rec->name,
+						'username'		=> 	$rec->username,
+						'email'			=> 	$rec->email,
+						'mobile'		=> 	$rec->mobile
 					];
 
-					DB::table('z_user')->where('id',$rec->id)->update($data);					
-				}
+					DB::table('z_user')->where('id',$rec->id)->update($data);
 
-				Session::flash('success', 'Admin updated.'); 
-	    		return Redirect($this->aUrl('/users'));	
+					if ($rec->pass != "") {
+						$data = [
+							'password'		=> 	md5($rec->password),
+						];
+
+						DB::table('z_user')->where('id',$rec->id)->update($data);					
+					}
+
+					Session::flash('success', 'Admin updated.'); 
+		    		return Redirect($this->aUrl('/users'));	
+				}
 			}
 		}else{
 			Session::flash('error', 'Please enter valid username'); 

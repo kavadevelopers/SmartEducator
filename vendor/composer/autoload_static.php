@@ -70,6 +70,7 @@ class ComposerStaticInit5dd110d33f645426376134bf377d4a74
             'Psr\\Log\\' => 8,
             'Prophecy\\' => 9,
             'PhpParser\\' => 10,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'M' => 
         array (
@@ -220,6 +221,10 @@ class ComposerStaticInit5dd110d33f645426376134bf377d4a74
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
@@ -312,7 +317,22 @@ class ComposerStaticInit5dd110d33f645426376134bf377d4a74
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
+        'App\\Http\\Controllers\\BaseController' => __DIR__ . '/../..' . '/app/Http/Controllers/BaseController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\admin\\AboutController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/AboutController.php',
+        'App\\Http\\Controllers\\admin\\BaseController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/BaseController.php',
+        'App\\Http\\Controllers\\admin\\BlogController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/BlogController.php',
+        'App\\Http\\Controllers\\admin\\ContactController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/ContactController.php',
+        'App\\Http\\Controllers\\admin\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/DashboardController.php',
+        'App\\Http\\Controllers\\admin\\ExpensesController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/ExpensesController.php',
+        'App\\Http\\Controllers\\admin\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/HomeController.php',
+        'App\\Http\\Controllers\\admin\\ListingController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/ListingController.php',
+        'App\\Http\\Controllers\\admin\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/LoginController.php',
+        'App\\Http\\Controllers\\admin\\PagesController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/PagesController.php',
+        'App\\Http\\Controllers\\admin\\ReviewController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/ReviewController.php',
+        'App\\Http\\Controllers\\admin\\SettingsController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/SettingsController.php',
+        'App\\Http\\Controllers\\admin\\UsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/UsersController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
@@ -1828,6 +1848,11 @@ class ComposerStaticInit5dd110d33f645426376134bf377d4a74
         'Monolog\\ResettableInterface' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/ResettableInterface.php',
         'Monolog\\SignalHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/SignalHandler.php',
         'Monolog\\Utils' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Utils.php',
+        'PHPMailer\\PHPMailer\\Exception' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/Exception.php',
+        'PHPMailer\\PHPMailer\\OAuth' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/OAuth.php',
+        'PHPMailer\\PHPMailer\\PHPMailer' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/PHPMailer.php',
+        'PHPMailer\\PHPMailer\\POP3' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/POP3.php',
+        'PHPMailer\\PHPMailer\\SMTP' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/SMTP.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/Assert.php',
         'PHPUnit\\Framework\\AssertionFailedError' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/AssertionFailedError.php',
         'PHPUnit\\Framework\\BaseTestListener' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/BaseTestListener.php',

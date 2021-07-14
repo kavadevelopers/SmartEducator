@@ -25,8 +25,8 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => 'v5.4.30',
-    'version' => '5.4.30.0',
+    'pretty_version' => '1.0.0+no-version-set',
+    'version' => '1.0.0.0',
     'aliases' => 
     array (
     ),
@@ -351,8 +351,8 @@ private static $installed = array (
     ),
     'laravel/laravel' => 
     array (
-      'pretty_version' => 'v5.4.30',
-      'version' => '5.4.30.0',
+      'pretty_version' => '1.0.0+no-version-set',
+      'version' => '1.0.0.0',
       'aliases' => 
       array (
       ),
@@ -466,6 +466,15 @@ private static $installed = array (
       ),
       'reference' => '9c977708995954784726e25d0cd1dddf4e65b0f7',
     ),
+    'phpmailer/phpmailer' => 
+    array (
+      'pretty_version' => 'v6.5.0',
+      'version' => '6.5.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a5b5c43e50b7fba655f793ad27303cd74c57363c',
+    ),
     'phpspec/prophecy' => 
     array (
       'pretty_version' => 'v1.10.3',
@@ -551,8 +560,8 @@ private static $installed = array (
     array (
       'provided' => 
       array (
-        0 => '1.0',
-        1 => '1.0.0',
+        0 => '1.0.0',
+        1 => '1.0',
       ),
     ),
     'psy/psysh' => 

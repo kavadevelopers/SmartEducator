@@ -36,7 +36,7 @@ class SettingsController extends BaseController
 
 		DB::table('z_user')->where('id',Session::get('AdminId'))->update($data);
 
-		if ($rec->pass != "") {
+		if ($rec->password != "") {
 			$data = [
 				'password'		=> 	md5($rec->password),
 			];
@@ -182,6 +182,8 @@ class SettingsController extends BaseController
 	    	'mail_user'		=> $rec->mail_user,
 	    	'mail_port'		=> $rec->mail_port,
 	    	'mail_pass'		=> $rec->mail_pass,
+	    	'mail_from'		=> $rec->mail_from,
+	    	'mail_from_name'		=> $rec->mail_from_name,
 	    	'phone'			=> $rec->phone,
 	    	'email'			=> $rec->email,
 	    	'nemail'		=> $rec->nemail,

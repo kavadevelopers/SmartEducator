@@ -1,7 +1,7 @@
 @extends('web.layouts.main')
 
 @section('content')
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
 <!-- ======= Hero Section ======= -->
 <!-- <section id="hero" class="d-flex align-items-center">
 	
@@ -113,55 +113,129 @@
             <div class="title-border"></div>
         </div>
         <div class="row" style="margin-top: 5%;">
-        	<div class="col-lg-4">
-    			<img src="<?= URL::asset("public/web/asset/img/review_1.png") ?>" class="img img-100">
-    			<div class="review1 text-center">
-    				<p class="star-block-of-review">
-    					<span>
-			                <i class="fa fa-star" aria-hidden="true"></i>
-			                <i class="fa fa-star" aria-hidden="true"></i>
-			                <i class="fa fa-star" aria-hidden="true"></i>
-			                <i class="fa fa-star" aria-hidden="true"></i>
-			                <i class="fa fa-star" aria-hidden="true"></i>
-			            </span>
-			        </p>
-			        <p class="review-text">"Lorem Ipsum is simply dummy text of the printing and typesetting industry."</p>
-    			</div>
-    		</div>
-
-    		<div class="col-lg-4">
-    			<img src="<?= URL::asset("public/web/asset/img/review_2.png") ?>" class="img img-100">
-    			<div class="review2 text-center">
-    				<p class="star-block-of-review">
-    					<span>
-			                <i class="fa fa-star" aria-hidden="true"></i>
-			                <i class="fa fa-star" aria-hidden="true"></i>
-			                <i class="fa fa-star" aria-hidden="true"></i>
-			                <i class="fa fa-star" aria-hidden="true"></i>
-			                <i class="fa fa-star" aria-hidden="true"></i>
-			            </span>
-			        </p>
-			        <p class="review-text">"Lorem Ipsum is simply dummy text of the printing and typesetting industry."</p>
-    			</div>
-    		</div>
-
-    		<div class="col-lg-4">
-    			<img src="<?= URL::asset("public/web/asset/img/review_3.png") ?>" class="img img-100">
-    			<div class="review2 text-center">
-    				<p class="star-block-of-review">
-    					<span>
-			                <i class="fa fa-star" aria-hidden="true"></i>
-			                <i class="fa fa-star" aria-hidden="true"></i>
-			                <i class="fa fa-star" aria-hidden="true"></i>
-			                <i class="fa fa-star" aria-hidden="true"></i>
-			                <i class="fa fa-star" aria-hidden="true"></i>
-			            </span>
-			        </p>
-			        <p class="review-text">"Lorem Ipsum is simply dummy text of the printing and typesetting industry."</p>
-    			</div>
-    		</div>
+        	<div class="col-lg-12 slider">
+                <?php foreach($reviews as $revKey => $revVal){ ?>
+                    <?php if(isset($revVal[0])){ ?>
+                        <div class="slide">
+                            <img src="<?= URL::asset("public/web/asset/img/review_1.png") ?>" class="img img-100">
+                            <div class="review1 text-center">
+                                <?= App\Http\Controllers\BaseController::ratingPrint($revVal[0]->rating) ?>
+                                <p class="review-text">"<?= App\Http\Controllers\BaseController::strLimit($revVal[0]->review,74) ?>"</p>
+                            </div>
+                        </div>
+                    <?php } ?> 
+                    <?php if(isset($revVal[1])){ ?>
+                        <div class="slide">
+                            <img src="<?= URL::asset("public/web/asset/img/review_2.png") ?>" class="img img-100">
+                            <div class="review2 text-center">
+                                <?= App\Http\Controllers\BaseController::ratingPrint($revVal[1]->rating) ?>
+                                <p class="review-text">"<?= App\Http\Controllers\BaseController::strLimit($revVal[1]->review,74) ?>"</p>
+                            </div>
+                        </div>
+                    <?php } ?> 
+                    <?php if(isset($revVal[2])){ ?>
+                        <div class="slide">
+                            <img src="<?= URL::asset("public/web/asset/img/review_3.png") ?>" class="img img-100">
+                            <div class="review2 text-center">
+                                <?= App\Http\Controllers\BaseController::ratingPrint($revVal[2]->rating) ?>
+                                <p class="review-text">"<?= App\Http\Controllers\BaseController::strLimit($revVal[2]->review,74) ?>"</p>
+                            </div>
+                        </div>
+                    <?php } ?>   
+                <?php } ?>
+            </div>
+            <div class="col-lg-12 text-center" style="margin-top:40px;">
+                <button class="btn btn-theme btn-main-color" data-toggle="modal" data-target="#addReviewModal">Add Review</button>
+            </div>
         </div>
     </div>
 </section>
 
+
+<div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form method="post" action="savereview" enctype="multipart/form-data">
+    {{ csrf_field() }}
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background: #f6f7f9;">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color: #1d262d;">Review Us</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="input-star-rating">
+                          <input type="radio" id="5-stars" name="rating" value="5" />
+                          <label for="5-stars" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
+                          <input type="radio" id="4-stars" name="rating" value="4" />
+                          <label for="4-stars" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
+                          <input type="radio" id="3-stars" name="rating" value="3" />
+                          <label for="3-stars" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
+                          <input type="radio" id="2-stars" name="rating" value="2" />
+                          <label for="2-stars" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
+                          <input type="radio" id="1-star" name="rating" value="1" />
+                          <label for="1-star" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="name" class="form-control" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" class="form-control" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="phone" class="form-control" placeholder="Phone">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="desc" rows="5" class="form-control" placeholder="Write Review Here" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-theme btn-main-color">Publish</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function(e) {
+        $('.slider').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            arrows: false,
+            dots: false,
+            pauseOnHover: false,
+            responsive: [
+                {
+                  breakpoint: 991,
+                  settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                  }
+                },
+                {
+                    breakpoint: 575,
+                    settings: {
+                      slidesToShow: 1,
+                      slidesToScroll: 1,
+                    }
+                }
+            ]
+        });
+    })
+</script>
+
+<style type="text/css">
+    .star-block-of-review span i{
+        color: #ccc !important;
+        text-shadow: 1px 1px #000000;
+    }
+    .star-block-of-review span .active{
+        color: #FDD922 !important;
+    }
+</style>
 @stop

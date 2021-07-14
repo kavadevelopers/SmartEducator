@@ -28,7 +28,7 @@
 		<link href="{{ URL::asset('public/web/asset/css/style.css') }}" rel="stylesheet">
 		<script src="{{ URL::asset('public/web/asset/vendor/jquery/jquery.min.js') }}"></script>
 		<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-
+		
 		<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 		@stack('css')
 		@include('web.layouts.style')
@@ -79,6 +79,25 @@
 		<script src="{{ URL::asset('public/web/asset/vendor/venobox/venobox.min.js') }}"></script>
 		<script src="{{ URL::asset('public/web/asset/vendor/aos/aos.js') }}"></script>
 		<script src="{{ URL::asset('public/web/asset/js/main.js') }}"></script>
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		<script type="text/javascript">
+	        <?php if(Session::has('error')){ ?>
+	        	Swal.fire({
+				  title: 'Error!',
+				  text: '<?= Session::get('error'); ?>',
+				  icon: 'error',
+				  confirmButtonText: 'Ok'
+				})
+	        <?php } ?>
+	        <?php if(Session::has('success')){ ?>
+	            Swal.fire({
+				  title: 'Success',
+				  text: '<?= Session::get('success'); ?>',
+				  icon: 'success',
+				  confirmButtonText: 'Ok'
+				})
+	        <?php } ?>
+	    </script>
 		@stack('js')
 		@include('web.layouts.script')
 	</body>

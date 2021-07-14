@@ -11,6 +11,12 @@
 |
 */
 
+
+
+Route::get('/test', 'HomeController@test');
+
+
+
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 Route::get('/dashboard', 'HomeController@dashboard');
@@ -18,19 +24,24 @@ Route::get('/about-us', 'HomeController@about');
 Route::get('/blog', 'HomeController@blog');
 Route::get('/listing', 'HomeController@listing');
 Route::get('/contact-us', 'HomeController@contact');
+Route::get('/blog/{id}', 'HomeController@vblog');
+
 Route::get('/{slug}', 'HomeController@page');
 
 
+Route::post('/savereview', 'HomeController@savereview');
 
 
 	//Admin Routes
 	Route::get('/admin', 'admin\LoginController@index');
-	Route::post('/admin/forget', 'admin\LoginController@index');
 	Route::get('/admin/login', 'admin\LoginController@index');
 	Route::post('/admin/login', 'admin\LoginController@login');
 	Route::get('/admin/logout', 'admin\LoginController@logout');
-
 	Route::get('/admin/dashboard', 'admin\DashboardController@index');
+
+	Route::get('/admin/forget-password', 'admin\LoginController@forget');
+	Route::post('/admin/forget-check', 'admin\LoginController@forgetCheck');
+	Route::post('/admin/reset-password', 'admin\LoginController@resetPassword');
 
 
 	//Home Routes
@@ -122,6 +133,14 @@ Route::get('/{slug}', 'HomeController@page');
 	Route::get('/admin/expenses/add', 'admin\ExpensesController@add');
 	Route::post('/admin/expenses/save', 'admin\ExpensesController@save');
 	Route::get('/admin/expenses/{id}', 'admin\ExpensesController@delete');
+	//expenses routes
+
+	//expenses routes
+	Route::get('/admin/reviews', 'admin\ReviewController@index');
+	Route::get('/admin/reviews/status/{status}/{id}', 'admin\ReviewController@status');
+	Route::get('/admin/reviews/delete/{id}', 'admin\ReviewController@delete');
+	Route::post('/admin/reviews/save', 'admin\ReviewController@save');
+	Route::post('/admin/reviews/update', 'admin\ReviewController@update');
 	//expenses routes
 
 	//users routes

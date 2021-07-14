@@ -10,16 +10,28 @@
                             <span class="pcoded-mtext">Dashboard</span>
                         </a>
                     </li>
+                    <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['profile'])[2] ?>">
+                        <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/profile') ?>">
+                            <span class="pcoded-micon"><i class="feather icon-user"></i></span>
+                            <span class="pcoded-mtext">My Profile</span>
+                        </a>
+                    </li>
                     <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['expenses'])[2] ?>">
                         <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/expenses') ?>">
                             <span class="pcoded-micon"><i class="fa fa-exchange"></i></span>
                             <span class="pcoded-mtext">Manage Expenses</span>
                         </a>
                     </li>
+                    <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['reviews'])[2] ?>">
+                        <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/reviews') ?>">
+                            <span class="pcoded-micon"><i class="fa fa-star"></i></span>
+                            <span class="pcoded-mtext">Manage Reviews</span>
+                        </a>
+                    </li>
                     <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['users'])[2] ?>">
                         <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/users') ?>">
                             <span class="pcoded-micon"><i class="fa fa-user-secret"></i></span>
-                            <span class="pcoded-mtext">Manage Admins</span>
+                            <span class="pcoded-mtext">Manage Users</span>
                         </a>
                     </li>
                     <div class="pcoded-navigatio-lavel">CMS</div>

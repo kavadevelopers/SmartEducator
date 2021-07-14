@@ -1,4 +1,35 @@
 <style type="text/css">
+    
+    .swal2-confirm{
+        background: #f26722 !important;
+    }
+    .input-star-rating input {
+        display:none;
+    }
+
+    .input-star-rating label {
+        color:#ccc;
+        font-size: 33px;
+        text-shadow: 1px 1px #000000;
+        cursor:pointer;
+    }
+
+    .input-star-rating :checked ~ label {
+        color:#f90;
+    }
+
+    .input-star-rating label:hover,.input-star-rating label:hover ~ label {
+        color:#fc0;
+    }
+
+    .input-star-rating{
+        font-size: 15px;
+        direction: rtl;
+        text-align: center;
+    }
+
+
+
     .blog-list-time{
         text-align: right;
         font-size: 10px !important;
@@ -85,6 +116,7 @@
 
     .slick-slide
     {
+        position: relative;
         display: none;
         float: left;
         height: 100%;

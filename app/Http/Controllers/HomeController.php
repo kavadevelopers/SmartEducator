@@ -5,14 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Response;
 use DB;
+use Session;
 
 class HomeController extends BaseController
 {
+
+
+    public function test()
+    {
+        print_r($this->sendEmail('mehul9921@gmail.com',"Final Email",'this is content'));
+    }
+
     public function index()
     {
         $data['_title']     = 'Home';
         $data['sliders']    = DB::table('cms_home_slider')->orderby('sort','asc')->get();
         $data['steps']      = DB::table('cms_home_steps')->where('id','1')->first();
+        $data['reviews']    = $this->getReviewsList();
         return view('web.home',$data);
     }
 
@@ -48,6 +57,18 @@ class HomeController extends BaseController
         return view('web.contact',$data);   
     }
 
+    public function vblog($id)
+    {
+        $blog = DB::Table('cms_blog_list')->where('id',$id)->first();
+        if ($blog) {
+            $data['blog']       = $blog;
+            $data['_title']     = $blog->title;
+            return view('web.vblog',$data);   
+        }else{
+            return Response::view('errors.404',array(),404);
+        }
+    }
+
     public function dashboard()
     {
         return view('web.dashboard');   
@@ -68,5 +89,53 @@ class HomeController extends BaseController
                 return Response::view('errors.404',array(),404);
             }
         }
+    }
+
+    public function savereview(Request $rec)
+    {
+        $data = [
+            'rating'        => isset($rec->rating) ? ($rec->rating) : 1,
+            'name'          => $rec->name,
+            'email'         => $rec->email,
+            'phone'         => isset($rec->phone) ? ($rec->phone) : '',
+            'review'        => $rec->desc,
+            'status'        => '0',
+            'df'            => '',
+            'cat'           => date('Y-m-d H:i:s'),
+        ];
+        DB::table('student_reviews')->insert($data);
+
+        Session::flash('success', 'Review successfully sent. Thank you.'); 
+        return Redirect('home');    
+    }
+
+    public function getReviewsList()
+    {
+        $reviews            = DB::table('student_reviews')->where('df','')->where('status','1')->orderby(DB::raw('RAND()'));
+        $rArray             = [];
+
+        if(fmod($reviews->count() / 3, 1) !== 0.00){
+            $revCount = floor($reviews->count() / 3) + 1;    
+        } else {
+            $revCount = $reviews->count() / 3;
+        }
+        $usedCounter = 0;
+        $revList = $reviews->get();
+        for ($i=1; $i <= $revCount; $i++) {
+            $singArray = []; 
+            foreach ($revList as $key => $value) {
+                if ($key + 1 > $usedCounter) {
+                    if (count($singArray) == 3) {
+                        break;
+                    }else{
+                        $usedCounter++;
+                        array_push($singArray,$value);
+                    }
+                }
+            }
+            array_push($rArray,$singArray);
+        }
+
+        return $rArray;
     }
 }
