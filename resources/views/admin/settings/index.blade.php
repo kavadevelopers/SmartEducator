@@ -100,12 +100,6 @@
                                 <label>Mail Host <span class="-req">*</span></label>
                                 <input name="mail_host" type="text" class="form-control" value="<?= $item->mail_host ?>" placeholder="Mail Host" required>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Mail Host <span class="-req">*</span></label>
-                                <input name="mail_host" type="text" class="form-control" value="<?= $item->mail_host ?>" placeholder="Mail Host" required>
-                            </div>
                         </div>  
                         <div class="col-md-3">
                             <div class="form-group">
