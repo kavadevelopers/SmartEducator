@@ -136,7 +136,7 @@ class BaseController extends Controller
 		$setting = DB::table('cms_zsettings')->where('id','1')->first();
 
 		$mail             	= new PHPMailer\PHPMailer();
-		$mail->isSMTP(true);
+		$mail->isSMTP();
         $mail->IsHTML(true);
         $mail->SMTPDebug  	= 0;
         $mail->SMTPAuth   	= true;
