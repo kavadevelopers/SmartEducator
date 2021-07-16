@@ -37,7 +37,7 @@
 	        <?php } ?>
 
 	        <li>
-	            <a class="scroll-link" href="<?= url('dashboard') ?>"><i class="fa fa-user"></i> Login</a>
+	            <a class="scroll-link" href="<?= url('login') ?>"><i class="fa fa-user"></i> Login</a>
 	        </li>
 	        <!-- <li>
 	            <a href="#otherSections" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" role="button" aria-controls="otherSections">

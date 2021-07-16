@@ -16,6 +16,12 @@ class HomeController extends BaseController
         print_r($this->sendEmail('mehul9921@gmail.com',"Final Email",'this is content'));
     }
 
+    public function login()
+    {
+        $data['_title']     = 'Login';
+        return view('web.login',$data);   
+    }
+
     public function index()
     {
         $data['_title']     = 'Home';

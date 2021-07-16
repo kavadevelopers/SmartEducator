@@ -19,7 +19,9 @@ Route::get('/test', 'HomeController@test');
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
+Route::get('/login', 'HomeController@login');
 Route::get('/dashboard', 'HomeController@dashboard');
+Route::post('/dashboard', 'HomeController@dashboard');
 Route::get('/about-us', 'HomeController@about');
 Route::get('/blog', 'HomeController@blog');
 Route::get('/listing', 'HomeController@listing');

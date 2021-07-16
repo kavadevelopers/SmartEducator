@@ -69,7 +69,7 @@
         <div class="row" data-aos="fade-up" data-aos-delay="100">
             <div class="col-lg-6">
             	<h3 class="get-in-touch-title">Get in touch</h3>
-                <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                <form action="#" method="post" role="form" class="php-email-form">
                     <div class="form-row">
                         <div class="col form-group">
                             <input type="text" name="name" class="form-control kava-input" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
