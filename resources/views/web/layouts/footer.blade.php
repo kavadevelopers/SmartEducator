@@ -31,7 +31,7 @@
 	                    <h4>SOCIAL MEDIA</h4>
 	                    <div class="social-links">
 	                    	<?php foreach ($sLinks as $sLinksKey => $sLink) { ?>
-	                        	<a href="<?= $sLink->link ?>" class="twitter"><i class="<?= $sLink->icon ?>"></i></a>
+	                        	<a href="<?= $sLink->link ?>" style="background: #<?= $sLink->color ?>;" class="twitter"><i class="<?= $sLink->icon ?>"></i></a>
 	                        <?php } ?>
 	                    </div>
 	                    <p><?= nl2br(App\Http\Controllers\admin\BaseController::getSetting()->footer_desc) ?></p>

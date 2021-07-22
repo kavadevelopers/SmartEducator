@@ -114,6 +114,7 @@ class SettingsController extends BaseController
 	    	'name'		=> $rec->name,
 	    	'icon'		=> $rec->icon,
 	    	'link'		=> $rec->link,
+	    	'color'		=> $rec->color,
 	    	'sort'		=> $rec->sort
 	    ];
 	    DB::table('cms_social_links')->where('id',$rec->id)->update($data);	 
@@ -128,6 +129,7 @@ class SettingsController extends BaseController
 	    	'name'		=> $rec->name,
 	    	'icon'		=> $rec->icon,
 	    	'link'		=> $rec->link,
+	    	'color'		=> $rec->color,
 	    	'sort'		=> $rec->sort
 	    ];
 	    DB::table('cms_social_links')->insert($data);	

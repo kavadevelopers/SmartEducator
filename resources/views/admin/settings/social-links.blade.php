@@ -43,6 +43,12 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
+                                    <label>Hex color code <span class="-req">*</span></label>
+                                    <input name="color" type="text" class="form-control"  placeholder="ex : ffffff" required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     <label>Sort <span class="-req">*</span></label>
                                     <input name="sort" type="text" class="form-control"  placeholder="Sort" required>
                                 </div>
@@ -82,6 +88,12 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
+                                    <label>Hex color code <span class="-req">*</span></label>
+                                    <input name="color" type="text" class="form-control" value="<?= $item->color ?>" placeholder="ex : ffffff" required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     <label>Sort <span class="-req">*</span></label>
                                     <input name="sort" type="text" class="form-control" value="<?= $item->sort ?>"  placeholder="Sort" required>
                                 </div>
@@ -110,6 +122,7 @@
                                 <th class="text-center">Sort</th>
                                 <th class="text-center">Icon</th>
                                 <th class="">Name</th>
+                                <th class="text-center">Color</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -119,6 +132,7 @@
                                     <td class="text-center"><?= $value->sort ?></td>
                                     <td class="text-center"><i class="<?= $value->icon ?>"></i></td>
                                     <td><?= $value->name ?></td>
+                                    <td class="text-center"><?= $value->color ?></td>
                                     <td class="text-center">
                                         <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/common/social-links/edit/'.$value->id) ?>" class="btn btn-primary btn-mini">
                                             <i class="fa fa-pencil"></i>
