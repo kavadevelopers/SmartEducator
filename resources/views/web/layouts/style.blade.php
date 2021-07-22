@@ -1,5 +1,10 @@
 <style type="text/css">
-    
+    .width-90{
+        width: 90%;
+    }
+    .content-dynamic{
+        color: #605c5d;
+    }
     .swal2-confirm{
         background: #f26722 !important;
     }

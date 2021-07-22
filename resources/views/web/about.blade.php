@@ -16,8 +16,8 @@
         <div class="section-title">
             <h3><?= $content->title ?></h3>
             <div class="title-border"></div>
-            <p style="text-align: left; width:100%;"><?= $content->content ?></p>
         </div>
+        <div class="content-dynamic"><?= $content->content ?></div>
     </div>
 </section>
 <!-- End Team Section -->
@@ -31,9 +31,8 @@
         	<div class="section-title" style="margin-top: 228px;">
 	            <h3><?= $content->title2 ?></h3>
 	            <div class="title-border"></div>
-	            <p><?= $content->content2 ?></p>
 	        </div>
-
+            <div class="content-dynamic width-90"><?= $content->content2 ?></div>
         </div>
     </div>
 </section>
