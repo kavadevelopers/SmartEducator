@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <textarea name="content" type="text" class="form-control" rows="12" placeholder="" required><?= $item->content; ?></textarea>
+                                <textarea name="content" type="text" id="editor" class="form-control" rows="12" placeholder="" required><?= $item->content; ?></textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -100,5 +100,23 @@
             </div>  
         </form>
     </div>
-
+    <script src="<?= url('public/admin/') ?>/assets/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        var toolbarGroups = [
+            { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+            { name: 'forms', groups: [ 'forms' ] },
+            '/',
+            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+            { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+            '/',
+            { name: 'styles', groups: [ 'styles' ] },
+            { name: 'colors', groups: [ 'colors' ] },
+            { name: 'tools', groups: [ 'tools' ] },
+            { name: 'others', groups: [ 'others' ] }
+        ];
+        CKEDITOR.replace( 'editor',{
+            toolbar : 'Basic',
+            toolbarGroups,
+        });
+    </script>
 @stop

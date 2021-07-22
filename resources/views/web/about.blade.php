@@ -16,7 +16,7 @@
         <div class="section-title">
             <h3><?= $content->title ?></h3>
             <div class="title-border"></div>
-            <p><?= $content->content ?></p>
+            <p style="text-align: left; width:100%;"><?= $content->content ?></p>
         </div>
     </div>
 </section>
