@@ -54,7 +54,7 @@
                             <div class="form-group">
                                 <label>Content</label>
                                 <input name="title2" type="text" class="form-control" value="<?= $item->title2; ?>" placeholder="" required>
-                                <textarea name="content2" type="text" class="form-control" rows="12" placeholder="" required><?= $item->content2; ?></textarea>
+                                <textarea name="content2" id="editor2" type="text" class="form-control" rows="12" placeholder="" required><?= $item->content2; ?></textarea>
                             </div>
                         </div> 
                         <div class="col-md-6">
@@ -115,6 +115,24 @@
             { name: 'others', groups: [ 'others' ] }
         ];
         CKEDITOR.replace( 'editor',{
+            toolbar : 'Basic',
+            toolbarGroups,
+        });
+    </script>
+    <script type="text/javascript">
+        var toolbarGroups = [
+            { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+            { name: 'forms', groups: [ 'forms' ] },
+            '/',
+            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+            { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+            '/',
+            { name: 'styles', groups: [ 'styles' ] },
+            { name: 'colors', groups: [ 'colors' ] },
+            { name: 'tools', groups: [ 'tools' ] },
+            { name: 'others', groups: [ 'others' ] }
+        ];
+        CKEDITOR.replace( 'editor2',{
             toolbar : 'Basic',
             toolbarGroups,
         });
