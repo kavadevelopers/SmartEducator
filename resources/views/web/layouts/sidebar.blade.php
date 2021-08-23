@@ -24,7 +24,7 @@
 	            <a class="scroll-link" href="<?= url('blog') ?>"><i class="fa fa-rss"></i> Blog</a>
 	        </li>
 	        <li>
-	            <a class="scroll-link" href="<?= url('listing') ?>"><i class="fa fa-university"></i> Courses and Univercities</a>
+	            <a class="scroll-link" href="<?= url('listing') ?>"><i class="fa fa-university"></i> Courses</a>
 	        </li>
 	        <li>
 	            <a class="scroll-link" href="<?= url('contact-us') ?>"><i class="fa fa-volume-control-phone"></i> Contact us</a>

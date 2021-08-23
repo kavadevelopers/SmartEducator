@@ -55,7 +55,7 @@
 	    </div>
 	    <div class="container py-4">
 	        <div class="copyright text-center col-md-12">
-	            &copy; 2021 | Smart Educator,All rights reserved.
+	            &copy; 2021 | Smart Educator. All Rights Reserved.
 	        </div>
 	    </div>
 	</footer>
