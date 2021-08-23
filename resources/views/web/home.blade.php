@@ -37,13 +37,13 @@
 <section id="team contact-top" class="team section-bg">
     <div class="container" data-aos="fade-up">
         <div class="section-title">
-            <h3>CHOOSE FROM A VARIETY OF COURCES AND UNIVERSITIES </h3>
+            <h3>CHOOSE FROM A VARIETY OF 500+ COURSES</h3>
             <div class="title-border"></div>
         </div>
         <div class="row" style="margin-top: 5%;">
         	<div class="col-lg-6 col-md-6 home-info-box" data-aos="fade-up" data-aos-delay="100">
                 <div class="info-box home-info-box-shadow">
-                	<h4 class="home-box-title">Courses</h4>
+                	<h4 class="home-box-title">Under Grade Courses</h4>
                     <div class="member-img" style="margin-top:50px; margin-bottom:80px;">
                         
                         <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_kq5rGs.json"  background="transparent"  speed="1"  style="width: 90%; height: auto; margin: 0 auto;"  loop autoplay></lottie-player>
@@ -56,7 +56,7 @@
             </div>
             <div class="col-lg-6 col-md-6 home-info-box" data-aos="fade-up" data-aos-delay="100">
                 <div class="info-box home-info-box-shadow">
-                	<h4 class="home-box-title">Univercities</h4>
+                	<h4 class="home-box-title">Diploma Courses</h4>
                     <div class="member-img" style="margin-top:50px; margin-bottom:80px;">
                         <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_dT1E1P.json"  background="transparent"  speed="1"  style="width: 78%; height: auto; margin: 0 auto;"  loop autoplay></lottie-player>
                     </div>
