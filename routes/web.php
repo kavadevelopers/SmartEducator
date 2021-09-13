@@ -155,5 +155,14 @@ Route::post('/savereview', 'HomeController@savereview');
 	//users routes
 
 
+	//expenses routes
+	Route::get('/admin/courses', 'admin\CoursesController@index');
+	Route::get('/admin/courses/{id}', 'admin\CoursesController@delete');
+	Route::get('/admin/courses/add', 'admin\CoursesController@add');
+	Route::post('/admin/courses/add', 'admin\CoursesController@save');
+	Route::get('/admin/courses/edit/{id}', 'admin\CoursesController@edit');
+	Route::post('/admin/courses/edit', 'admin\CoursesController@update');
+
+	//expenses routes
 
 

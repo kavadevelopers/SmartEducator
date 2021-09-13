@@ -16,6 +16,12 @@
                             <span class="pcoded-mtext">My Profile</span>
                         </a>
                     </li>
+                    <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['courses'])[2] ?>">
+                        <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/courses') ?>">
+                            <span class="pcoded-micon"><i class="fa fa-list"></i></span>
+                            <span class="pcoded-mtext">Manage Courses</span>
+                        </a>
+                    </li>
                     <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['expenses'])[2] ?>">
                         <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/expenses') ?>">
                             <span class="pcoded-micon"><i class="fa fa-exchange"></i></span>
