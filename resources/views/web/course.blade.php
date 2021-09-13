@@ -10,6 +10,10 @@
 	    </div>
         <div class="row"  style="color: #222222">
         	<div class="col-lg-12" style="margin-top: 30px;">
+        		<h4 class="heading_founder">Duration of <?= $item->fname ?></h4>
+        		<p><?= $item->duration ?></p>
+        	</div>
+        	<div class="col-lg-12" style="margin-top: 30px;">
         		<h4 class="heading_founder">About the program of <?= $item->fname ?></h4>
         		<p><?= $item->about ?></p>
         	</div>
