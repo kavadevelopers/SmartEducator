@@ -22,4 +22,18 @@ class DashboardController extends BaseController
 	{
 		return view('admin.dashboard');	
 	}
+
+	public function getMessages()
+	{
+		$data['_title'] = 'Messages';
+		$data['list'] 	= DB::table('contact_form')->orderby('id','desc')->limit(200)->get();
+		return view('admin.messages',$data);	
+	}
+
+	public function deleteMessages($id)
+	{
+		DB::table('contact_form')->where('id',$id)->delete();
+		Session::flash('success', 'Message deleted.'); 
+	    return Redirect($this->aUrl('/messages'));
+	}
 }

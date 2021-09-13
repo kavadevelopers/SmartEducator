@@ -31,7 +31,9 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>
+                                    <th class="text-center">Thumbnail</th>
                                     <th>Name</th>
+                                    <th>Full Name</th>
                                     <th class="text-center">Duration</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -42,7 +44,11 @@
                                         <td class="text-center">
                                             <?= $key + 1 ?>
                                         </td>
+                                        <td class="text-center">
+                                            <img src="<?= URL::asset("public/uploads/courses/".$value->thumb) ?>" class="tb-row-image">
+                                        </td>
                                         <th><?= $value->name ?></th>
+                                        <th><?= $value->fname ?></th>
                                         <td class="text-center"><?= $value->duration ?></td>
                                         <td class="text-center">
                                             <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/courses/edit/'.$value->id) ?>" class="btn btn-primary btn-mini" title="Edit">

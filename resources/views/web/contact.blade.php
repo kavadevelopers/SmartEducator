@@ -69,26 +69,27 @@
         <div class="row" data-aos="fade-up" data-aos-delay="100">
             <div class="col-lg-6">
             	<h3 class="get-in-touch-title">Get in touch</h3>
-                <form action="#" method="post" role="form" class="php-email-form">
+                <form action="savecontact" method="post" role="form">
+                	{{ csrf_field() }}
                     <div class="form-row">
                         <div class="col form-group">
-                            <input type="text" name="name" class="form-control kava-input" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                            <div class="validate"></div>
+                            <input type="text" name="name" class="form-control kava-input" id="name" placeholder="Your Name" required/>
                         </div>
                         <div class="col form-group">
-                            <input type="email" class="form-control kava-input" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
-                            <div class="validate"></div>
+                            <input type="text" name="phone" class="form-control kava-input" placeholder="Your Mobile" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control kava-input" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                        <div class="validate"></div>
+                    	<input type="email" class="form-control kava-input" name="email" id="email" placeholder="Your Email" required/>
+	        		</div>
+                    <div class="form-group">
+                        <input type="text" class="form-control kava-input" name="subject" id="subject" placeholder="Subject" required/>
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control kava-input" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
-                        <div class="validate"></div>
+                        <textarea class="form-control kava-input" name="message" rows="5" placeholder="Message" required></textarea>
                     </div>
                     <div class="text-center"><button type="submit" class="btn btn-theme btn-main-color">Send Message</button></div>
+                    <input type="hidden" name="uri" value="<?= Request::fullUrl() ?>">
                 </form>
             </div>
             <div class="col-lg-6 ">

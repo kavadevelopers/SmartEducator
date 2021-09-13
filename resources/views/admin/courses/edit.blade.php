@@ -29,8 +29,20 @@
                     </div> 
                     <div class="col-md-3">
                         <div class="form-group">
+                            <label>Full Name <span class="-req">*</span></label>
+                            <input name="fname" type="text" class="form-control" value="<?= old("fname",$item->fname) ?>" placeholder="Full Name" required>
+                        </div>
+                    </div> 
+                    <div class="col-md-3">
+                        <div class="form-group">
                             <label>Duration <span class="-req">*</span></label>
                             <input name="duration" type="text" class="form-control" value="<?= old("duration",$item->duration) ?>" placeholder="Duration" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Thumbnail (size 500 x 500,1024 x 1024) </small></label>
+                            <input name="thumb" type="file" class="form-control" >
                         </div>
                     </div>
                     <div class="col-md-12">

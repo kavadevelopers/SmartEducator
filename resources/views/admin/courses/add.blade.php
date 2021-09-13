@@ -29,10 +29,22 @@
                     </div> 
                     <div class="col-md-3">
                         <div class="form-group">
+                            <label>Full Name <span class="-req">*</span></label>
+                            <input name="fname" type="text" class="form-control" value="<?= old("fname") ?>" placeholder="Full Name" required>
+                        </div>
+                    </div> 
+                    <div class="col-md-3">
+                        <div class="form-group">
                             <label>Duration <span class="-req">*</span></label>
                             <input name="duration" type="text" class="form-control" value="<?= old("duration") ?>" placeholder="Duration" required>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Thumbnail <span class="-req">*</span><small>(size 500 x 500,1024 x 1024) </small></label>
+                            <input name="thumb" type="file" class="form-control" required>
+                        </div>
+                    </div> 
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>About the program <span class="-req">*</span></label>

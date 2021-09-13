@@ -20,7 +20,7 @@ class ListingController extends BaseController
 
 	public function content()
 	{
-		$data['_title'] = 'Courses and Univercities content';	
+		$data['_title'] = 'Courses content';	
 		$data['item']	= DB::table('cms_listing_content')->where('id','1')->first();
 		return view('admin.listing.content',$data);	
 	}

@@ -47,8 +47,21 @@ class CoursesController extends BaseController
 
 	public function save(Request $rec)
 	{
+
+		$thumb = "";
+		if ($rec->hasFile('thumb')) {
+	        $image = $rec->file('thumb');
+	        $thumb = microtime(true).'.'.$image->getClientOriginalExtension();
+	        $destinationPath = public_path('uploads/courses/');
+	        if(!$image->move($destinationPath, $thumb)){
+	        	$thumb = "";
+	        }
+	    }
+
 		$data = [
+			'thumb'				=> $thumb,
 			'name'				=> $rec->name,
+			'fname'				=> $rec->fname,
 			'about'				=> $rec->about,
 			'duration'			=> $rec->duration,
 			'specialization'	=> $rec->specialization,
@@ -67,8 +80,23 @@ class CoursesController extends BaseController
 
 	public function update(Request $rec)
 	{
+
+		$imageName = "";
+		if ($rec->hasFile('thumb')) {
+	        $image = $rec->file('thumb');
+	        $imageName = microtime(true).'.'.$image->getClientOriginalExtension();
+	        $destinationPath = public_path('uploads/courses/');
+	        if($image->move($destinationPath, $imageName)){
+				$data = [
+			    	'thumb'		=> $imageName
+			    ];
+			    DB::table('courses')->where('id',$rec->id)->update($data);	        	
+	        }
+	    }
+
 		$data = [
 			'name'				=> $rec->name,
+			'fname'				=> $rec->fname,
 			'about'				=> $rec->about,
 			'duration'			=> $rec->duration,
 			'specialization'	=> $rec->specialization,

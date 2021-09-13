@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Response;
 use DB;
 use Session;
+use Redirect;
 
 class HomeController extends BaseController
 {
@@ -52,8 +53,21 @@ class HomeController extends BaseController
     public function listing()
     {
         $data['content']    = DB::table('cms_listing_content')->where('id','1')->first();
+        $data['list']       = DB::table('courses')->where('df','')->get();
         $data['_title']     = $data['content']->title;
         return view('web.listing',$data);   
+    }
+
+    public function course($id)
+    {
+        $blog = DB::Table('courses')->where('id',$id)->where('df','')->first();
+        if ($blog) {
+            $data['item']       = $blog;
+            $data['_title']     = $blog->name;
+            return view('web.course',$data);   
+        }else{
+            return Response::view('errors.404',array(),404);
+        }
     }
 
     public function contact()
@@ -113,6 +127,33 @@ class HomeController extends BaseController
 
         Session::flash('success', 'Review successfully sent. Thank you.'); 
         return Redirect('home');    
+    }
+
+    public function saveContactForm(Request $rec)
+    {
+        $data = [
+            'name'          => $rec->name,
+            'email'         => $rec->email,
+            'phone'         => $rec->phone,
+            'subject'        => $rec->subject,
+            'message'        => $rec->message,
+            'cat'           => date('Y-m-d H:i:s'),
+        ];
+        DB::table('contact_form')->insert($data);
+
+
+        $str = '<p>';
+            $str .= '<p><b>Name </b>: '.$rec->name.'</p>';    
+            $str .= '<p><b>Email </b>: '.$rec->email.'</p>';    
+            $str .= '<p><b>Phone </b>: '.$rec->phone.'</p>';    
+            $str .= '<p><b>Subject </b>: '.$rec->subject.'</p>';    
+            $str .= '<p><b>Message </b>: '.$rec->message.'</p>';    
+        $str .= '</p>';
+
+        $this->sendEmail($this->getSetting()->nemail,$rec->subject,$str);
+
+        Session::flash('success', 'Email sent. Thank you.'); 
+        return Redirect::to($rec->uri);
     }
 
     public function getReviewsList()

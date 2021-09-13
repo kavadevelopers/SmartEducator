@@ -34,6 +34,12 @@
                             <span class="pcoded-mtext">Manage Reviews</span>
                         </a>
                     </li>
+                    <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['messages'])[2] ?>">
+                        <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/messages') ?>">
+                            <span class="pcoded-micon"><i class="fa fa-envelope"></i></span>
+                            <span class="pcoded-mtext">Manage Messages</span>
+                        </a>
+                    </li>
                     <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['users'])[2] ?>">
                         <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/users') ?>">
                             <span class="pcoded-micon"><i class="fa fa-user-secret"></i></span>
@@ -117,7 +123,7 @@
                         <li class="pcoded-hasmenu <?= App\Http\Controllers\admin\BaseController::menu(2,['cources-univercities'])[2] ?>">
                             <a href="javascript:void(0)">
                                 <span class="pcoded-micon"><i class="fa fa-bandcamp"></i></span>
-                                <span class="pcoded-mtext">Cources & Univercities</span>
+                                <span class="pcoded-mtext">Cources</span>
                             </a>   
                             <ul class="pcoded-submenu">
                                 <li class="">

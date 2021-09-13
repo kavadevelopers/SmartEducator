@@ -25,7 +25,7 @@
 	        		<div class="col-lg-3 col-md-6 align-items-stretch page-item" data-aos="fade-up" data-aos-delay="100" style="cursor:pointer;" onclick="window.location='blog/<?= $value->id ?>'">
 		                <div class="member">
 		                    <div class="member-img">
-		                        <img src="<?= URL::asset("public/uploads/blog/".$value->thumb) ?>" class="img-fluid" alt="">
+		                        <img src="<?= URL::asset("public/uploads/blog/".$value->thumb) ?>" style="width: 100%;" class="img-fluid" alt="">
 		                        <div class="social">
 		                            <a href="<?= $value->fb ?>"><i class="icofont-twitter"></i></a>
 		                            <a href="<?= $value->ins ?>"><i class="icofont-facebook"></i></a>

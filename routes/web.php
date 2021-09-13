@@ -24,7 +24,8 @@ Route::get('/dashboard', 'HomeController@dashboard');
 Route::post('/dashboard', 'HomeController@dashboard');
 Route::get('/about-us', 'HomeController@about');
 Route::get('/blog', 'HomeController@blog');
-Route::get('/listing', 'HomeController@listing');
+Route::get('/courses', 'HomeController@listing');
+Route::get('/course/{id}', 'HomeController@course');
 Route::get('/contact-us', 'HomeController@contact');
 Route::get('/blog/{id}', 'HomeController@vblog');
 
@@ -32,6 +33,7 @@ Route::get('/{slug}', 'HomeController@page');
 
 
 Route::post('/savereview', 'HomeController@savereview');
+Route::post('/savecontact', 'HomeController@saveContactForm');
 
 
 	//Admin Routes
@@ -137,13 +139,13 @@ Route::post('/savereview', 'HomeController@savereview');
 	Route::get('/admin/expenses/{id}', 'admin\ExpensesController@delete');
 	//expenses routes
 
-	//expenses routes
+	//review routes
 	Route::get('/admin/reviews', 'admin\ReviewController@index');
 	Route::get('/admin/reviews/status/{status}/{id}', 'admin\ReviewController@status');
 	Route::get('/admin/reviews/delete/{id}', 'admin\ReviewController@delete');
 	Route::post('/admin/reviews/save', 'admin\ReviewController@save');
 	Route::post('/admin/reviews/update', 'admin\ReviewController@update');
-	//expenses routes
+	//review routes
 
 	//users routes
 	Route::get('/admin/users', 'admin\UsersController@list');
@@ -155,14 +157,19 @@ Route::post('/savereview', 'HomeController@savereview');
 	//users routes
 
 
-	//expenses routes
+	//courses routes
 	Route::get('/admin/courses', 'admin\CoursesController@index');
-	Route::get('/admin/courses/{id}', 'admin\CoursesController@delete');
 	Route::get('/admin/courses/add', 'admin\CoursesController@add');
 	Route::post('/admin/courses/add', 'admin\CoursesController@save');
 	Route::get('/admin/courses/edit/{id}', 'admin\CoursesController@edit');
 	Route::post('/admin/courses/edit', 'admin\CoursesController@update');
+	Route::get('/admin/courses/{id}', 'admin\CoursesController@delete');
 
-	//expenses routes
+	//courses routes
+
+	//messages routes
+	Route::get('/admin/messages', 'admin\DashboardController@getMessages');
+	Route::get('/admin/messages/{id}', 'admin\DashboardController@deleteMessages');
+	//messages routes
 
 
