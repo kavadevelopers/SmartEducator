@@ -50,7 +50,7 @@
                     </div>
                     <div class="member-info">
                         
-                        <span><?= DB::table('courses')->where('category','0')->count() ?></span>
+                        <span><?= DB::table('courses')->where('category','1')->count() ?></span>
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="member-info">
                         
-                        <span><?= DB::table('courses')->where('category','1')->count() ?></span>
+                        <span><?= DB::table('courses')->where('category','2')->count() ?></span>
                     </div>
                 </div>
             </div>
