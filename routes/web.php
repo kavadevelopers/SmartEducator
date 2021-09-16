@@ -25,10 +25,11 @@ Route::post('/dashboard', 'HomeController@dashboard');
 Route::get('/about-us', 'HomeController@about');
 Route::get('/blog', 'HomeController@blog');
 Route::get('/courses', 'HomeController@listing');
+Route::get('/graduation-courses', 'HomeController@listingGraduation');
+Route::get('/post-graduation-courses', 'HomeController@listingPostGraduation');
 Route::get('/course/{id}', 'HomeController@course');
 Route::get('/contact-us', 'HomeController@contact');
 Route::get('/blog/{id}', 'HomeController@vblog');
-
 Route::get('/{slug}', 'HomeController@page');
 
 
@@ -81,6 +82,13 @@ Route::post('/savecontact', 'HomeController@saveContactForm');
 	//Listing Routes
 	Route::get('/admin/cources-univercities/content', 'admin\ListingController@content');
 	Route::post('/admin/cources-univercities/content', 'admin\ListingController@save');
+
+	Route::get('/admin/cources-univercities/slider', 'admin\ListingController@slider');
+	Route::get('/admin/cources-univercities/slider/{id}', 'admin\ListingController@deleteSlider');
+	Route::get('/admin/cources-univercities/slider/edit/{id}', 'admin\ListingController@editSlider');
+	Route::post('/admin/cources-univercities/slider/edit', 'admin\ListingController@updateSlider');
+	Route::post('/admin/cources-univercities/slider/save', 'admin\ListingController@saveSlider');
+
 	//Listing Routes
 
 	//Blog Routes

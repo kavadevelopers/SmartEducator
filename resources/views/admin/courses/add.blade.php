@@ -45,6 +45,16 @@
                             <input name="thumb" type="file" class="form-control" required>
                         </div>
                     </div> 
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Category <span class="-req">*</span><small> </small></label>
+                            <select class="form-control" name="category" required>
+                                <option value="">-- Select --</option>
+                                <option value="1">Graduation Course</option>
+                                <option value="2">Post Graduation Course</option>
+                            </select>
+                        </div>
+                    </div> 
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>About the program <span class="-req">*</span></label>

@@ -151,15 +151,47 @@
 </section> -->
 
 
-	<div class="footer-newsletter" style="background: url('<?= URL::asset("public/uploads/listing/".$content->banner2) ?>') top left; background-size: cover;padding: 160px 0;">
+	<!-- <div class="footer-newsletter" style="background: url('<?= URL::asset("public/uploads/listing/".$content->banner2) ?>') top left; background-size: cover;padding: 160px 0;">
       	<div class="container">
         	<div class="row justify-content-center">
           		<div class="col-lg-6">
             		<p><?= $content->con_banner ?></p>
           		</div>
+
         	</div>
       	</div>
-    </div>
+    </div> -->
+
+    <section id="team contact-top" class="team section-bg">
+	    <div class="container-fluid" data-aos="zoom-out" data-aos-delay="100" style="padding:0;">
+	        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+	            <ol class="carousel-indicators">
+	                <?php foreach($sliders as $k => $slider){ ?>
+	                    <li data-target="#carouselExampleIndicators" data-slide-to="<?= $k ?>" class="<?= $k==0?'active':'' ?>"></li>
+	                <?php } ?>
+	            </ol>
+	            <div class="carousel-inner">
+	                <?php foreach($sliders as $k => $slider){ ?>
+	                    <div class="carousel-item <?= $k==0?'active':'' ?>">
+	                        <img class="d-block w-100" src="<?= URL::asset("public/uploads/listing/".$slider->image) ?>" alt="First slide">
+	                        <div class="carousel-caption">
+	                            <h3><?= $slider->title ?></h3>
+	                            <p><?= $slider->body ?></p>
+	                        </div>
+	                    </div>
+	                <?php } ?>    
+	            </div>
+	            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+	                <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fa fa-chevron-left"></i></span>
+	                <span class="sr-only">Previous</span>
+	            </a>
+	            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+	                <span class="carousel-control-next-icon" aria-hidden="true"><i class="fa fa-chevron-right"></i></span>
+	                <span class="sr-only">Next</span>
+	            </a>
+	        </div>
+	    </div>
+	</section>
 
     <section id="team contact-top" class="team section-bg">
 	    <div class="container" data-aos="fade-up">

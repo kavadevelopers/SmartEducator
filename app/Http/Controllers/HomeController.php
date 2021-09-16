@@ -53,9 +53,26 @@ class HomeController extends BaseController
     public function listing()
     {
         $data['content']    = DB::table('cms_listing_content')->where('id','1')->first();
+        $data['sliders']    = DB::table('cms_listing_slider')->orderby('sort','asc')->get();
         $data['list']       = DB::table('courses')->where('df','')->get();
         $data['_title']     = $data['content']->title;
         return view('web.listing',$data);   
+    }
+
+    public function listingGraduation()
+    {
+        $data['content']    = DB::table('cms_listing_content')->where('id','1')->first();
+        $data['list']       = DB::table('courses')->where('category','1')->where('df','')->get();
+        $data['_title']     = 'Graduation Courses';
+        return view('web.listing2',$data);   
+    }
+
+    public function listingPostGraduation()
+    {
+        $data['content']    = DB::table('cms_listing_content')->where('id','1')->first();
+        $data['list']       = DB::table('courses')->where('category','2')->where('df','')->get();
+        $data['_title']     = 'Post Graduation Courses';
+        return view('web.listing2',$data);   
     }
 
     public function course($id)

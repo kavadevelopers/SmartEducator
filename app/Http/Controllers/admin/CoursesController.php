@@ -61,13 +61,14 @@ class CoursesController extends BaseController
 		$data = [
 			'thumb'				=> $thumb,
 			'name'				=> $rec->name,
+			'category'			=> $rec->category,
 			'fname'				=> $rec->fname,
-			'about'				=> $rec->about,
+			'about'				=> $rec->about?$rec->about:'',
 			'duration'			=> $rec->duration,
-			'specialization'	=> $rec->specialization,
-			'eligibility'		=> $rec->eligibility,
-			'job_role'			=> $rec->job_role,
-			'process'			=> $rec->process,
+			'specialization'	=> $rec->specialization?$rec->specialization:'',
+			'eligibility'		=> $rec->eligibility?$rec->eligibility:'',
+			'job_role'			=> $rec->job_role?$rec->job_role:'',
+			'process'			=> $rec->process?$rec->process:'',
 			'df'				=> '',
 			'cat'				=> date('Y-m-d H:i:s')
 		];
@@ -96,13 +97,14 @@ class CoursesController extends BaseController
 
 		$data = [
 			'name'				=> $rec->name,
+			'category'			=> $rec->category,
 			'fname'				=> $rec->fname,
-			'about'				=> $rec->about,
+			'about'				=> $rec->about?$rec->about:'',
 			'duration'			=> $rec->duration,
-			'specialization'	=> $rec->specialization,
-			'eligibility'		=> $rec->eligibility,
-			'job_role'			=> $rec->job_role,
-			'process'			=> $rec->process
+			'specialization'	=> $rec->specialization?$rec->specialization:'',
+			'eligibility'		=> $rec->eligibility?$rec->eligibility:'',
+			'job_role'			=> $rec->job_role?$rec->job_role:'',
+			'process'			=> $rec->process?$rec->process:'',
 		];
 
 		DB::table('courses')->where('id',$rec->id)->update($data);	

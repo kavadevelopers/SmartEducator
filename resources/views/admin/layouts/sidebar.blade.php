@@ -123,13 +123,19 @@
                         <li class="pcoded-hasmenu <?= App\Http\Controllers\admin\BaseController::menu(2,['cources-univercities'])[2] ?>">
                             <a href="javascript:void(0)">
                                 <span class="pcoded-micon"><i class="fa fa-bandcamp"></i></span>
-                                <span class="pcoded-mtext">Cources</span>
+                                <span class="pcoded-mtext">Courses</span>
                             </a>   
                             <ul class="pcoded-submenu">
                                 <li class="">
                                     <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/cources-univercities/content') ?>">
                                         <span class="pcoded-micon"><i class="fa fa-list"></i></span>
                                         <span class="pcoded-mtext">Content</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/cources-univercities/slider') ?>">
+                                        <span class="pcoded-micon"><i class="fa fa-list"></i></span>
+                                        <span class="pcoded-mtext">Slider</span>
                                     </a>
                                 </li>
                             </ul>

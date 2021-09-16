@@ -41,35 +41,35 @@
             <div class="title-border"></div>
         </div>
         <div class="row" style="margin-top: 5%;">
-        	<div class="col-lg-6 col-md-6 home-info-box" data-aos="fade-up" data-aos-delay="100">
-                <div class="info-box home-info-box-shadow">
-                	<h4 class="home-box-title">Under Grade Courses</h4>
+        	<div class="col-lg-6 col-md-6 home-info-box" data-aos="fade-up" data-aos-delay="100" onclick="window.location='graduation-courses'">
+                <div class="info-box home-info-box-shadow" style="cursor: pointer;">
+                	<h4 class="home-box-title">Graduation Courses</h4>
                     <div class="member-img" style="margin-top:50px; margin-bottom:80px;">
                         
                         <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_kq5rGs.json"  background="transparent"  speed="1"  style="width: 90%; height: auto; margin: 0 auto;"  loop autoplay></lottie-player>
                     </div>
                     <div class="member-info">
                         
-                        <span>12540</span>
+                        <span><?= DB::table('courses')->where('category','0')->count() ?></span>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 home-info-box" data-aos="fade-up" data-aos-delay="100">
-                <div class="info-box home-info-box-shadow">
-                	<h4 class="home-box-title">Diploma Courses</h4>
+            <div class="col-lg-6 col-md-6 home-info-box" data-aos="fade-up" data-aos-delay="100" onclick="window.location='post-graduation-courses'">
+                <div class="info-box home-info-box-shadow" style="cursor: pointer;">
+                	<h4 class="home-box-title">Post Graduation Courses</h4>
                     <div class="member-img" style="margin-top:50px; margin-bottom:80px;">
                         <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_dT1E1P.json"  background="transparent"  speed="1"  style="width: 78%; height: auto; margin: 0 auto;"  loop autoplay></lottie-player>
                     </div>
                     <div class="member-info">
                         
-                        <span>12540</span>
+                        <span><?= DB::table('courses')->where('category','1')->count() ?></span>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row text-center" style="margin-top: 5%;">
         	<div class="col-lg-12 text-center">
-        		<a href="#" class="btn-view-all">View All</a>
+        		<a href="<?= url('courses') ?>" class="btn-view-all">View All</a>
         	</div>
         </div>
     </div>
