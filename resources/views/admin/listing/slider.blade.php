@@ -23,7 +23,7 @@
                     <form method="post" action="<?= App\Http\Controllers\admin\BaseController::aUrl('/cources-univercities/slider/save') ?>" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="card-block">
-                            <div class="col-md-12">
+                            <!-- <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Title <span class="-req">*</span></label>
                                     <input name="title" type="text" class="form-control"  placeholder="Title" required>
@@ -34,7 +34,7 @@
                                     <label>Description <span class="-req">*</span></label>
                                     <textarea name="desc" type="text" class="form-control"  placeholder="Description" rows="5" required></textarea>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Sort <span class="-req">*</span></label>
@@ -62,7 +62,7 @@
                     <form method="post" action="<?= App\Http\Controllers\admin\BaseController::aUrl('/cources-univercities/slider/edit') ?>" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="card-block">
-                            <div class="col-md-12">
+                            <!-- <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Title <span class="-req">*</span></label>
                                     <input name="title" type="text" class="form-control" value="<?= $item->title ?>" placeholder="Title" required>
@@ -73,7 +73,7 @@
                                     <label>Description <span class="-req">*</span></label>
                                     <textarea name="desc" type="text" class="form-control" placeholder="Description" rows="5" required><?= $item->body ?></textarea>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Sort <span class="-req">*</span></label>
@@ -111,7 +111,6 @@
                         <thead>
                             <tr>
                                 <th class="text-center">Sort</th>
-                                <th>Title</th>
                                 <th class="text-center">Banner</th>
                                 <th class="text-center">Action</th>
                             </tr>
@@ -120,7 +119,6 @@
                             <?php foreach ($list as $key => $value) { ?>
                                 <tr>
                                     <td class="text-center"><?= $value->sort ?></td>
-                                    <td><?= $value->title ?></td>
                                     <td class="text-center">
                                         <img src="<?= url('public/uploads/listing/'.$value->image) ?>" style="max-width: 80px;">
                                     </td>

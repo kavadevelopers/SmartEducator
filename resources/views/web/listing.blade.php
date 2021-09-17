@@ -174,10 +174,10 @@
 	                <?php foreach($sliders as $k => $slider){ ?>
 	                    <div class="carousel-item <?= $k==0?'active':'' ?>">
 	                        <img class="d-block w-100" src="<?= URL::asset("public/uploads/listing/".$slider->image) ?>" alt="First slide">
-	                        <div class="carousel-caption">
+	                        <!-- <div class="carousel-caption">
 	                            <h3><?= $slider->title ?></h3>
 	                            <p><?= $slider->body ?></p>
-	                        </div>
+	                        </div> -->
 	                    </div>
 	                <?php } ?>    
 	            </div>

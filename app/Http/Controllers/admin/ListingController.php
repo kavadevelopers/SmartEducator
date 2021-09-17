@@ -66,8 +66,8 @@ class ListingController extends BaseController
 	        }
 	    }
 	    $data = [
-	    	'title'		=> $rec->title,
-	    	'body'		=> $rec->desc,
+	    	'title'		=> "",
+	    	'body'		=> "",
 	    	'sort'		=> $rec->sort,
 	    	'sort'		=> $rec->sort
 	    ];
@@ -90,8 +90,8 @@ class ListingController extends BaseController
 	    }
 
 	    $data = [
-	    	'title'		=> $rec->title,
-	    	'body'		=> $rec->desc,
+	    	'title'		=> "",
+	    	'body'		=> "",
 	    	'sort'		=> $rec->sort,
 	    	'image'		=> $imageName
 	    ];
