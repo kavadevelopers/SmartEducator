@@ -103,7 +103,7 @@
 
 
 		<?php $sCon = DB::table('cms_content_uapprovals')->where('id','1')->first(); ?>
-		<div class="kava-sticky">
+		<div class="kava-sticky" onclick="location.href='<?= url('/university-approvals') ?>'">
 			<p><?= nl2br($sCon->stickey) ?></p>
 		</div>
 	</body>
