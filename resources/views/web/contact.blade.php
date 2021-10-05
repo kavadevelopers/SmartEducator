@@ -62,7 +62,7 @@
 </section>
 <!-- End Team Section -->
 
-
+<?php $courses = DB::table('courses')->where('df','')->get(); ?>
 <!-- ======= Contact Section ======= -->
 <section id="contact" class="contact">
     <div class="container" data-aos="fade-up">
@@ -83,7 +83,12 @@
                     	<input type="email" class="form-control kava-input" name="email" id="email" placeholder="Your Email" required/>
 	        		</div>
                     <div class="form-group">
-                        <input type="text" class="form-control kava-input" name="subject" id="subject" placeholder="Subject" required/>
+                        <select class="form-control kava-input" name="subject" required>
+                        	<option value="">-- Select Course --</option>
+                        	<?php foreach ($courses as $key => $value): ?>
+                        		<option value="<?=  $value->name ?>"><?=  $value->name ?></option>
+                        	<?php endforeach ?>
+                        </select>
                     </div>
                     <div class="form-group">
                         <textarea class="form-control kava-input" name="message" rows="5" placeholder="Message" required></textarea>

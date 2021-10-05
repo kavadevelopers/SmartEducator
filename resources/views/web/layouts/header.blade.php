@@ -23,8 +23,8 @@
 			      		<a href="<?= url('home') ?>" class="logo mr-auto"><img src="<?= url('public/uploads/settings/'.App\Http\Controllers\admin\BaseController::getSetting()->logo) ?>" data-aos="zoom-out" data-aos-delay="100" alt=""></a>
 					</div>
 					<div class="col-md-6">
-						<form action="#" method="post" class="header-search">
-              				<input type="text" name="email"><input type="submit" value="GO">
+						<form action="<?= url('courses') ?>" method="get" class="header-search">
+              				<input type="text" name="q" value="{{ Request::input('q') }}"><input type="submit" value="GO">
             			</form>
 					</div>
 					<div class="col-md-3 text-right">

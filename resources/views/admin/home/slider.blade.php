@@ -31,7 +31,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Banner <span class="-req">*</span> <small>(size 1600 x 600) </small></label>
+                                    <label>Banner <span class="-req">*</span> <small>(size 1600 x 500) </small></label>
                                     <input name="banner" type="file" class="form-control" onchange="readFileImage(this)" required>
                                 </div>
                             </div> 
@@ -58,7 +58,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Banner <small>(size 1600 x 600) </small></label>
+                                    <label>Banner <small>(size 1600 x 500) </small></label>
                                     <input name="banner" type="file" class="form-control" onchange="readFileImage(this)" >
                                 </div>
                             </div> 

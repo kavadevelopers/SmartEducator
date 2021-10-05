@@ -17,6 +17,8 @@ class HomeController extends BaseController
         print_r($this->sendEmail('mehul9921@gmail.com',"Final Email",'this is content'));
     }
 
+
+
     public function login()
     {
         $data['_title']     = 'Login';
@@ -50,13 +52,24 @@ class HomeController extends BaseController
         return view('web.blog',$data);   
     }
 
-    public function listing()
+    public function listing(Request $rec)
     {
+        if ($rec->q && $rec->q != "") {
+            $data['list']       = DB::table('courses')->where('name','like','%'.$rec->q.'%')->where('df','')->get();
+        }else{
+            $data['list']       = DB::table('courses')->where('df','')->get(); 
+        }
         $data['content']    = DB::table('cms_listing_content')->where('id','1')->first();
         $data['sliders']    = DB::table('cms_listing_slider')->orderby('sort','asc')->get();
-        $data['list']       = DB::table('courses')->where('df','')->get();
         $data['_title']     = $data['content']->title;
         return view('web.listing',$data);   
+    }
+
+    public function uapprovals()
+    {
+        $data['_title']     = 'All University’s Approvals';
+        $data['content']    = DB::table('cms_content_uapprovals')->where('id','1')->first();
+        return view('web.uapprovals',$data);  
     }
 
     public function listingGraduation()
@@ -163,7 +176,7 @@ class HomeController extends BaseController
             $str .= '<p><b>Name </b>: '.$rec->name.'</p>';    
             $str .= '<p><b>Email </b>: '.$rec->email.'</p>';    
             $str .= '<p><b>Phone </b>: '.$rec->phone.'</p>';    
-            $str .= '<p><b>Subject </b>: '.$rec->subject.'</p>';    
+            $str .= '<p><b>Course </b>: '.$rec->subject.'</p>';    
             $str .= '<p><b>Message </b>: '.$rec->message.'</p>';    
         $str .= '</p>';
 

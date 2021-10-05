@@ -100,5 +100,11 @@
 	    </script>
 		@stack('js')
 		@include('web.layouts.script')
+
+
+		<?php $sCon = DB::table('cms_content_uapprovals')->where('id','1')->first(); ?>
+		<div class="kava-sticky">
+			<p><?= nl2br($sCon->stickey) ?></p>
+		</div>
 	</body>
 </html>

@@ -22,7 +22,7 @@
 	        <div class="row">
 
 	        	<?php foreach ($list as $key => $value) { ?>
-	        		<div class="col-lg-3 col-md-6 align-items-stretch page-item" data-aos="fade-up" data-aos-delay="100" style="cursor:pointer;" onclick="window.location='blog/<?= $value->id ?>'">
+	        		<div class="col-lg-4 col-md-6 align-items-stretch page-item" data-aos="fade-up" data-aos-delay="100" style="cursor:pointer;" onclick="window.location='blog/<?= $value->id ?>'">
 		                <div class="member">
 		                    <div class="member-img">
 		                        <img src="<?= URL::asset("public/uploads/blog/".$value->thumb) ?>" style="width: 100%;" class="img-fluid" alt="">
@@ -33,8 +33,8 @@
 		                        </div>
 		                    </div>
 		                    <div class="member-info">
-		                        <h4><?= App\Http\Controllers\BaseController::strLimit($value->title,22) ?></h4>
-		                        <span><?= App\Http\Controllers\BaseController::strLimit($value->sub,30) ?></span>
+		                        <h4><?= $value->title ?></h4>
+		                        <span><?= App\Http\Controllers\BaseController::strLimit($value->sub,50) ?></span>
 		                        <span class="blog-list-time"><?= date('d M Y h:i A',strtotime($value->cat)) ?></span>
 		                    </div>
 		                </div>

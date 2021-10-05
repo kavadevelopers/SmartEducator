@@ -23,6 +23,7 @@ Route::get('/login', 'HomeController@login');
 Route::get('/dashboard', 'HomeController@dashboard');
 Route::post('/dashboard', 'HomeController@dashboard');
 Route::get('/about-us', 'HomeController@about');
+Route::get('/university-approvals', 'HomeController@uapprovals');
 Route::get('/blog', 'HomeController@blog');
 Route::get('/courses', 'HomeController@listing');
 Route::get('/graduation-courses', 'HomeController@listingGraduation');
@@ -179,5 +180,10 @@ Route::post('/savecontact', 'HomeController@saveContactForm');
 	Route::get('/admin/messages', 'admin\DashboardController@getMessages');
 	Route::get('/admin/messages/{id}', 'admin\DashboardController@deleteMessages');
 	//messages routes
+
+	//stickey routes
+	Route::get('/admin/sticky', 'admin\AboutController@getStickeyContent');
+	Route::post('/admin/sticky', 'admin\AboutController@getStickeyContentSave');
+	//stickey routes
 
 

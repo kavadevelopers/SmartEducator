@@ -1,4 +1,26 @@
 <style type="text/css">
+    .kava-sticky{
+        position: fixed;
+        z-index: 9999999;
+        display: block;
+        padding: 10px;
+        background: #fff;
+        color: #000;
+        cursor: pointer;
+        left: 0;
+        bottom: 40px;
+        border-radius: 10px;
+        font-size: 12px;
+        width: calc(100% - 80%);
+        box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+    }
+    .kava-sticky:hover{
+        left: 5%;
+        transform: translateY(0) scale(1.2);
+    }
+    .kava-sticky p{
+        margin-bottom: 0;
+    }
     .width-90{
         width: 90%;
     }

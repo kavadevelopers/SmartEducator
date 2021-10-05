@@ -18,6 +18,26 @@ class AboutController extends BaseController
 	   	});
 	}
 
+	public function getStickeyContent()
+	{
+		$data['_title'] = 'Sticky Page';	
+		$data['item'] 	= DB::table('cms_content_uapprovals')->where('id','1')->first();
+		return view('admin.about.stickey',$data);	
+	}
+
+	public function getStickeyContentSave(Request $rec)
+	{
+		$data = [
+	    	'title'		=> $rec->title,
+	    	'stickey'	=> $rec->stickey,
+	    	'content'	=> $rec->content
+	    ];
+	    DB::table('cms_content_uapprovals')->where('id','1')->update($data);
+
+	    Session::flash('success', 'Sticky Page Saved'); 
+	    return Redirect($this->aUrl('/sticky'));
+	}
+
 	public function team()
 	{
 		$data['_title'] = 'About team';

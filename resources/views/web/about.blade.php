@@ -68,25 +68,7 @@
 <!-- ======= Founder section ======= -->
 <section id="team contact-top" class="team section-bg">
     <div class="container">
-        <div class="row"style="margin-bottom: 200px; margin-top: 200px;">
-
-        	<div class="col-4 col_bg">
-        		<div class="section-title-founder info-box-squre overlap_col overlap_col-left">
-					<h4 class="heading_founder"><?= App\Http\Controllers\BaseController::strLimit($content->cotitle,22) ?></h4>
-					<h6 class="founder_desc"><?= App\Http\Controllers\BaseController::strLimit($content->cosubtitle,30) ?></h6>
-					<p class="founder_desc"><?= App\Http\Controllers\BaseController::strLimit($content->cocontent,467) ?></p>
-				</div>
-        	</div>
-
-        	<div class="col-4 col_bg">
-					
-			</div>
-			<div class="col-4 col_bg">
-				<img src="<?= URL::asset("public/uploads/about/".$content->coimage) ?>" style="right: 12%;" class="founder-image">
-			</div>	
-        </div>
-
-        <div class="row">
+        <div class="row" style=" margin-top: 200px;">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner" style="overflow: visible;">
                     <?php foreach($teams as $ky => $vl){ ?>
@@ -101,9 +83,9 @@
                                     </div>
                                     <div class="col-4 col_bg">
                                         <div class="section-title-founder info-box-squre overlap_col overlap_col-right">
-                                            <h4 class="heading_founder"><?= App\Http\Controllers\BaseController::strLimit($vl->title,22) ?></h4>
-                                            <h6 class="founder_desc"><?= App\Http\Controllers\BaseController::strLimit($vl->sub,30) ?></h6>
-                                            <p class="founder_desc"><?= App\Http\Controllers\BaseController::strLimit($vl->content,467) ?></p>
+                                            <h4 class="heading_founder"><?= $vl->title ?></h4>
+                                            <h6 class="founder_desc"><?= $vl->sub ?></h6>
+                                            <p class="founder_desc"><?= $vl->content ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -113,9 +95,9 @@
                                 <div class="row">
                                     <div class="col-4 col_bg">
                                         <div class="section-title-founder info-box-squre overlap_col overlap_col-left">
-                                            <h4 class="heading_founder"><?= App\Http\Controllers\BaseController::strLimit($vl->title,22) ?></h4>
-                                            <h6 class="founder_desc"><?= App\Http\Controllers\BaseController::strLimit($vl->sub,30) ?></h6>
-                                            <p class="founder_desc"><?= App\Http\Controllers\BaseController::strLimit($vl->content,467) ?></p>
+                                            <h4 class="heading_founder"><?= $vl->title ?></h4>
+                                            <h6 class="founder_desc"><?= $vl->sub ?></h6>
+                                            <p class="founder_desc"><?= $vl->content ?></p>
                                         </div>
                                     </div>
 
@@ -132,17 +114,37 @@
                 </div>
             </div>
         </div>
-
-        <div class="row text-center" style="margin-top: 20px;margin-bottom: 20px;">
-        	<div class="col-lg-12">
-        		<a href="#" class="our-partner-slider-btn team-slider-prev">
-        			<i class="fa fa-arrow-left"></i>
-        		</a>
-        		<a href="#" class="our-partner-slider-btn team-slider-next">
-        			<i class="fa fa-arrow-right"></i>
-        		</a>
-        	</div>
+        <div class="row text-center" style="margin-top: 20px;margin-bottom: 200px;">
+            <div class="col-lg-12">
+                <a href="#" class="our-partner-slider-btn team-slider-prev">
+                    <i class="fa fa-arrow-left"></i>
+                </a>
+                <a href="#" class="our-partner-slider-btn team-slider-next">
+                    <i class="fa fa-arrow-right"></i>
+                </a>
+            </div>
         </div>
+        <div class="row">
+
+        	<div class="col-4 col_bg">
+        		<div class="section-title-founder info-box-squre overlap_col overlap_col-left">
+					<h4 class="heading_founder"><?= $content->cotitle ?></h4>
+					<h6 class="founder_desc"><?= $content->cosubtitle ?></h6>
+					<p class="founder_desc"><?= $content->cocontent ?></p>
+				</div>
+        	</div>
+
+        	<div class="col-4 col_bg">
+					
+			</div>
+			<div class="col-4 col_bg">
+				<img src="<?= URL::asset("public/uploads/about/".$content->coimage) ?>" style="right: 12%;" class="founder-image">
+			</div>	
+        </div>
+
+        
+
+        
     </div>
 </section>
 <!-- End Founder section -->

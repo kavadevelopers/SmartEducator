@@ -27,7 +27,7 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Mobile</th>
-                                    <th>Subject</th>
+                                    <th>Course</th>
                                     <th>Message</th>
                                     <th class="text-center">Action</th>
                                 </tr>

@@ -47,6 +47,12 @@
                         </a>
                     </li>
                     <div class="pcoded-navigatio-lavel">CMS</div>
+                    <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['sticky'])[2] ?>">
+                        <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/sticky') ?>">
+                            <span class="pcoded-micon"><i class="fa fa-files-o"></i></span> 
+                            <span class="pcoded-mtext">Sticky Page</span>
+                        </a>
+                    </li>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu <?= App\Http\Controllers\admin\BaseController::menu(2,['home'])[2] ?>">
                             <a href="javascript:void(0)">

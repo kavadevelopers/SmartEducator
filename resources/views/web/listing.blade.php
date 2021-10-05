@@ -18,21 +18,25 @@
             <div class="title-border"></div>
         </div>
         <div class="row">
-
-        	<?php foreach ($list as $key => $value) { ?>
-        		<div class="col-lg-3 col-md-6 align-items-stretch page-item" data-aos="fade-up" data-aos-delay="100" style="cursor:pointer;" onclick="window.location='course/<?= $value->id ?>'">
-	                <div class="member">
-	                    <div class="member-img">
-	                        <img src="<?= URL::asset("public/uploads/courses/".$value->thumb) ?>" style="width: 100%;" class="img-fluid" alt="">
-	                    </div>
-	                    <div class="member-info">
-	                        <h4><?= App\Http\Controllers\BaseController::strLimit($value->name,22) ?></h4>
-	                        <span>Duration : <?= App\Http\Controllers\BaseController::strLimit($value->duration,15) ?></span>
-	                    </div>
-	                </div>
-	            </div>	
+        	<?php if (count($list) > 0){ ?>
+        		<?php foreach ($list as $key => $value) { ?>
+	        		<div class="col-lg-3 col-md-6 align-items-stretch page-item" data-aos="fade-up" data-aos-delay="100" style="cursor:pointer;" onclick="window.location='course/<?= $value->id ?>'">
+		                <div class="member">
+		                    <div class="member-img">
+		                        <img src="<?= URL::asset("public/uploads/courses/".$value->thumb) ?>" style="width: 100%;" class="img-fluid" alt="">
+		                    </div>
+		                    <div class="member-info">
+		                        <h4><?= App\Http\Controllers\BaseController::strLimit($value->name,22) ?></h4>
+		                        <span>Duration : <?= App\Http\Controllers\BaseController::strLimit($value->duration,15) ?></span>
+		                    </div>
+		                </div>
+		            </div>	
+	        	<?php } ?>	
+        	<?php }else{ ?>
+        		<div class="col-lg-12">
+        			<h3 class="text-center" style="margin-top:40px;margin-bottom: 20px;">No Courses found</h3>
+        		</div>
         	<?php } ?>
-
         </div>
     </div>
 </section>
@@ -216,7 +220,13 @@
 			        	</div>
 			        	<div class="col" style="padding-left: 30px;">
 			        		<div class="form-group">
-			        			<input type="text" class="form-control kava-input" name="subject" id="subject" placeholder="Subject" required/>
+			        			<?php $courses = DB::table('courses')->where('df','')->get(); ?>
+			        			<select class="form-control kava-input" name="subject" required>
+		                        	<option value="">-- Select Course --</option>
+		                        	<?php foreach ($courses as $key => $value): ?>
+		                        		<option value="<?=  $value->name ?>"><?=  $value->name ?></option>
+		                        	<?php endforeach ?>
+		                        </select>
 			        		</div>
 			        		<div class="form-group">
 			        			<textarea class="form-control kava-input" name="message" rows="3" placeholder="Message" required></textarea>

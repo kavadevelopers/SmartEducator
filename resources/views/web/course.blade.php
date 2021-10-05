@@ -61,7 +61,13 @@
 		        	</div>
 		        	<div class="col" style="padding-left: 30px;">
 		        		<div class="form-group">
-		        			<input type="text" class="form-control kava-input" name="subject" id="subject" placeholder="Subject" required/>
+		        			<?php $courses = DB::table('courses')->where('df','')->get(); ?>
+		        			<select class="form-control kava-input" name="subject" required>
+	                        	<option value="">-- Select Course --</option>
+	                        	<?php foreach ($courses as $key => $value): ?>
+	                        		<option value="<?=  $value->name ?>"><?=  $value->name ?></option>
+	                        	<?php endforeach ?>
+	                        </select>
 		        		</div>
 		        		<div class="form-group">
 		        			<textarea class="form-control kava-input" name="message" rows="3" placeholder="Message" required></textarea>

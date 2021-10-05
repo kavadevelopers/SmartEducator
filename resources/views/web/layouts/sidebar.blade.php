@@ -52,6 +52,10 @@
 	                </li>
 	            </ul>
 	        </li> -->
+
+	        <li class="copyrights">
+	        	Copyright © 2021 Smart Educator. All Rights Reserved.
+	        </li>
 	    </ul>
 	 
 	</nav>
