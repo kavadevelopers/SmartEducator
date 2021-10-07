@@ -7,7 +7,7 @@
 	
 </section> -->
 <!-- End Hero -->
-<section id="team contact-top" class="team section-bg" style="margin-top: 102px;">
+<section id="team contact-top" class="slider-home team section-bg">
     <div class="container-fluid" data-aos="zoom-out" data-aos-delay="100" style="padding:0;">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -236,6 +236,14 @@
     }
     .star-block-of-review span .active{
         color: #FDD922 !important;
+    }
+    .slider-home{
+        margin-top: 102px;
+    }
+    @media only screen and (max-width: 768px) {
+        .slider-home{
+            margin-top: 94px !important;
+        }
     }
 </style>
 @stop

@@ -23,6 +23,13 @@
             width: calc(100% - 50%) !important;
             font-size: 10px !important;
         }
+        .home-box-title{
+            font-size: 16px;
+        }
+        h3{
+            font-size: 25px !important;
+        }
+        
     }
 
     @media (min-width:768px) and (max-width:992px) {
@@ -45,6 +52,10 @@
         .num-of-home-blocks-02,.num-of-home-blocks-03{
             right: 29.4%;
             top: 14%;
+        }
+        .home-info-box{
+            padding-left: 20px;
+            padding-right: 20px;
         }
     }
 
