@@ -1,7 +1,7 @@
 
 	<nav class="sidebar">
 	    <!-- close sidebar menu -->
-	    <div class="dismiss">
+	    <div class="dismiss mobile-hide">
 	        <i class="fa fa-times"></i>
 	    </div>
 	 

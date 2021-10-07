@@ -1,4 +1,70 @@
 <style type="text/css">
+    @media only screen and (max-width: 768px) {
+        .mobile-hide{
+            display: none !important;
+        }
+        .mobile-show{
+            display: block !important;
+        }
+        .tab-show{
+            display: block !important;
+        }
+
+        .sidebar{
+            width: calc(100% - 20%);
+            left: -81%;
+        }
+
+        .mtb-mobile-20{
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .kava-sticky{
+            width: calc(100% - 50%) !important;
+            font-size: 10px !important;
+        }
+    }
+
+    @media (min-width:768px) and (max-width:992px) {
+        .tab-hide{
+            display: none !important;
+        }
+        .mobile-show{
+            display: block !important;
+        }
+        .tab-show{
+            display: block !important;
+        }
+        .p-of-home-blocks{
+            font-size: 9px;
+        }
+        .num-of-home-blocks-01{
+            right: 33.4%;
+            top: 14%;
+        }
+        .num-of-home-blocks-02,.num-of-home-blocks-03{
+            right: 29.4%;
+            top: 14%;
+        }
+    }
+
+    @media only screen and (min-width: 992px) {
+        .desktop-hide{
+            display: none !important;   
+        }
+    }
+
+    @media (min-width:992px) and (max-width:1200px) {
+        .review-text {
+            color: #000;
+            font-size: 10px;
+        }
+    }
+
+    .sidebar{
+        overflow-y: scroll;
+    }
+
     .kava-sticky{
         position: fixed;
         z-index: 9999999;

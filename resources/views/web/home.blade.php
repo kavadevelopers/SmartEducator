@@ -41,12 +41,12 @@
             <div class="title-border"></div>
         </div>
         <div class="row" style="margin-top: 5%;">
-        	<div class="col-lg-6 col-md-6 home-info-box" data-aos="fade-up" data-aos-delay="100" onclick="window.location='graduation-courses'">
+        	<div class="col-lg-6 col-md-6 col-xs-6 col-12 home-info-box" data-aos="fade-up" data-aos-delay="100" onclick="window.location='graduation-courses'">
                 <div class="info-box home-info-box-shadow" style="cursor: pointer;">
                 	<h4 class="home-box-title">Graduation Courses</h4>
-                    <div class="member-img" style="margin-top:50px; margin-bottom:80px;">
+                    <div class="member-img" style="margin: 0 auto; margin-top:100px; margin-bottom:80px; width: 90%;">
                         
-                        <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_kq5rGs.json"  background="transparent"  speed="1"  style="width: 90%; height: auto; margin: 0 auto;"  loop autoplay></lottie-player>
+                        <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_kq5rGs.json"  background="transparent"  speed="1"  style=" height: auto; margin: 0 auto;"  loop autoplay></lottie-player>
                     </div>
                     <div class="member-info">
                         
@@ -54,11 +54,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 home-info-box" data-aos="fade-up" data-aos-delay="100" onclick="window.location='post-graduation-courses'">
+            <div class="col-lg-6 col-md-6 col-xs-6 col-12 mtb-mobile-20 home-info-box" data-aos="fade-up" data-aos-delay="100" onclick="window.location='post-graduation-courses'">
                 <div class="info-box home-info-box-shadow" style="cursor: pointer;">
                 	<h4 class="home-box-title">Post Graduation Courses</h4>
-                    <div class="member-img" style="margin-top:50px; margin-bottom:80px;">
-                        <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_dT1E1P.json"  background="transparent"  speed="1"  style="width: 78%; height: auto; margin: 0 auto;"  loop autoplay></lottie-player>
+                    <div class="member-img" style="margin: 0 auto; margin-top:50px; margin-bottom:80px; width: 78%;">
+                        <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_dT1E1P.json"  background="transparent"  speed="1"  style="height: auto; margin: 0 auto;"  loop autoplay></lottie-player>
                     </div>
                     <div class="member-info">
                         
@@ -76,25 +76,25 @@
 </section>
 <!-- End Team Section -->
 
-<section id="team contact-top" class="team section-bg-white" style="background: url('<?= URL::asset("public/uploads/home/".$steps->banner) ?>') top left; background-size: cover;">
+<section id="team contact-top" class="team section-bg-white" style="background: url('<?= URL::asset("public/uploads/home/".$steps->banner) ?>') top center; background-size: cover;">
     <div class="container-fluid" data-aos="fade-up">
         <div class="container">
         	<div class="row" style="padding-left: 8%;margin-top: 2%;margin-bottom: 2%;">
-        		<div class="col-lg-4 no-gutters">
+        		<div class="col-lg-4 col-md-4 no-gutters">
         			<img src="<?= URL::asset("public/web/asset/img/ring_1.png") ?>" class="img img-100">
         			<p class="p-of-home-blocks">
         				<?= App\Http\Controllers\BaseController::strLimit($steps->step1,245) ?>
         			</p>
         			<span class="num-of-home-blocks-01">01</span>
         		</div>
-        		<div class="col-lg-4 no-gutters">
+        		<div class="col-lg-4 col-md-4 no-gutters">
         			<img src="<?= URL::asset("public/web/asset/img/ring_2.png") ?>" class="img img-100">
         			<p class="p-of-home-blocks">
         				<?= App\Http\Controllers\BaseController::strLimit($steps->step2,245) ?>
         			</p>
         			<span class="num-of-home-blocks-02">02</span>
         		</div>
-        		<div class="col-lg-4 no-gutters">
+        		<div class="col-lg-4 col-md-4 no-gutters">
         			<img src="<?= URL::asset("public/web/asset/img/ring_3.png") ?>" class="img img-100">
         			<p class="p-of-home-blocks">
         				<?= App\Http\Controllers\BaseController::strLimit($steps->step3,245) ?>
