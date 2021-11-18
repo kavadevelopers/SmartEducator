@@ -111,16 +111,26 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="input-star-rating">
-                              <input type="radio" id="5-stars" name="rating" value="5" />
-                              <label for="5-stars" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
-                              <input type="radio" id="4-stars" name="rating" value="4" />
-                              <label for="4-stars" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
-                              <input type="radio" id="3-stars" name="rating" value="3" />
-                              <label for="3-stars" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
-                              <input type="radio" id="2-stars" name="rating" value="2" />
-                              <label for="2-stars" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
-                              <input type="radio" id="1-star" name="rating" value="1" />
-                              <label for="1-star" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
+                                <label aria-label="1 star" class="rating__label" for="rating-11">
+                                    <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                </label>
+                                <input class="rating__input" name="erating" id="rating-11" value="1" type="radio">
+                                <label aria-label="2 stars" class="rating__label" for="rating-12">
+                                    <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                </label>
+                                <input class="rating__input" name="erating" id="rating-12" value="2" type="radio">
+                                <label aria-label="3 stars" class="rating__label" for="rating-13">
+                                    <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                </label>
+                                <input class="rating__input" name="erating" id="rating-13" value="3" type="radio" checked>
+                                <label aria-label="4 stars" class="rating__label" for="rating-14">
+                                    <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                </label>
+                                <input class="rating__input" name="erating" id="rating-14" value="4" type="radio">
+                                <label aria-label="5 stars" class="rating__label" for="rating-15">
+                                    <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                </label>
+                                <input class="rating__input" name="erating" id="rating-15" value="5" type="radio">
                             </div>
                         </div>
                         <div class="form-group">
@@ -159,16 +169,26 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="input-star-rating">
-                              <input type="radio" id="5-stars" name="erating" value="5" />
-                              <label for="5-stars" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
-                              <input type="radio" id="4-stars" name="erating" value="4" />
-                              <label for="4-stars" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
-                              <input type="radio" id="3-stars" name="erating" value="3" />
-                              <label for="3-stars" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
-                              <input type="radio" id="2-stars" name="erating" value="2" />
-                              <label for="2-stars" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
-                              <input type="radio" id="1-star" name="erating" value="1" />
-                              <label for="1-star" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
+                                <label aria-label="1 star" class="rating__label" for="rating-1">
+                                    <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                </label>
+                                <input class="rating__input" name="erating" id="rating-1" value="1" type="radio">
+                                <label aria-label="2 stars" class="rating__label" for="rating-2">
+                                    <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                </label>
+                                <input class="rating__input" name="erating" id="rating-2" value="2" type="radio">
+                                <label aria-label="3 stars" class="rating__label" for="rating-3">
+                                    <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                </label>
+                                <input class="rating__input" name="erating" id="rating-3" value="3" type="radio" checked>
+                                <label aria-label="4 stars" class="rating__label" for="rating-4">
+                                    <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                </label>
+                                <input class="rating__input" name="erating" id="rating-4" value="4" type="radio">
+                                <label aria-label="5 stars" class="rating__label" for="rating-5">
+                                    <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                </label>
+                                <input class="rating__input" name="erating" id="rating-5" value="5" type="radio">
                             </div>
                         </div>
                         <div class="form-group">
@@ -196,7 +216,7 @@
 
     <script type="text/javascript">
         $(function(){
-            $('.edit-review').click(function(e){
+            $(document).on('click','.edit-review', function(e){
                 e.preventDefault();
                 data = $(this).data('values');
                 $('#editReviewModel').modal('show');
@@ -206,8 +226,12 @@
                 $("input[name=ephone]").val(data.phone);
                 $("textarea[name=edesc]").val(data.review);
                 $("input[name=erating]").removeAttr('checked');
-                $("input[name=erating][value=" + data.rating + "]").attr('checked', 'checked');
+                $("input[name=erating][value=" + data.rating + "]").attr('checked', true);
+                //$("input[name=erating]").val([data.rating]);
             })
+            $('input[type=radio]').change(function(event) {
+                //alert($(this).val());
+            });
         })
     </script>
 @stop

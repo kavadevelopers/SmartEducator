@@ -11,21 +11,21 @@
             "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
         });
 
-        $('.btn-delete').click(function() {
+        $(document).on('click','.btn-delete', function(e){
 			if(confirm('Are you sure you want to delete this?')){
 				return true;
 			}
 			return false;
 		});
 
-		$('.btn-status').click(function() {
+		$(document).on('click','.btn-status', function(e){
 			if(confirm('Are you sure you want to change status?')){
 				return true;
 			}
 			return false;
 		});
 
-		$('.photo-swipe').click(function(event) {
+		$(document).on('click','.photo-swipe', function(event){
             var stringAr = $(this).data('photoswipe').split('+');
             for(var i = 0; i < stringAr.length; i++) { 
                 
@@ -49,7 +49,7 @@
             gallery.init();
         });
 
-        $('#read-more-popup-btn').click(function(event) {
+		$(document).on('click','.read-more-popup-btn', function(event){
         	event.preventDefault();
         	$('#modalFullStringText').html($(this).data('full'));
         	$('#modalFullString').modal('show');

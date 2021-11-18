@@ -187,3 +187,25 @@ Route::post('/savecontact', 'HomeController@saveContactForm');
 	//stickey routes
 
 
+	//leads routes
+	Route::get('/admin/leads', 'admin\LeadsController@list');
+	Route::get('/admin/leads/add', 'admin\LeadsController@add');
+	Route::post('/admin/leads/add', 'admin\LeadsController@save');
+	Route::post('/admin/leads/edit', 'admin\LeadsController@update');
+	Route::post('/admin/leads/status', 'admin\LeadsController@status');
+	Route::get('/admin/leads/edit/{id}', 'admin\LeadsController@edit');
+	Route::get('/admin/leads/view/{id}', 'admin\LeadsController@view');
+	Route::get('/admin/leads/{id}', 'admin\LeadsController@delete');
+	//leads routes
+
+	//eployee routes
+	Route::get('/admin/employee', 'admin\EmployeeController@list');
+	Route::get('/admin/employee/add', 'admin\EmployeeController@add');
+	Route::post('/admin/employee/add', 'admin\EmployeeController@save');
+	Route::get('/admin/employee/edit/{id}', 'admin\EmployeeController@edit');
+	Route::post('/admin/employee/edit', 'admin\EmployeeController@update');
+	Route::get('/admin/employee/view/{id}', 'admin\EmployeeController@view');
+	Route::get('/admin/employee/{id}', 'admin\EmployeeController@delete');
+
+	//eployee routes
+

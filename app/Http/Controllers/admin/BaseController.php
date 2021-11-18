@@ -36,6 +36,20 @@ class BaseController extends Controller
 	public static function getUser()
 	{
 		return DB::table('z_user')->where('id',Session::get('AdminId'))->first();
+	}
+
+	public static function checkRight($page)
+	{
+		if (Session::get('AdminId') == "1") {
+			return true;
+		}else{
+			$user = DB::table('z_user')->where('id',Session::get('AdminId'))->first();		
+			if (in_array($page,explode(',', $user->rights))) {
+				return true;
+			}else{
+				return false;
+			}
+		}
 	}	
 
 	public static function strLimit($str,$length){

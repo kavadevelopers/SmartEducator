@@ -1,5 +1,5 @@
 <style type="text/css">
-	.input-star-rating input {
+	/*.input-star-rating input {
         display:none;
     }
 
@@ -16,13 +16,59 @@
 
     .input-star-rating label:hover,.input-star-rating label:hover ~ label {
         color:#fc0;
-    }
+    }*/
 
-    .input-star-rating{
-        font-size: 15px;
-        direction: rtl;
-        text-align: center;
+    .tbl-whitespace td{
+        white-space: normal;
     }
+    
+    .input-star-rating{
+    	width: 100%;
+        font-size: 15px;
+        /*direction: rtl;*/
+        text-align: center;
+        display: inline-block;
+    }
+    .rating__icon {
+	    pointer-events: none;
+	}
+	.rating__input {
+   		position: absolute !important;
+   		left: -9999px !important;
+  	}
+
+  	.rating__input--none {
+    	display: none
+  	}
+
+  	.rating__label {
+    	cursor: pointer;
+    /* if you change the left/right padding, update the margin-right property of .rating__label--half as well. */
+    	padding: 0 0.1em;
+    	font-size: 33px;
+    	text-shadow: 1px 1px #000000;
+  	}
+
+  	.rating__icon--star {
+    	color: #FDD922;
+  	}
+
+  	.rating__input:checked ~ .rating__label .rating__icon--star {
+    	color: #ccc;
+  	}
+
+  	.input-star-rating:hover .rating__label .rating__icon--star {
+    	color: #FDD922;
+  	}
+
+  	.rating__input:hover ~ .rating__label .rating__icon--star {
+    	color: #ccc;
+  	}
+
+  	
+
+
+
 	.toggle-switch{
         position: relative;
         display: inline-block;

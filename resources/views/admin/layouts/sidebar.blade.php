@@ -16,43 +16,70 @@
                             <span class="pcoded-mtext">My Profile</span>
                         </a>
                     </li>
-                    <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['courses'])[2] ?>">
-                        <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/courses') ?>">
-                            <span class="pcoded-micon"><i class="fa fa-list"></i></span>
-                            <span class="pcoded-mtext">Manage Courses</span>
-                        </a>
-                    </li>
-                    <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['expenses'])[2] ?>">
-                        <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/expenses') ?>">
-                            <span class="pcoded-micon"><i class="fa fa-exchange"></i></span>
-                            <span class="pcoded-mtext">Manage Expenses</span>
-                        </a>
-                    </li>
-                    <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['reviews'])[2] ?>">
-                        <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/reviews') ?>">
-                            <span class="pcoded-micon"><i class="fa fa-star"></i></span>
-                            <span class="pcoded-mtext">Manage Reviews</span>
-                        </a>
-                    </li>
-                    <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['messages'])[2] ?>">
-                        <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/messages') ?>">
-                            <span class="pcoded-micon"><i class="fa fa-envelope"></i></span>
-                            <span class="pcoded-mtext">Manage Messages</span>
-                        </a>
-                    </li>
-                    <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['users'])[2] ?>">
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(1)){ ?>
+                        <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['courses'])[2] ?>">
+                            <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/courses') ?>">
+                                <span class="pcoded-micon"><i class="fa fa-list"></i></span>
+                                <span class="pcoded-mtext">Manage Courses</span>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(2)){ ?>
+                        <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['expenses'])[2] ?>">
+                            <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/expenses') ?>">
+                                <span class="pcoded-micon"><i class="fa fa-exchange"></i></span>
+                                <span class="pcoded-mtext">Manage Expenses</span>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(3)){ ?>
+                        <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['reviews'])[2] ?>">
+                            <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/reviews') ?>">
+                                <span class="pcoded-micon"><i class="fa fa-star"></i></span>
+                                <span class="pcoded-mtext">Manage Reviews</span>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(4)){ ?>
+                        <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['messages'])[2] ?>">
+                            <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/messages') ?>">
+                                <span class="pcoded-micon"><i class="fa fa-envelope"></i></span>
+                                <span class="pcoded-mtext">Manage Messages</span>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <!-- <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['users'])[2] ?>">
                         <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/users') ?>">
                             <span class="pcoded-micon"><i class="fa fa-user-secret"></i></span>
                             <span class="pcoded-mtext">Manage Users</span>
                         </a>
-                    </li>
-                    <div class="pcoded-navigatio-lavel">CMS</div>
-                    <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['sticky'])[2] ?>">
-                        <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/sticky') ?>">
-                            <span class="pcoded-micon"><i class="fa fa-files-o"></i></span> 
-                            <span class="pcoded-mtext">Sticky Page</span>
-                        </a>
-                    </li>
+                    </li> -->
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(5)){ ?>
+                        <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['leads'])[2] ?>">
+                            <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads') ?>">
+                                <span class="pcoded-micon"><i class="fa fa-calendar"></i></span>
+                                <span class="pcoded-mtext">Manage Leads</span>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(6)){ ?>
+                        <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['employee'])[2] ?>">
+                            <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/employee') ?>">
+                                <span class="pcoded-micon"><i class="fa fa-user-secret"></i></span>
+                                <span class="pcoded-mtext">Manage Employees</span>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <div class="pcoded-navigatio-lavel"></div>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(10)){ ?>
+                        <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['sticky'])[2] ?>">
+                            <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/sticky') ?>">
+                                <span class="pcoded-micon"><i class="fa fa-files-o"></i></span> 
+                                <span class="pcoded-mtext">Sticky Page</span>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(12)){ ?>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu <?= App\Http\Controllers\admin\BaseController::menu(2,['home'])[2] ?>">
                             <a href="javascript:void(0)">
@@ -75,6 +102,8 @@
                             </ul>
                         </li>
                     </ul>
+                    <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(13)){ ?>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu <?= App\Http\Controllers\admin\BaseController::menu(2,['about'])[2] ?>">
                             <a href="javascript:void(0)">
@@ -103,6 +132,8 @@
                             </ul>
                         </li>
                     </ul>
+                    <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(14)){ ?>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu <?= App\Http\Controllers\admin\BaseController::menu(2,['blog'])[2] ?>">
                             <a href="javascript:void(0)">
@@ -125,6 +156,8 @@
                             </ul>
                         </li>
                     </ul>
+                    <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(15)){ ?>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu <?= App\Http\Controllers\admin\BaseController::menu(2,['cources-univercities'])[2] ?>">
                             <a href="javascript:void(0)">
@@ -147,6 +180,8 @@
                             </ul>
                         </li>
                     </ul>
+                    <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(16)){ ?>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu <?= App\Http\Controllers\admin\BaseController::menu(2,['contact'])[2] ?>">
                             <a href="javascript:void(0)">
@@ -163,13 +198,16 @@
                             </ul>
                         </li>
                     </ul>
+                    <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(9)){ ?>
                     <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['pages'])[2] ?>">
                         <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/pages') ?>">
                             <span class="pcoded-micon"><i class="fa fa-files-o"></i></span> 
                             <span class="pcoded-mtext">Pages</span>
                         </a>
                     </li>
-                    <ul class="pcoded-item pcoded-left-item">
+                    <?php } ?>
+                    <!-- <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu <?= App\Http\Controllers\admin\BaseController::menu(2,['common'])[2] ?>">
                             <a href="javascript:void(0)">
                                 <span class="pcoded-micon"><i class="fa fa-window-restore"></i></span>
@@ -184,19 +222,31 @@
                                 </li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul> -->
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(11)){ ?>
+                    <li class="<?= App\Http\Controllers\admin\BaseController::menu(3,['social-links'])[2] ?>">
+                        <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/common/social-links') ?>">
+                            <span class="pcoded-micon"><i class="fa fa-anchor"></i></span> 
+                            <span class="pcoded-mtext">Social Links</span>
+                        </a>
+                    </li>
+                    <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(8)){ ?>
                     <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['footer-links'])[2] ?>">
                         <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/footer-links') ?>">
                             <span class="pcoded-micon"><i class="fa fa-anchor"></i></span> 
                             <span class="pcoded-mtext">Footer Links</span>
                         </a>
                     </li>
+                    <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(7)){ ?>
                     <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['settings'])[2] ?>">
                         <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/settings') ?>">
                             <span class="pcoded-micon"><i class="fa fa-gear fa-spin"></i></span> 
                             <span class="pcoded-mtext">Settings</span>
                         </a>
                     </li>
+                    <?php } ?>
                 </ul>
             </div>
         </nav>

@@ -147,7 +147,7 @@
                                         <i class="feather icon-chevron-down"></i>
                                     </div>
                                     <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                        <?php if(App\Http\Controllers\admin\BaseController::getUser()->user_type == '0'){ ?>
+                                        <?php if(App\Http\Controllers\admin\BaseController::checkRight(7)){ ?>
                                             <li style="padding: 0;">
                                                 <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/settings') ?>" class="dis-block" style="padding: 0.7em 20px;">
                                                     <i class="fa fa-gear fa-spin"></i> Settings

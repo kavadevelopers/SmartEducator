@@ -164,19 +164,27 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <div class="input-star-rating">
-                          <input type="radio" id="5-stars" name="rating" value="5" />
-                          <label for="5-stars" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
-                          <input type="radio" id="4-stars" name="rating" value="4" />
-                          <label for="4-stars" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
-                          <input type="radio" id="3-stars" name="rating" value="3" />
-                          <label for="3-stars" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
-                          <input type="radio" id="2-stars" name="rating" value="2" />
-                          <label for="2-stars" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
-                          <input type="radio" id="1-star" name="rating" value="1" />
-                          <label for="1-star" class="star"><i class="active fa fa-star" aria-hidden="true"></i></label>
-                        </div>
+                    <div class="input-star-rating">
+                        <label aria-label="1 star" class="rating__label" for="rating-1">
+                            <i class="rating__icon rating__icon--star fa fa-star"></i>
+                        </label>
+                        <input class="rating__input" name="rating" id="rating-1" value="1" type="radio">
+                        <label aria-label="2 stars" class="rating__label" for="rating-2">
+                            <i class="rating__icon rating__icon--star fa fa-star"></i>
+                        </label>
+                        <input class="rating__input" name="rating" id="rating-2" value="2" type="radio">
+                        <label aria-label="3 stars" class="rating__label" for="rating-3">
+                            <i class="rating__icon rating__icon--star fa fa-star"></i>
+                        </label>
+                        <input class="rating__input" name="rating" id="rating-3" value="3" type="radio">
+                        <label aria-label="4 stars" class="rating__label" for="rating-4">
+                            <i class="rating__icon rating__icon--star fa fa-star"></i>
+                        </label>
+                        <input class="rating__input" name="rating" id="rating-4" value="4" type="radio">
+                        <label aria-label="5 stars" class="rating__label" for="rating-5">
+                            <i class="rating__icon rating__icon--star fa fa-star"></i>
+                        </label>
+                        <input class="rating__input" name="rating" id="rating-5" value="5" type="radio" checked>
                     </div>
                     <div class="form-group">
                         <input type="text" name="name" class="form-control" placeholder="Name" required>
