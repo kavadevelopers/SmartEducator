@@ -70,6 +70,14 @@
                             </a>
                         </li>
                     <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(17)){ ?>
+                        <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['students'])[2] ?>">
+                            <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/students') ?>">
+                                <span class="pcoded-micon"><i class="fa fa-users"></i></span>
+                                <span class="pcoded-mtext">Manage Students</span>
+                            </a>
+                        </li>
+                    <?php } ?>
                     <div class="pcoded-navigatio-lavel"></div>
                     <?php if(App\Http\Controllers\admin\BaseController::checkRight(10)){ ?>
                         <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['sticky'])[2] ?>">

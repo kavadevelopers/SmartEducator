@@ -288,6 +288,23 @@ function excelAlowed(input) {
     }
 }
 
+function maxSizeFile(input) {
+    if (input.files && input.files[0]) {
+        
+        var FileSize = input.files[0].size / 1024 / 1024; // in MB
+        var extension = input.files[0].name.substring(input.files[0].name.lastIndexOf('.')+1);
+        
+        if (FileSize > 2) {
+            alert("Maxiumum Image Size Is 2 Mb.");
+            input.value = '';
+            return false;
+        }
+        else{
+            
+        }
+    }
+}
+
 function readFileImage(input) {
     if (input.files && input.files[0]) {
         

@@ -195,6 +195,8 @@ Route::post('/savecontact', 'HomeController@saveContactForm');
 	Route::post('/admin/leads/status', 'admin\LeadsController@status');
 	Route::get('/admin/leads/edit/{id}', 'admin\LeadsController@edit');
 	Route::get('/admin/leads/view/{id}', 'admin\LeadsController@view');
+	Route::get('/admin/leads/export', 'admin\LeadsController@export');
+	Route::post('/admin/leads/import', 'admin\LeadsController@import');
 	Route::get('/admin/leads/{id}', 'admin\LeadsController@delete');
 	//leads routes
 
@@ -208,4 +210,15 @@ Route::post('/savecontact', 'HomeController@saveContactForm');
 	Route::get('/admin/employee/{id}', 'admin\EmployeeController@delete');
 
 	//eployee routes
+
+
+	//students routes
+	Route::get('/admin/students', 'admin\StudentsController@list');
+	Route::get('/admin/students/add', 'admin\StudentsController@add');
+	Route::post('/admin/students/add', 'admin\StudentsController@save');
+	Route::get('/admin/students/edit/{id}', 'admin\StudentsController@edit');
+	Route::post('/admin/students/edit', 'admin\StudentsController@update');
+	Route::get('/admin/students/view/{id}', 'admin\StudentsController@view');
+	Route::get('/admin/students/{id}', 'admin\StudentsController@delete');
+	//students routes
 

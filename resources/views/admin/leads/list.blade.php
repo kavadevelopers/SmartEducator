@@ -13,6 +13,12 @@
             </div>
             <div class="col-md-6 text-right">
                 <?php if ($type == "list") { ?>
+                    <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/export/') ?>" class="btn btn-success btn-mini">
+                        <i class="fa fa-download"></i> Export
+                    </a>
+                    <a href="#" class="btn btn-warning btn-mini" data-toggle="modal" data-target="#importCsv">
+                        <i class="fa fa-upload"></i> Import
+                    </a>
                     <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/add') ?>" class="btn btn-primary btn-mini">
                         <i class="fa fa-plus"></i> Add
                     </a>
@@ -32,7 +38,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-block table-responsive">
-                            <table class="table table-bordered table-mini table-dt">
+                            <table class="table table-bordered table-mini table-leads">
                                 <thead>
                                     <tr>
                                         <th class="text-center">Sr. No.</th>
@@ -40,6 +46,9 @@
                                         <th>Mobile</th>
                                         <th>Email</th>
                                         <th class="text-center">Status</th>
+                                        <?php if(Session::get('AdminId') == "1"){ ?>
+                                            <th>Employee</th>   
+                                        <?php } ?>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -53,6 +62,13 @@
                                             <td class="text-center">
                                                 <?= ucfirst($value->status) ?>
                                             </td>
+                                            <?php if(Session::get('AdminId') == "1"){ ?>
+                                                <td>
+                                                    <?php if($value->cby != ""){ ?>
+                                                        <small><?= DB::table('z_user')->where('id',$value->cby)->first()->name ?></small>
+                                                    <?php } ?>
+                                                </td>
+                                            <?php } ?>
                                             <td class="text-center">
                                                 <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/view/'.$value->id) ?>" class="btn btn-success btn-mini" title="View">
                                                     <i class="fa fa-eye"></i>
@@ -114,6 +130,31 @@
                 </div>
             </form>
         </div>
+        <div class="modal fade" id="importCsv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <form method="post" action="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/import/') ?>" enctype="multipart/form-data">
+            {{ csrf_field() }}
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="background: #f6f7f9;">
+                        <div class="modal-header">
+                            <h5 class="modal-title" style="color: #1d262d;">Import Leads</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="file" name="file" class="form-control" required>
+                                <a href="<?= URL::to('/') ?>/public/templates/LeadsImportTemplate.csv" target="_blank" download>Download Import Template</a>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Import</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
         <script type="text/javascript">
             $(function(){
                 $(document).on('click','.btn-statuschange', function(e){
@@ -128,6 +169,40 @@
                 });
             })
         </script>
+        <script type="text/javascript">
+            $(function(){
+                dtTableMain = $('.table-leads').DataTable({
+                    "dom": "<'row'<'col-md-4'l><'col-md-4 dtCusFilKava'><'col-md-4'f>><'row'<'col-md-12't>><'row'<'col-md-6'i><'col-md-6'p>>",
+                    order : [],
+                    "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
+                    "deferRender": true,
+                    initComplete: function() {
+                        $('.dtCusFilKava').html('<p id="selectTriggerFilter">Status Filter: </p>');
+                        var column = this.api().column(4);
+                        var select = $('<select class="form-control input-sm select-dt-filter"><option value="">Show All</option></select>')
+                        .appendTo('#selectTriggerFilter')
+                        .on('change', function() {
+                            var val = $(this).val();
+                            column.search(val ? '^' + $(this).val() + '$' : val, true, false).draw();
+                        });
+                        column.data().unique().sort().each(function(d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>');
+                        });
+                    }
+                }).on( 'draw', function () {
+                    var body = $( dtTableMain.table().body() );
+             
+                    body.unhighlight();
+                    body.highlight( dtTableMain.search() );  
+                });
+            })
+        </script>
+        <style type="text/css">
+            .select-dt-filter{
+                width: auto;
+                display: inline;
+            }
+        </style>
     <?php }else if ($type == "add") { ?>
         <div class="page-body">
             <form method="post" action="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/add') ?>" enctype="multipart/form-data">
@@ -201,6 +276,21 @@
                                 <textarea name="remarks" type="text" class="form-control" value="<?= old("remarks") ?>" placeholder="Remarks"></textarea>
                             </div>
                         </div> 
+                        <?php if(Session::get('AdminId') == '1'){ ?>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Employee</label>
+                                    <select class="form-control" name="employee" >
+                                        <option value="">-- Select Employee --</option>
+                                        <?php foreach(DB::table('z_user')->where('id','!=','1')->get() as $val){ ?>
+                                            <option value="<?= $val->id ?>"><?= $val->name ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        <?php }else{ ?>
+                            <input type="hidden" name="employee" value="<?= Session::get('AdminId') ?>">
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="card-footer text-right">
@@ -288,6 +378,21 @@
                                 <textarea name="remarks" type="text" class="form-control" placeholder="Remarks"><?= old("remarks",$item->remarks) ?></textarea>
                             </div>
                         </div> 
+                        <?php if(Session::get('AdminId') == '1'){ ?>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Employee</label>
+                                    <select class="form-control" name="employee" >
+                                        <option value="">-- Select Employee --</option>
+                                        <?php foreach(DB::table('z_user')->where('id','!=','1')->get() as $val){ ?>
+                                            <option value="<?= $val->id ?>" <?= $item->cby==$val->id?'selected':'' ?>><?= $val->name ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        <?php }else{ ?>
+                            <input type="hidden" name="employee" value="<?= Session::get('AdminId') ?>">
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="card-footer text-right">
@@ -369,6 +474,14 @@
                                                                 <tr>
                                                                     <th scope="row">REMARK</th>
                                                                     <td><?= $item->remarks ?></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">Employee</th>
+                                                                    <td>
+                                                                        <?php if($item->cby != ""){ ?>
+                                                                            <?= DB::table('z_user')->where('id',$item->cby)->first()->name ?>
+                                                                        <?php } ?>
+                                                                    </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th scope="row">At</th>

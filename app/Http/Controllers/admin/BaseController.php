@@ -8,6 +8,7 @@ use Request;
 use DB;
 use Response;
 use Session;
+use URL;
 use PHPMailer\PHPMailer;
 
 class BaseController extends Controller
@@ -16,6 +17,19 @@ class BaseController extends Controller
 	public function __construct()
 	{
 		
+	}
+
+	public static function studentAttchment($row,$key)
+	{
+		if ($row->$key != "") {
+			if (file_exists(public_path().'/uploads/students/'.$row->$key)) {
+				return '<a href="'.URL::to('/').'/public/uploads/students/'.$row->$key.'" target="_blank" download><span style="color:green;">Download File</span></a>';
+			}else{
+				return '<span style="color:red;">Not Uploaded</span>';	
+			}
+		}else{
+			return '<span style="color:red;">Not Uploaded</span>';
+		}
 	}
 
 	public function retJson($array)
