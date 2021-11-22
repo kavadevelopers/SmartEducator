@@ -9,6 +9,7 @@ use DB;
 use Response;
 use Session;
 use URL;
+use Carbon;
 use PHPMailer\PHPMailer;
 
 class BaseController extends Controller
@@ -19,11 +20,43 @@ class BaseController extends Controller
 		
 	}
 
+	public static function dateParse($item)
+	{
+		$date = date('Y-m-d');
+		if (!empty($item)) {
+			$dobCarbon = Carbon::parse($item);
+			$date = $dobCarbon->format('Y-m-d');
+		}
+		return $date;
+	}
+
+	public static function checkColumn($item)
+	{
+		$ret = "";
+		if (!empty($item)) {
+			$ret = $item;
+		}
+		return $ret;
+	}
+
 	public static function studentAttchment($row,$key)
 	{
 		if ($row->$key != "") {
 			if (file_exists(public_path().'/uploads/students/'.$row->$key)) {
 				return '<a href="'.URL::to('/').'/public/uploads/students/'.$row->$key.'" target="_blank" download><span style="color:green;">Download File</span></a>';
+			}else{
+				return '<span style="color:red;">Not Uploaded</span>';	
+			}
+		}else{
+			return '<span style="color:red;">Not Uploaded</span>';
+		}
+	}
+
+	public static function employeeAttchment($row,$key)
+	{
+		if ($row->$key != "") {
+			if (file_exists(public_path().'/uploads/all/'.$row->$key)) {
+				return '<a href="'.URL::to('/').'/public/uploads/all/'.$row->$key.'" target="_blank" download><span style="color:green;">Download File</span></a>';
 			}else{
 				return '<span style="color:red;">Not Uploaded</span>';	
 			}

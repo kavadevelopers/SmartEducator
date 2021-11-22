@@ -19,7 +19,7 @@
                     </a>
                 <?php } ?>
                 <?php if ($type == "view") { ?>
-                    <a href="#" onclick="window.history.go(-1); return false;" class="btn btn-danger btn-mini">
+                    <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/students') ?>" class="btn btn-danger btn-mini">
                         <i class="fa fa-arrow-left"></i> Back
                     </a>
                 <?php } ?>
@@ -684,7 +684,7 @@
 	                	</div>
 	                </div>
 	                <div class="card-footer text-right">
-	                    <a href="#" onclick="window.history.go(-1); return false;" class="btn btn-danger">
+	                    <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/students') ?>" class="btn btn-danger">
 	                        <i class="fa fa-arrow-left"></i> Back
 	                    </a>
 	                    <button class="btn btn-success" type="submit">
@@ -974,7 +974,7 @@
 	                	</div>
 	                </div>
 	                <div class="card-footer text-right">
-	                    <a href="#" onclick="window.history.go(-1); return false;" class="btn btn-danger">
+	                    <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/students') ?>" class="btn btn-danger">
 	                        <i class="fa fa-arrow-left"></i> Back
 	                    </a>
 	                    <button class="btn btn-success" type="submit">

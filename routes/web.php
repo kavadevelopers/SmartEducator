@@ -207,6 +207,11 @@ Route::post('/savecontact', 'HomeController@saveContactForm');
 	Route::get('/admin/employee/edit/{id}', 'admin\EmployeeController@edit');
 	Route::post('/admin/employee/edit', 'admin\EmployeeController@update');
 	Route::get('/admin/employee/view/{id}', 'admin\EmployeeController@view');
+	Route::get('/admin/employee/export', 'admin\EmployeeController@export');
+	Route::post('/admin/employee/import', 'admin\EmployeeController@import');
+	Route::get('/admin/employee/uploads', 'admin\EmployeeController@uploads');
+	Route::get('/admin/employee/uploads/skip', 'admin\EmployeeController@uploadsSkip');
+	Route::post('/admin/employee/uploads', 'admin\EmployeeController@uploadsSave');
 	Route::get('/admin/employee/{id}', 'admin\EmployeeController@delete');
 
 	//eployee routes

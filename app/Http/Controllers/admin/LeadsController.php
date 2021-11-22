@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use Response;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LeadsController extends BaseController
 {
@@ -21,53 +22,68 @@ class LeadsController extends BaseController
 
 	public function export()
 	{
-		$headers = array(
-	        "Content-type" => "text/csv",
-	        "Content-Disposition" => "attachment; filename=Leads.csv",
-	        "Pragma" => "no-cache",
-	        "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-	        "Expires" => "0"
-	    );
+		Excel::create('LeadsExport-'.date('Y-m-d H:i:s'), function($excel) {	
+			$excel->sheet('Data', function($sheet) {
+				$sheet->cell('A1:M1',function($cell){ $cell->setFontWeight('bold'); $cell->setFontSize(14); });
+				$sheet->cell('A1', function($cell) {$cell->setValue('Sr. No.');   });
+				$sheet->cell('B1', function($cell) {$cell->setValue('Status');   });
+                $sheet->cell('C1', function($cell) {$cell->setValue('Name');   });
+                $sheet->cell('D1', function($cell) {$cell->setValue('Mobile');   });
+                $sheet->cell('E1', function($cell) {$cell->setValue('Email');   });
+                $sheet->cell('F1', function($cell) {$cell->setValue('Address');   });
+                $sheet->cell('G1', function($cell) {$cell->setValue('Previous Qualification');   });
+                $sheet->cell('H1', function($cell) {$cell->setValue('Year of Passing');   });
+                $sheet->cell('I1', function($cell) {$cell->setValue('Enquiry For');   });
+                $sheet->cell('J1', function($cell) {$cell->setValue('DOB');   });
+                $sheet->cell('K1', function($cell) {$cell->setValue('Age');   });
+                $sheet->cell('L1', function($cell) {$cell->setValue('Reference');   });
+                $sheet->cell('M1', function($cell) {$cell->setValue('Remarks');   });
 
-	    $columns = array('Sr. No.', 'Status','Name', 'Mobile', 'Email', 'Address', 'PREVIOUS QUALIFICATION', 'YEAR OF PASSING', 'ENQUIRY FOR', 'DOB', 'Age','REFERENCE','REMARK','At');
+                if(Session::get('AdminId') == "1"){
+					$list 	= DB::table('leads')->orderby('id','asc')->get();
+				}else{
+					$list 	= DB::table('leads')->orderby('id','asc')->where('cby',Session::get('AdminId'))->get();
+				}
 
-	    $callback = function() use ($columns)
-	    {
-	        $file = fopen('php://output', 'w');
-	        fputcsv($file, $columns);
-	        if(Session::get('AdminId') == "1"){
-				$list 	= DB::table('leads')->orderby('id','desc')->get();
-			}else{
-				$list 	= DB::table('leads')->orderby('id','desc')->where('cby',Session::get('AdminId'))->get();
-			}
-	        foreach($list as $item) {
-	            fputcsv($file, array($item->id, $item->status, $item->name, $item->mobile,$item->email,$item->address,$item->quo,$item->passing,$item->enquiry,$item->dob,$item->age,$item->reference,$item->remarks,$item->cat));
-	        }
-	        fclose($file);
-	    };
-	    return Response::stream($callback, 200, $headers);
+				foreach($list as $key => $item) {
+					$i= $key+2;
+					$sheet->cell('A'.$i, $item->id);
+					$sheet->cell('B'.$i, $item->status);
+	                $sheet->cell('C'.$i, $item->name);
+	                $sheet->cell('D'.$i, $item->mobile);
+	                $sheet->cell('E'.$i, $item->email);
+	                $sheet->cell('F'.$i, $item->address);
+	                $sheet->cell('G'.$i, $item->quo);
+	                $sheet->cell('H'.$i, $item->passing);
+	                $sheet->cell('I'.$i, $item->enquiry);
+	                $sheet->cell('J'.$i, $item->dob);
+	                $sheet->cell('K'.$i, $item->age);
+	                $sheet->cell('L'.$i, $item->reference);
+	                $sheet->cell('M'.$i, $item->remarks);
+				}
+			});
+		})->export('xlsx');
 	}
 
 	public function import(Request $rec)
 	{
-		$file = $rec->file('file');
-		$tempPath = $file->getRealPath();
-		if(($handle = fopen($tempPath, 'r')) !== FALSE) {
-			$rows = 0;
-			while(($data = fgetcsv($handle, 0, ',')) !== FALSE) {
-				if($rows > 0){
-					$data = [
-						'name'			=> $data[1]?$data[1]:'',
-						'mobile'		=> $data[2]?$data[2]:'',
-						'email'			=> $data[3]?$data[3]:'',
-						'address'		=> $data[4]?$data[4]:'',
-						'quo'			=> $data[5]?$data[5]:'',
-						'passing'		=> $data[6]?$data[6]:'',
-						'enquiry'		=> $data[7]?$data[7]:'',
-						'dob'			=> date('Y-m-d',strtotime($data[8]?$data[8]:date('Y-m-d'))),
-						'age'			=> $data[9]?$data[9]:'',
-						'reference'		=> $data[10]?$data[10]:'',
-						'remarks'		=> $data[11]?$data[11]:'',
+		if($rec->hasFile('file')){
+			$path = $rec->file('file')->getRealPath();
+			$data = Excel::load($path, function($reader) {})->get();
+			if(!empty($data) && $data->count()){
+				foreach ($data->toArray() as $key => $value) {
+					 $data = [
+						'name'			=> $this->checkColumn($value['name']),
+						'mobile'		=> $this->checkColumn($value['mobile']),
+						'email'			=> $this->checkColumn($value['email']),
+						'address'		=> $this->checkColumn($value['address']),
+						'quo'			=> $this->checkColumn($value['previous_qualification']),
+						'passing'		=> $this->checkColumn($value['year_of_passing']),
+						'enquiry'		=> $this->checkColumn($value['enquiry_for']),
+						'dob'			=> $this->dateParse($value['dob']),
+						'age'			=> $this->checkColumn($value['age']),
+						'reference'		=> $this->checkColumn($value['reference']),
+						'remarks'		=> $this->checkColumn($value['remarks']),
 						'status'		=> 'new',
 						'cat'			=> date('Y-m-d H:i:s')
 					];
@@ -77,18 +93,28 @@ class LeadsController extends BaseController
 					}else{
 						$data['cby']	= Session::get('AdminId');
 					}
-
-					DB::table('leads')->insert($data);	
+					$insert[] = $data;
 				}
-				$rows++;
+
+				if(!empty($insert)){
+					DB::table('leads')->insert($insert);	
+					Session::flash('success', 'Leads Imported'); 
+	    			return Redirect($this->aUrl('/leads'));
+				}else{
+					Session::flash('error', 'No Data Found in File'); 
+	    			return Redirect($this->aUrl('/leads'));	
+				}
+			}else{
+				Session::flash('error', 'No Data Found in File'); 
+	    		return Redirect($this->aUrl('/leads'));
 			}
-			Session::flash('success', 'Leads Imported'); 
-	    	return Redirect($this->aUrl('/leads'));
 		}else{
-			Session::flash('error', 'Not a valid csv file.'); 
+			Session::flash('error', 'Not a valid Excel file.'); 
 	    	return Redirect($this->aUrl('/leads'));
 		}
 	}
+
+	
 
 	public function list()
 	{

@@ -324,6 +324,15 @@ private static $installed = array (
       ),
       'reference' => '9f7a229a69d52506914b4bc61bfdb199d90c5547',
     ),
+    'jeremeamia/superclosure' => 
+    array (
+      'pretty_version' => '2.4.0',
+      'version' => '2.4.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '5707d5821b30b9a07acfb4d76949784aaa0e9ce9',
+    ),
     'kodova/hamcrest-php' => 
     array (
       'replaced' => 
@@ -375,6 +384,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '585824702f534f8d3cf7fab7225e8466cc4b7493',
+    ),
+    'maatwebsite/excel' => 
+    array (
+      'pretty_version' => '2.1.30',
+      'version' => '2.1.30.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'f5540c4ba3ac50cebd98b09ca42e61f926ef299f',
     ),
     'mockery/mockery' => 
     array (
@@ -474,6 +492,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'a5b5c43e50b7fba655f793ad27303cd74c57363c',
+    ),
+    'phpoffice/phpexcel' => 
+    array (
+      'pretty_version' => '1.8.2',
+      'version' => '1.8.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '1441011fb7ecdd8cc689878f54f8b58a6805f870',
     ),
     'phpspec/prophecy' => 
     array (

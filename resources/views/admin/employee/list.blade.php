@@ -13,12 +13,23 @@
             </div>
             <div class="col-md-6 text-right">
                 <?php if ($type == "list") { ?>
+                    <?php if(DB::table('employee')->where('uploads','1')->count() > 0){ ?>
+                        <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/employee/uploads/') ?>" class="btn btn-danger btn-mini">
+                            <i class="fa fa-upload"></i> Pending File Uploads
+                        </a>
+                    <?php } ?>
+                    <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/employee/export/') ?>" class="btn btn-success btn-mini">
+                        <i class="fa fa-download"></i> Export
+                    </a>
+                    <a href="#" class="btn btn-warning btn-mini" data-toggle="modal" data-target="#importCsv">
+                        <i class="fa fa-upload"></i> Import
+                    </a>
                     <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/employee/add') ?>" class="btn btn-primary btn-mini">
                         <i class="fa fa-plus"></i> Add
                     </a>
                 <?php } ?>
                 <?php if ($type == "view") { ?>
-                    <a href="#" onclick="window.history.go(-1); return false;" class="btn btn-danger btn-mini">
+                    <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/employee') ?>" class="btn btn-danger btn-mini">
                         <i class="fa fa-arrow-left"></i> Back
                     </a>
                 <?php } ?>
@@ -69,6 +80,31 @@
                 </div>
 
             </div>
+        </div>
+        <div class="modal fade" id="importCsv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <form method="post" action="<?= App\Http\Controllers\admin\BaseController::aUrl('/employee/import/') ?>" enctype="multipart/form-data">
+            {{ csrf_field() }}
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="background: #f6f7f9;">
+                        <div class="modal-header">
+                            <h5 class="modal-title" style="color: #1d262d;">Import Employee</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="file" name="file" class="form-control" onchange="readFileExcel(this)" required>
+                                <a href="<?= URL::to('/') ?>/public/templates/EmployeesImportTemplate.xlsx" target="_blank" download>Download Import Template</a>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Import</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     <?php } ?>
     <?php if ($type == "view") { ?>
@@ -146,6 +182,18 @@
                                                                     <th scope="row">Photo</th>
                                                                     <td>
                                                                         <img src="<?= URL::asset("public/uploads/all/".$item->photo) ?>" style="width: 150px;">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">CV ATACHMENT</th>
+                                                                    <td>
+                                                                        <?= App\Http\Controllers\admin\BaseController::employeeAttchment($item,'cv') ?>        
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">AGREEMENT DOCUMENT</th>
+                                                                    <td>
+                                                                        <?= App\Http\Controllers\admin\BaseController::employeeAttchment($item,'agreement') ?>     
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -245,6 +293,10 @@
                                                                 <tr>
                                                                     <th scope="row">STATUTAORY BONOUS</th>
                                                                     <td><?= $item->sbonus ?></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">FLEXI PAY</th>
+                                                                    <td><?= $item->flexi ?></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th scope="row">SHIFT ALLOWANCE</th>
@@ -446,6 +498,18 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
+                                <label>CV ATACHMENT </label>
+                                <input name="cv" type="file" class="form-control" onchange="maxSizeFile(this)" placeholder="Name" >
+                            </div>
+                        </div> 
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>AGREEMENT DOCUMENT </label>
+                                <input name="agreement" type="file" onchange="maxSizeFile(this)" class="form-control" placeholder="Name" >
+                            </div>
+                        </div> 
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 <label>PREVIOUS COMPANY <span class="-req">*</span></label>
                                 <input name="company" type="text" class="form-control" value="<?= old("company") ?>" placeholder="PREVIOUS COMPANY" required>
                             </div>
@@ -466,6 +530,12 @@
                             <div class="form-group">
                                 <label>STATUTAORY BONOUS <span class="-req">*</span></label>
                                 <input name="sbonus" type="text" class="form-control decimal-num" value="<?= old("sbonus") ?>" placeholder="STATUTAORY BONOUS" required>
+                            </div>
+                        </div> 
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>FLEXI PAY <span class="-req">*</span></label>
+                                <input name="flexi" type="text" class="form-control decimal-num" value="<?= old("flexi") ?>" placeholder="FLEXI PAY" required>
                             </div>
                         </div> 
                         <div class="col-md-3">
@@ -526,7 +596,7 @@
                     </div>
                 </div>
                 <div class="card-footer text-right">
-                    <a href="#" onclick="window.history.go(-1); return false;" class="btn btn-danger">
+                    <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/employee') ?>" class="btn btn-danger">
                         <i class="fa fa-arrow-left"></i> Back
                     </a>
                     <button class="btn btn-success" type="submit">
@@ -551,6 +621,7 @@
                             <div class="form-group">
                                 <label>Photo</label>
                                 <input name="photo" type="file" class="form-control" onchange="readFileImage(this)" placeholder="Name">
+                                <p><?= App\Http\Controllers\admin\BaseController::employeeAttchment($item,'photo') ?></p>
                             </div>
                         </div> 
                         <div class="col-md-3">
@@ -671,6 +742,20 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
+                                <label>CV ATACHMENT </label>
+                                <input name="cv" type="file" onchange="maxSizeFile(this)" class="form-control" placeholder="Name" >
+                                <p><?= App\Http\Controllers\admin\BaseController::employeeAttchment($item,'cv') ?></p>
+                            </div>
+                        </div> 
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>AGREEMENT DOCUMENT </label>
+                                <input name="agreement" type="file" onchange="maxSizeFile(this)" class="form-control" placeholder="Name" >
+                                <p><?= App\Http\Controllers\admin\BaseController::employeeAttchment($item,'agreement') ?></p>
+                            </div>
+                        </div> 
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 <label>PREVIOUS COMPANY <span class="-req">*</span></label>
                                 <input name="company" type="text" class="form-control" value="<?= old("company",$item->company) ?>" placeholder="PREVIOUS COMPANY" required>
                             </div>
@@ -691,6 +776,12 @@
                             <div class="form-group">
                                 <label>STATUTAORY BONOUS <span class="-req">*</span></label>
                                 <input name="sbonus" type="text" class="form-control decimal-num" value="<?= old("sbonus",$item->sbonus) ?>" placeholder="STATUTAORY BONOUS" required>
+                            </div>
+                        </div> 
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>FLEXI PAY <span class="-req">*</span></label>
+                                <input name="flexi" type="text" class="form-control decimal-num" value="<?= old("flexi",$item->flexi) ?>" placeholder="FLEXI PAY" required>
                             </div>
                         </div> 
                         <div class="col-md-3">
@@ -751,7 +842,7 @@
                     </div>
                 </div>
                 <div class="card-footer text-right">
-                    <a href="#" onclick="window.history.go(-1); return false;" class="btn btn-danger">
+                    <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/employee') ?>" class="btn btn-danger">
                         <i class="fa fa-arrow-left"></i> Back
                     </a>
                     <button class="btn btn-success" type="submit">
