@@ -17,11 +17,16 @@ Route::get('/test', 'HomeController@test');
 
 
 
+
+
 Route::get('/', 'HomeController@index');
+Route::get('/forget-password', 'HomeController@forgetPassword');
+Route::post('/forget-password', 'HomeController@forgetPasswordPost');
 Route::get('/home', 'HomeController@index');
 Route::get('/login', 'HomeController@login');
+Route::get('/logout', 'HomeController@logout');
+Route::post('/login', 'HomeController@loginTry');
 Route::get('/dashboard', 'HomeController@dashboard');
-Route::post('/dashboard', 'HomeController@dashboard');
 Route::get('/about-us', 'HomeController@about');
 Route::get('/university-approvals', 'HomeController@uapprovals');
 Route::get('/blog', 'HomeController@blog');
@@ -32,6 +37,13 @@ Route::get('/course/{id}', 'HomeController@course');
 Route::get('/contact-us', 'HomeController@contact');
 Route::get('/blog/{id}', 'HomeController@vblog');
 Route::get('/{slug}', 'HomeController@page');
+
+Route::post('/profile', 'HomeController@profile');
+Route::post('/uploads', 'HomeController@uploads');
+
+Route::post('/reset-password', 'HomeController@resetPasswordSave');
+Route::get('/reset-password/{id}', 'HomeController@resetPassword');
+
 
 
 Route::post('/savereview', 'HomeController@savereview');

@@ -1183,6 +1183,11 @@ section h3{
       border: none !important;
     border-radius: 11px !important;
     box-shadow: 0 0 9px #ccc;
+    margin-bottom: 10px;
+}
+
+.kava-final-lable{
+    font-size: 17px !important;
 }
 
 .form-check-input {

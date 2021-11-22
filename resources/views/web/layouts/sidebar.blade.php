@@ -17,6 +17,11 @@
 	        <li class="active">
 	            <a class="scroll-link" href="<?= url('home') ?>"><span class="iconify sidebar-icons" data-icon="mdi:home-outline" data-inline="false"></span> Home</a>
 	        </li>
+	        <?php if(Session::has('WebId')){ ?>
+	        	<li>
+		            <a class="scroll-link" href="<?= url('dashboard') ?>"><i class="fa fa-tachometer"></i> Dashboard</a>
+		        </li>
+		    <?php }?>
 	        <li>
 	            <a class="scroll-link" href="<?= url('about-us') ?>"><i class="fa fa-info-circle"></i> About</a>
 	        </li>
@@ -35,10 +40,15 @@
 		            <a class="scroll-link" href="<?= url(''.$value->slug) ?>"><i class="<?= $value->icon ?>"></i> <?= $value->name ?></a>
 		        </li>	        	
 	        <?php } ?>
-
-	        <li>
-	            <a class="scroll-link" href="<?= url('login') ?>"><i class="fa fa-user"></i> Login</a>
-	        </li>
+	        <?php if(Session::has('WebId')){ ?>
+	        	<li>
+		            <a class="scroll-link" href="<?= url('logout') ?>"><i class="fa fa-sign-out"></i> Logout</a>
+		        </li>
+		    <?php }else{ ?>
+		        <li>
+		            <a class="scroll-link" href="<?= url('login') ?>"><i class="fa fa-user"></i> Login</a>
+		        </li>
+		    <?php } ?>
 	        <!-- <li>
 	            <a href="#otherSections" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" role="button" aria-controls="otherSections">
 	                <i class="fas fa-sync"></i>Other sections
@@ -53,9 +63,9 @@
 	            </ul>
 	        </li> -->
 
-	        <li class="copyrights">
+	        <!-- <li class="copyrights">
 	        	Copyright © 2021 Smart Educator. All Rights Reserved.
-	        </li>
+	        </li> -->
 	    </ul>
 	 
 	</nav>

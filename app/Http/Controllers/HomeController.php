@@ -17,12 +17,259 @@ class HomeController extends BaseController
         print_r($this->sendEmail('mehul9921@gmail.com',"Final Email",'this is content'));
     }
 
+    public function forgetPassword()
+    {
+        $data['_title']     = 'Reset Password';
+        return view('web.forgetpassword',$data);       
+    }
 
+    public function forgetPasswordPost(Request $rec)
+    {
+        $user = DB::table('students')->where('email',$rec->email)->first();
+        if ($user) {
+            $token = md5(microtime(true));
+            DB::table('z_user_password')->insert([
+                'user'      => $user->id,
+                'token'     => $token,
+                'used'      => '0'
+            ]);
+            $link = url('').'/reset-password/'.$token;
+            $template = "<p>Hello</p>";
+            $template .= '<p>Use this link for reset your account password <a href="'.$link.'">Click Here</a></p>';
+            $this->sendEmail($user->email,"Reset Password",$template);
+            Session::flash('success', 'Reset Email sent. Please check your email.'); 
+            return Redirect('login');        
+        }else{
+            Session::flash('error', 'Email not registered.'); 
+            return Redirect('forget-password')->withInput();        
+        }
+    }
+
+    public function resetPassword($id)
+    {
+        $item = DB::table('z_user_password')->where('token',$id)->where('used','0')->first();
+        if ($item) {
+            $data['_title']     = 'Reset Password';
+            $data['item']       = $item;
+            return view('web.resetpass',$data);       
+        }else{
+            return Redirect('home');
+        }
+    }
+
+    public function resetPasswordSave(Request $rec)
+    {
+        if ($rec->password == $rec->cpassword) {
+            DB::table('students')->where('id',$rec->id)->update(['password' => $rec->password]);
+            DB::table('z_user_password')->where('token',$rec->token)->update(['used' => '1']);
+            Session::flash('success', 'Password Updated'); 
+            return Redirect('home');
+        }else{
+            Session::flash('error', 'Password and Confirm Password not match.'); 
+            return Redirect::back()->withInput();
+        }
+    }
+
+    public function dashboard()
+    {
+        if (Session::has('WebId')) {
+            $data['_title']     = 'Dashboard';
+            $data['user']       = DB::table('students')->where('id',Session::get('WebId'))->first();
+            return view('web.dashboard',$data);   
+        }else{
+            return Redirect('login');    
+        }
+    }
+
+    public function profile(Request $rec)
+    {
+        DB::table('students')->where('id',Session::get('WebId'))->update(['name' => $rec->name]);
+        if ($rec->password) {
+            DB::table('students')->where('id',Session::get('WebId'))->update(['password' => $rec->password]);
+        }
+
+        Session::flash('success', 'Profile Saved'); 
+        return Redirect('dashboard');        
+    }
+
+    public function uploads(Request $rec)
+    {
+        if ($rec->hasFile('10th')) {
+            $image = $rec->file('10th');
+            $a10th = microtime(true).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/students/');
+            if($image->move($destinationPath, $a10th)){
+                DB::table('students')->where('id',$rec->id)->update(['10th' => $a10th]);
+            }
+        }
+
+        if ($rec->hasFile('12th')) {
+            $image = $rec->file('12th');
+            $a12th = microtime(true).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/students/');
+            if($image->move($destinationPath, $a12th)){
+                DB::table('students')->where('id',$rec->id)->update(['12th' => $a12th]);
+            }
+        }
+
+        if ($rec->hasFile('idproof')) {
+            $image = $rec->file('idproof');
+            $idproof = microtime(true).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/students/');
+            if($image->move($destinationPath, $idproof)){
+                DB::table('students')->where('id',$rec->id)->update(['idproof' => $idproof]);
+            }
+        }
+
+        if ($rec->hasFile('photo')) {
+            $image = $rec->file('photo');
+            $photo = microtime(true).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/students/');
+            if($image->move($destinationPath, $photo)){
+                DB::table('students')->where('id',$rec->id)->update(['photo' => $photo]);
+            }
+        }
+
+        if ($rec->hasFile('ms1')) {
+            $image = $rec->file('ms1');
+            $ms1 = microtime(true).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/students/');
+            if($image->move($destinationPath, $ms1)){
+                DB::table('students')->where('id',$rec->id)->update(['ms1' => $ms1]);
+            }
+        }
+
+        if ($rec->hasFile('ms2')) {
+            $image = $rec->file('ms2');
+            $ms2 = microtime(true).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/students/');
+            if($image->move($destinationPath, $ms2)){
+                DB::table('students')->where('id',$rec->id)->update(['ms2' => $ms2]);
+            }
+        }
+
+        if ($rec->hasFile('ms3')) {
+            $image = $rec->file('ms3');
+            $ms3 = microtime(true).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/students/');
+            if($image->move($destinationPath, $ms3)){
+                DB::table('students')->where('id',$rec->id)->update(['ms3' => $ms3]);
+            }
+        }
+
+        if ($rec->hasFile('ms4')) {
+            $image = $rec->file('ms4');
+            $ms4 = microtime(true).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/students/');
+            if($image->move($destinationPath, $ms4)){
+                DB::table('students')->where('id',$rec->id)->update(['ms4' => $ms4]);
+            }
+        }
+
+        if ($rec->hasFile('ms5')) {
+            $image = $rec->file('ms5');
+            $ms5 = microtime(true).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/students/');
+            if($image->move($destinationPath, $ms5)){
+                DB::table('students')->where('id',$rec->id)->update(['ms5' => $ms5]);
+            }
+        }
+
+        if ($rec->hasFile('ms6')) {
+            $image = $rec->file('ms6');
+            $ms6 = microtime(true).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/students/');
+            if($image->move($destinationPath, $ms6)){
+                DB::table('students')->where('id',$rec->id)->update(['ms6' => $ms6]);
+            }
+        }
+
+        if ($rec->hasFile('migration')) {
+            $image = $rec->file('migration');
+            $migration = microtime(true).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/students/');
+            if($image->move($destinationPath, $migration)){
+                DB::table('students')->where('id',$rec->id)->update(['migration' => $migration]);
+            }
+        }
+
+        if ($rec->hasFile('provisional')) {
+            $image = $rec->file('provisional');
+            $provisional = microtime(true).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/students/');
+            if($image->move($destinationPath, $provisional)){
+                DB::table('students')->where('id',$rec->id)->update(['provisional' => $provisional]);
+            }
+        }
+
+        if ($rec->hasFile('degree')) {
+            $image = $rec->file('degree');
+            $degree = microtime(true).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/students/');
+            if($image->move($destinationPath, $degree)){
+                DB::table('students')->where('id',$rec->id)->update(['degree' => $degree]);
+            }
+        }
+
+        if ($rec->hasFile('transcript')) {
+            $image = $rec->file('transcript');
+            $transcript = microtime(true).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/students/');
+            if($image->move($destinationPath, $transcript)){
+                DB::table('students')->where('id',$rec->id)->update(['transcript' => $transcript]);
+            }
+        }
+
+        if ($rec->hasFile('vl')) {
+            $image = $rec->file('vl');
+            $vl = microtime(true).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/students/');
+            if($image->move($destinationPath, $vl)){
+                DB::table('students')->where('id',$rec->id)->update(['vl' => $vl]);
+            }
+        }
+
+        if ($rec->hasFile('scan')) {
+            $image = $rec->file('scan');
+            $scan = microtime(true).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/students/');
+            if($image->move($destinationPath, $scan)){
+                DB::table('students')->where('id',$rec->id)->update(['scan' => $scan]);
+            }
+        }
+
+        Session::flash('success', 'Documents Saved'); 
+        return Redirect('dashboard');  
+    }
+
+    public function logout()
+    {
+        Session::forget('WebId');
+        Session::flash('success', 'Logout Success');
+        return Redirect('home');        
+    }
 
     public function login()
     {
-        $data['_title']     = 'Login';
+        $data['_title']     = 'Student Login';
         return view('web.login',$data);   
+    }
+
+    public function loginTry(Request $rec)
+    {
+        $user = DB::table('students')->where('email',$rec->email)->first();
+        if ($user) {
+            if ($user->password == $rec->password) {
+                Session::put('WebId',$user->id);
+                return Redirect('dashboard');        
+            }else{
+                Session::flash('error', 'Email and Password do not match.'); 
+                return Redirect('login')->withInput();        
+            }
+        }else{
+            Session::flash('error', 'Email not registered.'); 
+            return Redirect('login')->withInput();        
+        }
     }
 
     public function index()
@@ -119,10 +366,7 @@ class HomeController extends BaseController
         }
     }
 
-    public function dashboard()
-    {
-        return view('web.dashboard');   
-    }
+
 
     public function page($slug)
     {

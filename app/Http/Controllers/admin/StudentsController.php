@@ -510,8 +510,8 @@ class StudentsController extends BaseController
 				'total'					=> $rec->total,
 				'paid'					=> $rec->paid,
 				'balance'				=> $rec->balance,
-				'pending_fees'			=> $rec->pending_fees?$rec->pending_fees:'',
-				'noofinstalllment'		=> $rec->noofinstalllment?$rec->noofinstalllment:'',
+				'pending_fees'			=> $this->checkNumColumn($rec->pending_fees),
+				'noofinstalllment'		=> $this->checkNumColumn($rec->noofinstalllment),
 				'remarks'				=> $rec->remarks?$rec->remarks:'',
 				'_problem'				=> $rec->problem?$rec->problem:''
 			];
@@ -708,8 +708,8 @@ class StudentsController extends BaseController
 				'total'					=> $rec->total,
 				'paid'					=> $rec->paid,
 				'balance'				=> $rec->balance,
-				'pending_fees'			=> $rec->pending_fees?$rec->pending_fees:'',
-				'noofinstalllment'		=> $rec->noofinstalllment?$rec->noofinstalllment:'',
+				'pending_fees'			=> $this->checkNumColumn($rec->pending_fees),
+				'noofinstalllment'		=> $this->checkNumColumn($rec->noofinstalllment),
 				'remarks'				=> $rec->remarks?$rec->remarks:'',
 				'_problem'				=> $rec->problem?$rec->problem:'',
 				'10th'					=> $a10th,
