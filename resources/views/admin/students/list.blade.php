@@ -14,6 +14,17 @@
             </div>
             <div class="col-md-6 text-right">
                 <?php if ($type == "list") { ?>
+                    <?php if(DB::table('students')->where('uploads','1')->count() > 0){ ?>
+                        <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/students/uploads/') ?>" class="btn btn-danger btn-mini">
+                            <i class="fa fa-upload"></i> Pending File Uploads
+                        </a>
+                    <?php } ?>
+                    <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/students/export/') ?>" class="btn btn-success btn-mini">
+                        <i class="fa fa-download"></i> Export
+                    </a>
+                    <a href="#" class="btn btn-warning btn-mini" data-toggle="modal" data-target="#importCsv">
+                        <i class="fa fa-upload"></i> Import
+                    </a>
                     <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/students/add') ?>" class="btn btn-primary btn-mini">
                         <i class="fa fa-plus"></i> Add
                     </a>
@@ -70,6 +81,31 @@
                 </div>
 
             </div>
+        </div>
+        <div class="modal fade" id="importCsv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <form method="post" action="<?= App\Http\Controllers\admin\BaseController::aUrl('/students/import/') ?>" enctype="multipart/form-data">
+            {{ csrf_field() }}
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="background: #f6f7f9;">
+                        <div class="modal-header">
+                            <h5 class="modal-title" style="color: #1d262d;">Import Students</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="file" name="file" class="form-control" onchange="readFileExcel(this)" required>
+                                <a href="<?= URL::to('/') ?>/public/templates/StudentsImportTemplate.xlsx" target="_blank" download>Download Import Template</a>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Import</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     <?php } ?>
     <?php if ($type == "view") { ?>

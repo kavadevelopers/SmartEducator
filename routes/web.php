@@ -224,6 +224,13 @@ Route::post('/savecontact', 'HomeController@saveContactForm');
 	Route::get('/admin/students/edit/{id}', 'admin\StudentsController@edit');
 	Route::post('/admin/students/edit', 'admin\StudentsController@update');
 	Route::get('/admin/students/view/{id}', 'admin\StudentsController@view');
+	Route::get('/admin/students/export', 'admin\StudentsController@export');
+	Route::post('/admin/students/import', 'admin\StudentsController@import');
+	Route::get('/admin/students/uploads', 'admin\StudentsController@uploads');
+	Route::get('/admin/students/uploads/skip', 'admin\StudentsController@uploadsSkip');
+	Route::post('/admin/students/uploads', 'admin\StudentsController@uploadsSave');
+
+
 	Route::get('/admin/students/{id}', 'admin\StudentsController@delete');
 	//students routes
 

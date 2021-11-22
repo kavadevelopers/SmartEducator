@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 use Illuminate\Http\Request;
 use DB;
 use Session;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StudentsController extends BaseController
 {
@@ -19,9 +20,288 @@ class StudentsController extends BaseController
 	   	});
 	}
 
+	public function uploads()
+	{
+		$data['_title'] = 'Upload Students Files';
+		$data['list'] 	= DB::table('students')->where('uploads','1')->get();
+		return view('admin.students.uploads',$data);
+	}
+
+	public function uploadsSkip()
+	{
+		Session::flash('success', 'Uploads are skipped.'); 
+	    return Redirect($this->aUrl('/students'));	
+	}
+
+	public function uploadsSave(Request $rec)
+	{
+		// echo "<pre>";
+		// print_r($rec->all());
+		// exit;
+
+
+		foreach ($rec->id as $key => $value) {
+			if (isset($rec->a10th[$key])) {
+		        $image = $rec->file('a10th')[$key];
+		        $a10th = microtime(true).'.'.$image->getClientOriginalExtension();
+		        $destinationPath = public_path('uploads/students/');
+		        if($image->move($destinationPath, $a10th)){
+		        	DB::table('students')->where('id',$value)->update(['10th' => $a10th]);
+		        }
+		    }			
+		    if (isset($rec->a12th[$key])) {
+		        $image = $rec->file('a12th')[$key];
+		        $a12th = microtime(true).'.'.$image->getClientOriginalExtension();
+		        $destinationPath = public_path('uploads/students/');
+		        if($image->move($destinationPath, $a12th)){
+		        	DB::table('students')->where('id',$value)->update(['12th' => $a12th]);
+		        }
+		    }	
+		    if (isset($rec->idproof[$key])) {
+		        $image = $rec->file('idproof')[$key];
+		        $idproof = microtime(true).'.'.$image->getClientOriginalExtension();
+		        $destinationPath = public_path('uploads/students/');
+		        if($image->move($destinationPath, $idproof)){
+		        	DB::table('students')->where('id',$value)->update(['idproof' => $idproof]);
+		        }
+		    }
+		    if (isset($rec->photo[$key])) {
+		        $image = $rec->file('photo')[$key];
+		        $photo = microtime(true).'.'.$image->getClientOriginalExtension();
+		        $destinationPath = public_path('uploads/students/');
+		        if($image->move($destinationPath, $photo)){
+		        	DB::table('students')->where('id',$value)->update(['photo' => $photo]);
+		        }
+		    }
+		    if (isset($rec->ms1[$key])) {
+		        $image = $rec->file('ms1')[$key];
+		        $ms1 = microtime(true).'.'.$image->getClientOriginalExtension();
+		        $destinationPath = public_path('uploads/students/');
+		        if($image->move($destinationPath, $ms1)){
+		        	DB::table('students')->where('id',$value)->update(['ms1' => $ms1]);
+		        }
+		    }	
+		    if (isset($rec->ms2[$key])) {
+		        $image = $rec->file('ms2')[$key];
+		        $ms2 = microtime(true).'.'.$image->getClientOriginalExtension();
+		        $destinationPath = public_path('uploads/students/');
+		        if($image->move($destinationPath, $ms2)){
+		        	DB::table('students')->where('id',$value)->update(['ms2' => $ms2]);
+		        }
+		    }	
+		    if (isset($rec->ms3[$key])) {
+		        $image = $rec->file('ms3')[$key];
+		        $ms3 = microtime(true).'.'.$image->getClientOriginalExtension();
+		        $destinationPath = public_path('uploads/students/');
+		        if($image->move($destinationPath, $ms3)){
+		        	DB::table('students')->where('id',$value)->update(['ms3' => $ms3]);
+		        }
+		    }
+		    if (isset($rec->ms4[$key])) {
+		        $image = $rec->file('ms4')[$key];
+		        $ms4 = microtime(true).'.'.$image->getClientOriginalExtension();
+		        $destinationPath = public_path('uploads/students/');
+		        if($image->move($destinationPath, $ms4)){
+		        	DB::table('students')->where('id',$value)->update(['ms4' => $ms4]);
+		        }
+		    }
+		    if (isset($rec->ms5[$key])) {
+		        $image = $rec->file('ms5')[$key];
+		        $ms5 = microtime(true).'.'.$image->getClientOriginalExtension();
+		        $destinationPath = public_path('uploads/students/');
+		        if($image->move($destinationPath, $ms5)){
+		        	DB::table('students')->where('id',$value)->update(['ms5' => $ms5]);
+		        }
+		    }
+		    if (isset($rec->ms6[$key])) {
+		        $image = $rec->file('ms6')[$key];
+		        $ms6 = microtime(true).'.'.$image->getClientOriginalExtension();
+		        $destinationPath = public_path('uploads/students/');
+		        if($image->move($destinationPath, $ms6)){
+		        	DB::table('students')->where('id',$value)->update(['ms6' => $ms6]);
+		        }
+		    }
+		    if (isset($rec->migration[$key])) {
+		        $image = $rec->file('migration')[$key];
+		        $migration = microtime(true).'.'.$image->getClientOriginalExtension();
+		        $destinationPath = public_path('uploads/students/');
+		        if($image->move($destinationPath, $migration)){
+		        	DB::table('students')->where('id',$value)->update(['migration' => $migration]);
+		        }
+		    }
+		    if (isset($rec->provisional[$key])) {
+		        $image = $rec->file('provisional')[$key];
+		        $provisional = microtime(true).'.'.$image->getClientOriginalExtension();
+		        $destinationPath = public_path('uploads/students/');
+		        if($image->move($destinationPath, $provisional)){
+		        	DB::table('students')->where('id',$value)->update(['provisional' => $provisional]);
+		        }
+		    }
+		    if (isset($rec->degree[$key])) {
+		        $image = $rec->file('degree')[$key];
+		        $degree = microtime(true).'.'.$image->getClientOriginalExtension();
+		        $destinationPath = public_path('uploads/students/');
+		        if($image->move($destinationPath, $degree)){
+		        	DB::table('students')->where('id',$value)->update(['degree' => $degree]);
+		        }
+		    }	
+		    if (isset($rec->transcript[$key])) {
+		        $image = $rec->file('transcript')[$key];
+		        $transcript = microtime(true).'.'.$image->getClientOriginalExtension();
+		        $destinationPath = public_path('uploads/students/');
+		        if($image->move($destinationPath, $transcript)){
+		        	DB::table('students')->where('id',$value)->update(['transcript' => $transcript]);
+		        }
+		    }
+		    if (isset($rec->vl[$key])) {
+		        $image = $rec->file('vl')[$key];
+		        $vl = microtime(true).'.'.$image->getClientOriginalExtension();
+		        $destinationPath = public_path('uploads/students/');
+		        if($image->move($destinationPath, $vl)){
+		        	DB::table('students')->where('id',$value)->update(['vl' => $vl]);
+		        }
+		    }
+		    if (isset($rec->scan[$key])) {
+		        $image = $rec->file('scan')[$key];
+		        $scan = microtime(true).'.'.$image->getClientOriginalExtension();
+		        $destinationPath = public_path('uploads/students/');
+		        if($image->move($destinationPath, $scan)){
+		        	DB::table('students')->where('id',$value)->update(['scan' => $scan]);
+		        }
+		    }			
+		}
+
+		DB::table('students')->update(['uploads' => '0']);
+
+		Session::flash('success', 'Successfully Uploaded'); 
+	    return Redirect($this->aUrl('/students'));		
+	}
+
+	public function import(Request $rec)
+	{
+		if($rec->hasFile('file')){
+			$path = $rec->file('file')->getRealPath();
+			$data = Excel::load($path, function($reader) {})->get();
+			if(!empty($data) && $data->count()){
+				// echo "<pre>";
+				// print_r($data);exit;
+				foreach ($data->toArray() as $key => $value) {
+					$data = [
+						'name'					=> $this->checkColumn($value['name']),
+						'email'					=> "",
+						'password'				=> "",
+						'batch'					=> $this->checkColumn($value['batch']),
+						'mobile'				=> $this->checkColumn($value['mobile']),
+						'mobile2'				=> $this->checkColumn($value['mobile_2']),
+						'mobile3'				=> $this->checkColumn($value['mobile_3']),
+						'counselor'				=> $this->checkColumn($value['counselor']),
+						'adfor'					=> $this->checkColumn($value['admission_for']),
+						'dob'					=> $this->dateParse($value['dob']),
+						'father'				=> $this->checkColumn($value['father']),
+						'mother'				=> $this->checkColumn($value['mother']),
+						'regno'					=> $this->checkColumn($value['reg_no.']),
+						'address'				=> $this->checkColumn($value['address']),
+						'total'					=> $this->checkNumColumn($value['total']),
+						'paid'					=> $this->checkNumColumn($value['paid']),
+						'balance'				=> $this->checkNumColumn($value['balance']),
+						'pending_fees'			=> $this->checkNumColumn($value['pending_fees']),
+						'noofinstalllment'		=> $this->checkNumColumn($value['no._of_installments']),
+						'remarks'				=> $this->checkColumn($value['other']),
+						'_problem'				=> $this->checkColumn($value['problem']),
+						'10th'					=> "",
+						'12th'					=> "",
+						'idproof'				=> "",
+						'photo'					=> "",
+						'ms1'					=> "",
+						'ms2'					=> "",
+						'ms3'					=> "",
+						'ms4'					=> "",
+						'ms5'					=> "",
+						'ms6'					=> "",
+						'migration'				=> "",
+						'provisional'			=> "",
+						'degree'				=> "",
+						'transcript'			=> "",
+						'vl'					=> "",
+						'scan'					=> "",
+						'catby'					=> Session::get('AdminId'),
+						'cat'					=> date('Y-m-d H:i:s')
+					];
+					$userId = DB::table('students')->insertGetId($data);
+				}
+				Session::flash('success', 'Students Imported'); 
+	    		return Redirect($this->aUrl('/students/uploads'));
+			}else{
+				Session::flash('error', 'No Data Found in File'); 
+	    		return Redirect($this->aUrl('/students'));
+			}
+		}else{
+			Session::flash('error', 'Not a valid Excel file.'); 
+	    	return Redirect($this->aUrl('/students'));
+		}
+	}
+
+	public function export()
+	{
+		Excel::create('StudentExport-'.date('Y-m-d H:i:s'), function($excel) {	
+			$excel->sheet('Data', function($sheet) {
+				$sheet->cell('A1:U1',function($cell){ $cell->setFontWeight('bold'); $cell->setFontSize(14); });
+				$sheet->cell('A1', function($cell) {$cell->setValue('Sr. No.');   });
+				$sheet->cell('B1', function($cell) {$cell->setValue('Batch');   });
+                $sheet->cell('C1', function($cell) {$cell->setValue('Name');   });
+                $sheet->cell('D1', function($cell) {$cell->setValue('Mobile');   });
+                $sheet->cell('E1', function($cell) {$cell->setValue('Mobile 2');   });
+                $sheet->cell('F1', function($cell) {$cell->setValue('Mobile 3');   });
+                $sheet->cell('G1', function($cell) {$cell->setValue('COUNSELOR');   });
+                $sheet->cell('H1', function($cell) {$cell->setValue('ADMISSION FOR');   });
+                $sheet->cell('I1', function($cell) {$cell->setValue('DOB');   });
+                $sheet->cell('J1', function($cell) {$cell->setValue('TOTAL');   });
+                $sheet->cell('K1', function($cell) {$cell->setValue('PAID');   });
+                $sheet->cell('L1', function($cell) {$cell->setValue('BALANCE');   });
+                $sheet->cell('M1', function($cell) {$cell->setValue('Pending Fees');   });
+                $sheet->cell('N1', function($cell) {$cell->setValue('No. of Installments');   });
+                $sheet->cell('O1', function($cell) {$cell->setValue('PROBLEM');   });
+                $sheet->cell('P1', function($cell) {$cell->setValue('OTHER');   });
+                $sheet->cell('Q1', function($cell) {$cell->setValue('FATHER');   });
+                $sheet->cell('R1', function($cell) {$cell->setValue('MOTHER');   });
+                $sheet->cell('S1', function($cell) {$cell->setValue('REG NO.');   });
+                $sheet->cell('T1', function($cell) {$cell->setValue('ADDRESS');   });
+                $sheet->cell('U1', function($cell) {$cell->setValue('EMAIL');   });
+
+
+                $list = DB::table('students')->orderby('id','asc')->get();
+                foreach($list as $key => $item) {
+                	$i= $key+2;
+                	$sheet->cell('A'.$i,$item->id);
+					$sheet->cell('B'.$i,$item->batch);
+	                $sheet->cell('C'.$i,$item->name);
+	                $sheet->cell('D'.$i,$item->mobile);
+	                $sheet->cell('E'.$i,$item->mobile2);
+	                $sheet->cell('F'.$i,$item->mobile3);
+	                $sheet->cell('G'.$i,$item->counselor);
+	                $sheet->cell('H'.$i,$item->adfor);
+	                $sheet->cell('I'.$i,$item->dob);
+	                $sheet->cell('J'.$i,$item->total);
+	                $sheet->cell('K'.$i,$item->paid);
+	                $sheet->cell('L'.$i,$item->balance);
+	                $sheet->cell('M'.$i,$item->pending_fees);
+	                $sheet->cell('N'.$i,$item->noofinstalllment);
+	                $sheet->cell('O'.$i,$item->_problem);
+	                $sheet->cell('P'.$i,$item->remarks);
+	                $sheet->cell('Q'.$i,$item->father);
+	                $sheet->cell('R'.$i,$item->mother);
+	                $sheet->cell('S'.$i,$item->regno);
+	                $sheet->cell('T'.$i,$item->address);
+	                $sheet->cell('U'.$i,$item->email);
+                }
+
+			});
+		})->export('xlsx');
+	}
+
 	public function list()
 	{
-		$data['_title'] = 'Students';
+		$data['_title'] = 'Manage Students';
 		$data['type'] 	= 'list';
 		$data['list'] 	= DB::table('students')->orderby('id','desc')->get();
 		return view('admin.students.list',$data);		

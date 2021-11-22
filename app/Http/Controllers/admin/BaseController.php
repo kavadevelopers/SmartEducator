@@ -39,6 +39,17 @@ class BaseController extends Controller
 		return $ret;
 	}
 
+	public static function checkNumColumn($item)
+	{
+		$ret = 0;
+		if (!empty($item)) {
+			if(preg_replace('/^(\-){0,1}[0-9]+(\.[0-9]+){0,1}/', '', $item) == ""){
+				$ret = $item;
+			}
+		}
+		return $ret;
+	}
+
 	public static function studentAttchment($row,$key)
 	{
 		if ($row->$key != "") {
