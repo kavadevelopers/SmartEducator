@@ -33,8 +33,10 @@ class BaseController extends Controller
 	public static function checkColumn($item)
 	{
 		$ret = "";
-		if (!empty($item)) {
-			$ret = $item;
+		if (isset($item)) {
+			if (!empty($item)) {
+				$ret = $item;
+			}	
 		}
 		return $ret;
 	}
