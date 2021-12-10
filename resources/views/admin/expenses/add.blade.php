@@ -28,6 +28,7 @@
                                     <th class="text-center">Date</th>
                                     <th>Description</th>
                                     <th>Amount</th>
+                                    <th>Remarks</th>
                                     <th class="text-center"></th>
                                 </tr>
                             </thead>
@@ -43,13 +44,16 @@
                                         <input type="text" class="form-control decimal-num" name="amount[]" placeholder="Amount" value="">
                                     </td>
                                     <td>
+                                        <textarea class="form-control" name="notes[]" placeholder="Remarks" value=""></textarea>
+                                    </td>
+                                    <td>
                                          <a href="#" class="btn btn-danger btn-mini remove-row"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>                            
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td class="text-right" colspan="4">
+                                    <td class="text-right" colspan="5">
                                         <a href="#" class="btn btn-primary btn-mini add-row"><i class="fa fa-plus"></i></a>
                                     </td>
                                 </tr>
@@ -88,6 +92,9 @@
                 text += '</td>';
                 text += '<td>';
                     text += '<input type="text" class="form-control decimal-num" name="amount[]" placeholder="Amount" value="">';
+                text += '</td>';
+                text += '<td>';
+                    text += '<textarea class="form-control" name="notes[]" placeholder="Remarks" value=""></textarea>';
                 text += '</td>';
                 text += '<td>';
                     text += '<a href="#" class="btn btn-danger btn-mini remove-row"><i class="fa fa-trash"></i></a>';

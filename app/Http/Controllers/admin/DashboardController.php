@@ -20,7 +20,12 @@ class DashboardController extends BaseController
 
 	public function index()
 	{
-		return view('admin.dashboard');	
+		if(Session::get('AdminId') == "1"){
+			$data['list'] 	= DB::table('leads')->orderby('adate','asc')->where('adate','!=',NULL)->get();
+		}else{
+			$data['list'] 	= DB::table('leads')->orderby('adate','asc')->where('adate','!=',NULL)->where('cby',Session::get('AdminId'))->get();
+		}
+		return view('admin.dashboard',$data);	
 	}
 
 	public function getMessages()

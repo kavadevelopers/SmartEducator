@@ -54,6 +54,9 @@
     <link rel="stylesheet" href="<?= url('public/admin/') ?>/assets/photoswipe/default-skin/default-skin.css"> 
     <script src="<?= url('public/admin/') ?>/assets/photoswipe/photoswipe.min.js"></script> 
     <script src="<?= url('public/admin/') ?>/assets/photoswipe/photoswipe-ui-default.min.js"></script> 
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 
 <body>
@@ -271,6 +274,7 @@
 
     @include('admin.layouts.style')
     @include('admin.layouts.script')
+    @include('admin.layouts.modals')
     <!-- End Style -->
     </body>
 </html>

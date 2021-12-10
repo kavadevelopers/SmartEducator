@@ -155,10 +155,18 @@ Route::post('/savecontact', 'HomeController@saveContactForm');
 
 	//expenses routes
 	Route::get('/admin/expenses', 'admin\ExpensesController@index');
+	Route::post('/admin/expenses', 'admin\ExpensesController@index');
 	Route::get('/admin/expenses/add', 'admin\ExpensesController@add');
 	Route::post('/admin/expenses/save', 'admin\ExpensesController@save');
+	Route::get('/admin/expenses/download/{f}/{t}', 'admin\ExpensesController@download');
 	Route::get('/admin/expenses/{id}', 'admin\ExpensesController@delete');
 	//expenses routes
+
+	//deletereq routes	
+	Route::get('/admin/deletereq', 'admin\SettingsController@deletereq');
+	Route::get('/admin/deletereq/{id}/{st}', 'admin\SettingsController@deletereqStatus');
+
+	//deletereq routes	
 
 	//review routes
 	Route::get('/admin/reviews', 'admin\ReviewController@index');
@@ -201,6 +209,7 @@ Route::post('/savecontact', 'HomeController@saveContactForm');
 
 	//leads routes
 	Route::get('/admin/leads', 'admin\LeadsController@list');
+	Route::post('/admin/leads', 'admin\LeadsController@list');
 	Route::get('/admin/leads/add', 'admin\LeadsController@add');
 	Route::post('/admin/leads/add', 'admin\LeadsController@save');
 	Route::post('/admin/leads/edit', 'admin\LeadsController@update');
@@ -209,6 +218,7 @@ Route::post('/savecontact', 'HomeController@saveContactForm');
 	Route::get('/admin/leads/view/{id}', 'admin\LeadsController@view');
 	Route::get('/admin/leads/export', 'admin\LeadsController@export');
 	Route::post('/admin/leads/import', 'admin\LeadsController@import');
+	Route::post('/admin/leads/assign', 'admin\LeadsController@assign');
 	Route::get('/admin/leads/{id}', 'admin\LeadsController@delete');
 	//leads routes
 
@@ -246,3 +256,11 @@ Route::post('/savecontact', 'HomeController@saveContactForm');
 	Route::get('/admin/students/{id}', 'admin\StudentsController@delete');
 	//students routes
 
+
+//leads routes
+	Route::get('/admin/reference', 'admin\LeadsController@reference');
+	Route::post('/admin/reference/save', 'admin\LeadsController@save_reference');
+	Route::get('/admin/reference/edit/{id}', 'admin\LeadsController@edit_reference');
+	Route::post('/admin/reference/edit', 'admin\LeadsController@update_reference');
+	Route::get('/admin/reference/{id}', 'admin\LeadsController@referenceDel');
+//leads routes

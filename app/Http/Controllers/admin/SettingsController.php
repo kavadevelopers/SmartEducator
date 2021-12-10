@@ -18,6 +18,37 @@ class SettingsController extends BaseController
 	   	});
 	}
 
+	public function deletereqStatus($id,$status)
+	{
+		$item = DB::table('delete_approval')->where('id',$id)->first();
+		if ($status == 1) {
+			if ($item->type == "lead") {
+				DB::table('leads')->where('id',$item->main)->delete();				
+			}else if ($item->type == "expenses") {
+				DB::table('expenses')->where('id',$item->main)->delete();				
+			}else if ($item->type == "employee") {
+				DB::table('z_user')->where('id',$item->main)->update(['df' => 'yes']);
+			}else if ($item->type == "student") {
+				DB::table('students')->where('id',$item->main)->delete();
+			}
+
+			DB::table('delete_approval')->where('id',$id)->delete();
+			Session::flash('success', 'Request Approved'); 
+		}else{
+			DB::table('delete_approval')->where('id',$id)->delete();
+			Session::flash('success', 'Request Rejected'); 
+		}
+
+		return Redirect()->back();
+	}
+
+	public function deletereq()
+	{
+		$data['_title'] = 'Delete Requests';
+		$data['list'] 	= DB::table('delete_approval')->get();
+		return view('admin.settings.deletereq',$data);	
+	}
+
 	public function profile()
 	{
 		$data['_title'] = 'My Profile';	

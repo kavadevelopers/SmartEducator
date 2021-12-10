@@ -325,8 +325,18 @@ class StudentsController extends BaseController
 
 	public function delete($id)
 	{
-		DB::table('students')->where('id',$id)->delete();
-		Session::flash('success', 'Student deleted.'); 
+		
+		if (Session::get('AdminId') == "1") {
+			DB::table('students')->where('id',$id)->delete();
+			Session::flash('success', 'Student deleted.'); 	
+		}else{
+			DB::table('delete_approval')->insert([
+				'type'	=> 'student',
+				'main'	=> $id,
+				'cby'	=> Session::get('AdminId'),
+			]);
+			Session::flash('success', 'Delete Request sent to admin'); 	
+		}
 	    return Redirect($this->aUrl('/students'));
 	}
 

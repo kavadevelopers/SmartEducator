@@ -11,6 +11,12 @@
             "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
         });
 
+        $('.table-dt10').DataTable({
+            "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-12't>><'row'<'col-md-6'i><'col-md-6'p>>",
+            order : [],
+            "aLengthMenu": [[10, 50, 100, -1], [10, 50, 100, "All"]],
+        });
+
         $(document).on('click','.btn-delete', function(e){
 			if(confirm('Are you sure you want to delete this?')){
 				return true;
@@ -24,6 +30,36 @@
 			}
 			return false;
 		});
+
+		$('.dtpickerdemo').flatpickr({
+            enableTime: true,
+            dateFormat: "Y-m-d H:i:S",
+        });
+
+
+		$(document).on('click','.btn-statuschange', function(e){
+            e.preventDefault();
+            data = $(this).data('values');
+            $('#changeStatus').modal('show');
+            $("#changeStatus input[name=eid]").val(data.id);
+            $("#changeStatus select[name=status]").val(data.status);
+            if ($(this).data('adate') != "") {
+                $(".apDateContainer input[name=date]").val($(this).data('adate'));
+            }
+
+            $('#changeStatus select[name=status]').trigger('change');
+        });
+
+        $(document).on('change','#changeStatus select[name=status]', function(e){
+            if ($(this).val() == "Appointment fixed") {
+                $('.apDateContainer').show();
+                $('.apDateContainer input[name=date]').attr('required',true);
+            }else{
+                $('.apDateContainer').hide();
+                $('.apDateContainer input[name=date]').removeAttr('required');
+                $('.apDateContainer input[name=date]').val('');
+            }
+        });    
 
 		$(document).on('click','.photo-swipe', function(event){
             var stringAr = $(this).data('photoswipe').split('+');

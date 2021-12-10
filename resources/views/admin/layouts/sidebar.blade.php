@@ -79,6 +79,24 @@
                         </li>
                     <?php } ?>
                     <div class="pcoded-navigatio-lavel"></div>
+                    <?php if(Session::get('AdminId') == "1"){ ?>
+                        <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['deletereq'])[2] ?>">
+                            <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/deletereq') ?>">
+                                <span class="pcoded-micon"><i class="fa fa-reply"></i></span> 
+                                <span class="pcoded-mtext">Delete Requests</span>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(24)){ ?>
+                        <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['reference'])[2] ?>">
+                            <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/reference') ?>">
+                                <span class="pcoded-micon"><i class="fa fa-files-o"></i></span> 
+                                <span class="pcoded-mtext">Manage Reference</span>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    
+                    <div class="pcoded-navigatio-lavel"></div>
                     <?php if(App\Http\Controllers\admin\BaseController::checkRight(10)){ ?>
                         <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['sticky'])[2] ?>">
                             <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/sticky') ?>">

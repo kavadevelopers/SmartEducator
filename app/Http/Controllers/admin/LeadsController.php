@@ -20,6 +20,65 @@ class LeadsController extends BaseController
 	   	});
 	}
 
+	public function referenceDel($id)
+	{
+		$data = [
+	    	'df'		=> "yes"
+	    ];
+	    DB::table('manage_reference')->where('id',$id)->update($data);	
+
+	    Session::flash('success', 'Reference deleted.'); 
+	    return Redirect()->back();
+	}
+
+	public function reference()
+	{
+		$data['_title'] = 'Manage Reference';
+		$data['list'] 	= DB::table('manage_reference')->where('df','')->get();
+		$data['_e']		= 0;
+		return view('admin.leads.reference',$data);	
+	}
+
+	public function edit_reference($id)
+	{
+		$data['_title'] = 'Manage Reference';
+		$data['list'] 	= DB::table('manage_reference')->where('df','')->get();
+		$data['item'] 	= DB::table('manage_reference')->where('id',$id)->first();
+		$data['_e']		= 1;
+		return view('admin.leads.reference',$data);	
+	}
+
+	public function update_reference(Request $rec)
+	{
+		$data = [
+	    	'name'		=> $rec->name
+	    ];
+	    DB::table('manage_reference')->where('id',$rec->id)->update($data);	
+
+	    Session::flash('success', 'Reference updated.'); 
+	    return Redirect($this->aUrl('/reference'));
+	}
+
+	public function save_reference(Request $rec)
+	{
+		$data = [
+	    	'name'		=> $rec->name,
+	    	'df'		=> ""
+	    ];
+	    DB::table('manage_reference')->insert($data);	
+
+	    Session::flash('success', 'Reference created.'); 
+	    return Redirect()->back();
+	}
+
+	public function assign(Request $rec)
+	{
+		DB::table('leads')->whereIn('id',explode(',', $rec->leads))->update(['cby' => $rec->employee]);
+
+		Session::flash('success', 'Employee Assigned'); 
+	    return Redirect()->back();
+	}
+
 	public function export()
 	{
 		Excel::create('LeadsExport-'.date('Y-m-d H:i:s'), function($excel) {	
@@ -116,16 +175,37 @@ class LeadsController extends BaseController
 
 	
 
-	public function list()
+	public function list(Request $rec)
 	{
 		$data['_title'] = 'Leads';
 		$data['type'] 	= 'list';
-		if(Session::get('AdminId') == "1"){
-			$data['list'] 	= DB::table('leads')->orderby('id','desc')->get();
-		}else{
-			$data['list'] 	= DB::table('leads')->orderby('id','desc')->where('cby',Session::get('AdminId'))->get();
+		$data['rec'] 	= $rec;
+		$query = DB::table('leads');
+		if ($rec->adate) {
+			$query->where('adate','>=',date('Y-m-d',strtotime($rec->adate)).' 00:00:00');
+			$query->where('adate','<=',date('Y-m-d',strtotime($rec->adate)).' 23:59:59');
 		}
-		return view('admin.leads.list',$data);	
+		if ($rec->status) {
+			$query->where('status',$rec->status);
+		}
+		if ($rec->reference) {
+			$query->where('reference',$rec->reference);
+		}
+		if ($rec->employee) {
+			$query->where('cby',$rec->employee);
+		}
+		if ($rec->from) {
+			$query->where('cat','>',date('Y-m-d',strtotime($rec->from)).' 00:00:00');
+		}
+		if ($rec->to) {
+			$query->where('cat','<',date('Y-m-d',strtotime($rec->to)).' 23:59:59');
+		}
+		if(Session::get('AdminId') == "1"){
+			$data['list'] 	= $query->orderby('id','desc')->get();
+		}else{
+			$data['list'] 	= $query->orderby('id','desc')->where('cby',Session::get('AdminId'))->get();
+		}
+		return view('admin.leads.list',$data);		
 	}
 
 	public function view($id)
@@ -149,14 +229,17 @@ class LeadsController extends BaseController
 		$data = [
 			'lead'			=> $rec->eid,
 			'status'		=> $rec->status,
-			'notes'			=> $rec->notes?$rec->notes:''
+			'notes'			=> $rec->notes?$rec->notes:'',
+			'adate'			=> $rec->date?date('Y-m-d H:i:s',strtotime($rec->date)):NULL,
+			'cat'			=> date('Y-m-d H:i:s'),
+			'cby'			=> Session::get('AdminId')
 		];
 		DB::table('leads_status')->insert($data);
-		DB::table('leads')->where('id',$rec->eid)->update(['status' => $rec->status]);
+		DB::table('leads')->where('id',$rec->eid)->update(['status' => $rec->status,'adate' => $rec->date?date('Y-m-d H:i:s',strtotime($rec->date)):NULL]);
 
 
 		Session::flash('success', 'Lead status changed.'); 
-	    return Redirect($this->aUrl('/leads'));
+	    return Redirect()->back();
 	}
 
 	public function save(Request $rec)
@@ -174,6 +257,7 @@ class LeadsController extends BaseController
 			'reference'		=> $rec->reference?$rec->reference:'',
 			'remarks'		=> $rec->remarks?$rec->remarks:'',
 			'status'		=> 'new',
+			'cby'			=> 	$rec->employee?$rec->employee:'',
 			'cat'			=> date('Y-m-d H:i:s')
 		];
 
@@ -216,8 +300,17 @@ class LeadsController extends BaseController
 
 	public function delete($id)
 	{
-		DB::table('leads')->where('id',$id)->delete();
-		Session::flash('success', 'Lead deleted.'); 
+		if (Session::get('AdminId') == "1") {
+			DB::table('leads')->where('id',$id)->delete();
+			Session::flash('success', 'Lead deleted.'); 	
+		}else{
+			DB::table('delete_approval')->insert([
+				'type'	=> 'lead',
+				'main'	=> $id,
+				'cby'	=> Session::get('AdminId'),
+			]);
+			Session::flash('success', 'Delete Request sent to admin'); 	
+		}
 	    return Redirect($this->aUrl('/leads'));
 	}
 }

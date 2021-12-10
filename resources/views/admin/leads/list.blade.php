@@ -13,35 +13,139 @@
             </div>
             <div class="col-md-6 text-right">
                 <?php if ($type == "list") { ?>
+                    <?php if(Session::get('AdminId') == "1"){ ?>
+                        <a href="#" class="btn btn-success btn-mini btnAssignEmployee">
+                            <i class="fa fa-link"></i> Assign Employee
+                        </a>
+                    <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(19)){ ?>
                     <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/export/') ?>" class="btn btn-success btn-mini">
                         <i class="fa fa-download"></i> Export
                     </a>
+                    <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(18)){ ?>
                     <a href="#" class="btn btn-warning btn-mini" data-toggle="modal" data-target="#importCsv">
                         <i class="fa fa-upload"></i> Import
                     </a>
+                    <?php } ?>
                     <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/add') ?>" class="btn btn-primary btn-mini">
                         <i class="fa fa-plus"></i> Add
                     </a>
                 <?php } ?>
                 <?php if ($type == "view") { ?>
-                    <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads') ?>" class="btn btn-danger btn-mini">
+                    <a href="#" onclick="window.history.go(-1); return false;" class="btn btn-danger btn-mini">
                         <i class="fa fa-arrow-left"></i> Back
                     </a>
                 <?php } ?>
             </div>
         </div>
     </div>
-
+    <?php if ($type == "list") { ?>
+    <div class="row">
+        <div class="col-sm-12">
+            <form method="post" action="{{ App\Http\Controllers\admin\BaseController::aUrl('/leads') }}">
+                {{ csrf_field() }}
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Filter</h5>
+                        <div class="card-header-right">
+                            <ul class="list-unstyled card-option">
+                                <li><i class="feather icon-plus minimize-card"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-block" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Reference</label>
+                                    <select class="form-control" name="reference">
+                                        <option value="">-- Select --</option>
+                                        <?php foreach(DB::table('manage_reference')->where('df','')->get() as $val){ ?>
+                                            <option value="<?= $val->name ?>" <?= $rec->reference&&$rec->reference==$val->name?'selected':'' ?>><?= $val->name ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select class="form-control" name="status">
+                                        <option value="">-- Select Status --</option>
+                                        <option value="new" <?= $rec->status&&$rec->status=='new'?'selected':'' ?>>New</option>
+                                        <option value="Busy" <?= $rec->status&&$rec->status=='Busy'?'selected':'' ?>>Busy</option>
+                                        <option value="Switch off" <?= $rec->status&&$rec->status=='Switch off'?'selected':'' ?>>Switch off</option>
+                                        <option value="Not reachable" <?= $rec->status&&$rec->status=='Not reachable'?'selected':'' ?>>Not reachable</option>
+                                        <option value="Not interested" <?= $rec->status&&$rec->status=='Not interested'?'selected':'' ?>>Not interested</option>
+                                        <option value="Deal closed" <?= $rec->status&&$rec->status=='Deal closed'?'selected':'' ?>>Deal closed</option>
+                                        <option value="Appointment fixed" <?= $rec->status&&$rec->status=='Appointment fixed'?'selected':'' ?>>Appointment fixed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Appointment Date</label>
+                                    <input name="adate" type="text" placeholder="Appointment Date" class="form-control datepicker" value="<?= $rec->adate?$rec->adate:'' ?>">
+                                </div>
+                            </div>
+                            <?php if(Session::get('AdminId') == "1"){ ?>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Employee</label>
+                                    <select class="form-control" name="employee">
+                                        <option value="">-- Select Employee --</option>
+                                        <?php foreach(DB::table('z_user')->where('id','!=','1')->get() as $val){ ?>
+                                            <option value="<?= $val->id ?>" <?= $rec->employee&&$rec->employee==$val->id?'selected':'' ?>><?= $val->name ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <?php } ?>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Create From Date</label>
+                                    <input name="from" type="text" placeholder="From Date" class="form-control datepicker" value="<?= $rec->from?$rec->from:'' ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Create To Date</label>
+                                    <input name="to" type="text" placeholder="To Date" class="form-control datepicker" value="<?= $rec->to?$rec->to:'' ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-right">
+                                <button class="btn btn-warning" type="submit">
+                                    <i class="fa fa-filter"></i> Filter
+                                </button>        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <?php } ?>
     <?php if ($type == "list") { ?>
         <div class="page-body">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-block table-responsive">
-                            <table class="table table-bordered table-mini table-leads">
+                            <table class="table table-bordered table-mini table-dt">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Sr. No.</th>
+                                        <?php if(Session::get('AdminId') == "1"){ ?>
+                                        <th class="text-center">
+                                            <div class="checkbox-fade fade-in-primary d-">
+                                                <label>
+                                                    <input type="checkbox" value="" id="checkedAll" class="">
+                                                    <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                                                    <span class="text-inverse">Select All</span>
+                                                </label>
+                                            </div>
+                                        </th>
+                                        <?php } ?>
+                                        <th>#</th>
                                         <th>Name</th>
                                         <th>Mobile</th>
                                         <th>Email</th>
@@ -49,18 +153,32 @@
                                         <?php if(Session::get('AdminId') == "1"){ ?>
                                             <th>Employee</th>   
                                         <?php } ?>
+                                        <th class="text-center">Created At</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($list as $key => $value) { ?>
                                         <tr>
+                                            <?php if(Session::get('AdminId') == "1"){ ?>
+                                            <td class="text-center">
+                                                <div class="checkbox-fade fade-in-primary d-">
+                                                    <label>
+                                                        <input type="checkbox" name="cus[]" value="<?= $value->id ?>" class="checkSingle">
+                                                        <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <?php } ?>
                                             <td class="text-center"><?= $value->id ?></td>
                                             <td><?= $value->name ?></td>
                                             <td><?= $value->mobile ?></td>
                                             <td><?= $value->email ?></td>
                                             <td class="text-center">
                                                 <?= ucfirst($value->status) ?>
+                                                <?php if($value->status == "Appointment fixed"){ ?>
+                                                    <br><small>At : <?= date('d-m-Y h:i A',strtotime($value->adate)); ?></small>
+                                                <?php } ?>
                                             </td>
                                             <?php if(Session::get('AdminId') == "1"){ ?>
                                                 <td>
@@ -70,16 +188,22 @@
                                                 </td>
                                             <?php } ?>
                                             <td class="text-center">
+                                                <small><?= $value->cat ?></small>
+                                            </td>
+                                            <td class="text-center">
                                                 <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/view/'.$value->id) ?>" class="btn btn-success btn-mini" title="View">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
                                                 <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/edit/'.$value->id) ?>" class="btn btn-primary btn-mini" title="Edit">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                                <br>
+                                                <?php if(App\Http\Controllers\admin\BaseController::isNotDeleteSent($value->id,'lead')){ ?>
                                                 <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/'.$value->id) ?>" class="btn btn-danger btn-mini btn-delete" title="delete">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
-                                                <a href="#" class="btn btn-success btn-mini btn-statuschange" data-values="<?= htmlspecialchars(json_encode($value), ENT_QUOTES, 'UTF-8'); ?>" title="Change Status">
+                                                <?php } ?>
+                                                <a href="#" class="btn btn-success btn-mini btn-statuschange" data-values="<?= htmlspecialchars(json_encode($value), ENT_QUOTES, 'UTF-8'); ?>" data-adate="<?= $value->adate; ?>" title="Change Status">
                                                     <i class="fa fa-check"></i>
                                                 </a>
                                             </td>
@@ -92,43 +216,6 @@
                 </div>
 
             </div>
-        </div>
-        <div class="modal fade" id="changeStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <form method="post" action="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/status/') ?>" enctype="multipart/form-data">
-            {{ csrf_field() }}
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content" style="background: #f6f7f9;">
-                        <div class="modal-header">
-                            <h5 class="modal-title" style="color: #1d262d;">Change Status</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <select class="form-control" name="status" required>
-                                    <option value="">-- Select Status --</option>
-                                    <option value="new">New</option>
-                                    <option value="Busy">Busy</option>
-                                    <option value="Switch off">Switch off</option>
-                                    <option value="Not reachable">Not reachable</option>
-                                    <option value="Not interested">Not interested</option>
-                                    <option value="Deal closed">Deal closed</option>
-                                    <option value="Appointment fixed">Appointment fixed</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <textarea name="notes" rows="5" class="form-control" placeholder="Notes (if any)"></textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Save</button>
-                            <input type="hidden" name="eid">
-                        </div>
-                    </div>
-                </div>
-            </form>
         </div>
         <div class="modal fade" id="importCsv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <form method="post" action="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/import/') ?>" enctype="multipart/form-data">
@@ -157,52 +244,82 @@
         </div>
         <script type="text/javascript">
             $(function(){
-                $(document).on('click','.btn-statuschange', function(e){
-                    e.preventDefault();
-                    data = $(this).data('values');
-                    $('#changeStatus').modal('show');
-                    $("input[name=eid]").val(data.id);
-                    $("select[name=status]").val(data.status);
-                })
-                $('input[type=radio]').change(function(event) {
-                    //alert($(this).val());
-                });
-            })
-        </script>
-        <script type="text/javascript">
-            $(function(){
-                dtTableMain = $('.table-leads').DataTable({
-                    "dom": "<'row'<'col-md-4'l><'col-md-4 dtCusFilKava'><'col-md-4'f>><'row'<'col-md-12't>><'row'<'col-md-6'i><'col-md-6'p>>",
-                    order : [],
-                    "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
-                    "deferRender": true,
-                    initComplete: function() {
-                        $('.dtCusFilKava').html('<p id="selectTriggerFilter">Status Filter: </p>');
-                        var column = this.api().column(4);
-                        var select = $('<select class="form-control input-sm select-dt-filter"><option value="">Show All</option></select>')
-                        .appendTo('#selectTriggerFilter')
-                        .on('change', function() {
-                            var val = $(this).val();
-                            column.search(val ? '^' + $(this).val() + '$' : val, true, false).draw();
+
+                $("#checkedAll").change(function() {
+                    if (this.checked) {
+                        $(".checkSingle").each(function() {
+                            this.checked=true;
                         });
-                        column.data().unique().sort().each(function(d, j) {
-                            select.append('<option value="' + d + '">' + d + '</option>');
+                    } else {
+                        $(".checkSingle").each(function() {
+                            this.checked=false;
                         });
                     }
-                }).on( 'draw', function () {
-                    var body = $( dtTableMain.table().body() );
-             
-                    body.unhighlight();
-                    body.highlight( dtTableMain.search() );  
+                });
+                $(".checkSingle").click(function () {
+                    if ($(this).is(":checked")) {
+                        var isAllChecked = 0;
+
+                        $(".checkSingle").each(function() {
+                            if (!this.checked)
+                                isAllChecked = 1;
+                        });
+
+                        if (isAllChecked == 0) {
+                            $("#checkedAll").prop("checked", true);
+                        }     
+                    }
+                    else {
+                        $("#checkedAll").prop("checked", false);
+                    }
+                });
+
+                $(document).on('click','.btnAssignEmployee', function(e){
+                    if($(".checkSingle:checked").length > 0){
+                        var list = $(".checkSingle:checked").map(function () {
+                            return this.value;
+                        }).get();
+                        $('#bulkEmployeeModal input[name=leads]').val(list.toString());
+                        $('#bulkEmployeeModal').modal('show');
+                        console.log(list.toString());
+                    }else{
+                        PNOTY('please select at least one Lead','error');
+                        return false;    
+                    }
                 });
             })
         </script>
-        <style type="text/css">
-            .select-dt-filter{
-                width: auto;
-                display: inline;
-            }
-        </style>
+        <div class="modal fade" id="bulkEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <form method="post" action="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/assign/') ?>" enctype="multipart/form-data">
+            {{ csrf_field() }}
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="background: #f6f7f9;">
+                        <div class="modal-header">
+                            <h5 class="modal-title" style="color: #1d262d;">Assign Employee</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Select Employee</label>
+                                <select class="form-control" name="employee" required>
+                                    <option value="">-- Select --</option>
+                                    <?php foreach(DB::table('z_user')->where('id','!=','1')->get() as $val){ ?>
+                                        <option value="<?= $val->id ?>"><?= $val->name ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Assign</button>
+                            <input type="hidden" name="leads" >
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     <?php }else if ($type == "add") { ?>
         <div class="page-body">
             <form method="post" action="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/add') ?>" enctype="multipart/form-data">
@@ -266,8 +383,13 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Reference</label>
-                                <textarea name="reference" type="text" class="form-control" value="<?= old("reference") ?>" placeholder="Reference"></textarea>
+                                <label>Reference <span class="-req">*</span></label>
+                                <select class="form-control" name="reference" required>
+                                    <option value="">-- Select --</option>
+                                    <?php foreach(DB::table('manage_reference')->where('df','')->get() as $val){ ?>
+                                        <option value="<?= $val->name ?>"><?= $val->name ?></option>
+                                    <?php } ?>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -368,8 +490,13 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Reference</label>
-                                <textarea name="reference" type="text" class="form-control" placeholder="Reference"><?= old("reference",$item->reference) ?></textarea>
+                                <label>Reference <span class="-req">*</span></label>
+                                <select class="form-control" name="reference" required>
+                                    <option value="">-- Select --</option>
+                                    <?php foreach(DB::table('manage_reference')->where('df','')->get() as $val){ ?>
+                                        <option value="<?= $val->name ?>" <?= $item->reference==$val->name?'selected':'' ?>><?= $val->name ?></option>
+                                    <?php } ?>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -484,7 +611,7 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th scope="row">At</th>
+                                                                    <th scope="row">Created At</th>
                                                                     <td><?= $item->cat ?></td>
                                                                 </tr>
                                                             </tbody>
@@ -494,12 +621,14 @@
                                                 <div class="col-lg-12 col-xl-6">
                                                     <div class="row">
                                                         <?php foreach ($slist as $key => $value): ?>
+                                                            <?php $user = DB::Table('z_user')->where('id',$value->cby)->first(); ?>
                                                             <div class="col-10 col-sm-10 col-xl-11">
                                                                 <div class="card">
                                                                     <div class="card-block">
                                                                         <div class="timeline-details">
-                                                                            <div class="chat-header">{{ $value->status }}</div>
+                                                                            <div class="chat-header">{{ $value->status }}<?= $value->status == 'Appointment fixed'?'<small> -at '.$value->adate.'</small>':'' ?></div>
                                                                             <p class="text-muted">{{ nl2br($value->notes) }}</p>
+                                                                            <p class="text-muted text-right"><small>At : {{ ($value->cat) }} by {{ $user->name }}</small></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>

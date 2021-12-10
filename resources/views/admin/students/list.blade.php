@@ -14,17 +14,23 @@
             </div>
             <div class="col-md-6 text-right">
                 <?php if ($type == "list") { ?>
-                    <?php if(DB::table('students')->where('uploads','1')->count() > 0){ ?>
-                        <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/students/uploads/') ?>" class="btn btn-danger btn-mini">
-                            <i class="fa fa-upload"></i> Pending File Uploads
-                        </a>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(20)){ ?>
+                        <?php if(DB::table('students')->where('uploads','1')->count() > 0){ ?>
+                            <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/students/uploads/') ?>" class="btn btn-danger btn-mini">
+                                <i class="fa fa-upload"></i> Pending File Uploads
+                            </a>
+                        <?php } ?>
                     <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(21)){ ?>
                     <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/students/export/') ?>" class="btn btn-success btn-mini">
                         <i class="fa fa-download"></i> Export
                     </a>
+                    <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(20)){ ?>
                     <a href="#" class="btn btn-warning btn-mini" data-toggle="modal" data-target="#importCsv">
                         <i class="fa fa-upload"></i> Import
                     </a>
+                    <?php } ?>
                     <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/students/add') ?>" class="btn btn-primary btn-mini">
                         <i class="fa fa-plus"></i> Add
                     </a>
@@ -68,9 +74,11 @@
                                                 <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/students/edit/'.$value->id) ?>" class="btn btn-primary btn-mini" title="Edit">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                                <?php if(App\Http\Controllers\admin\BaseController::isNotDeleteSent($value->id,'student')){ ?>
                                                 <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/students/'.$value->id) ?>" class="btn btn-danger btn-mini btn-delete" title="delete">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
+                                                <?php } ?>
                                             </td>
                                         </tr>
                                     <?php } ?>

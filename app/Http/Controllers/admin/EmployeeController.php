@@ -54,8 +54,19 @@ class EmployeeController extends BaseController
 
 	public function delete($id)
 	{
-		DB::table('z_user')->where('id',$id)->update(['df' => 'yes']);
-		Session::flash('success', 'Employee deleted.'); 
+		
+
+		if (Session::get('AdminId') == "1") {
+			DB::table('z_user')->where('id',$id)->update(['df' => 'yes']);
+			Session::flash('success', 'Employee deleted.'); 	
+		}else{
+			DB::table('delete_approval')->insert([
+				'type'	=> 'employee',
+				'main'	=> $id,
+				'cby'	=> Session::get('AdminId'),
+			]);
+			Session::flash('success', 'Delete Request sent to admin'); 	
+		}
 	    return Redirect($this->aUrl('/employee'));
 	}
 

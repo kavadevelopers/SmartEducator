@@ -20,6 +20,20 @@ class BaseController extends Controller
 		
 	}
 
+	public static function isNotDeleteSent($id,$type)
+	{
+		if (Session::get('AdminId') == "1") {
+			return true;
+		}else{
+			$is = DB::table('delete_approval')->where('type',$type)->where('main',$id)->where('cby',Session::get('AdminId'))->first();
+			if ($is) {
+				return false;
+			}else{
+				return true;
+			}
+		}
+	}
+
 	public static function dateParse($item)
 	{
 		$date = date('Y-m-d');
