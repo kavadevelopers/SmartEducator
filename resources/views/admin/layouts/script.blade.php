@@ -37,6 +37,11 @@
         });
 
 
+		$(document).on('click','.btnTakeAttendance', function(e){
+			openCalander();
+        });
+
+
 		$(document).on('click','.btn-statuschange', function(e){
             e.preventDefault();
             data = $(this).data('values');
@@ -46,12 +51,11 @@
             if ($(this).data('adate') != "") {
                 $(".apDateContainer input[name=date]").val($(this).data('adate'));
             }
-
             $('#changeStatus select[name=status]').trigger('change');
         });
 
         $(document).on('change','#changeStatus select[name=status]', function(e){
-            if ($(this).val() == "Appointment fixed") {
+            if ($(this).val() == "Appointment fixed" || $(this).val() == "Reschedule") {
                 $('.apDateContainer').show();
                 $('.apDateContainer input[name=date]').attr('required',true);
             }else{

@@ -78,6 +78,14 @@
                             </a>
                         </li>
                     <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(27)){ ?>
+                        <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['attendance'])[2] ?>">
+                            <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/attendance') ?>">
+                                <span class="pcoded-micon"><i class="fa fa-calendar"></i></span>
+                                <span class="pcoded-mtext">Manage Attendance</span>
+                            </a>
+                        </li>
+                    <?php } ?>
                     <div class="pcoded-navigatio-lavel"></div>
                     <?php if(Session::get('AdminId') == "1"){ ?>
                         <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['deletereq'])[2] ?>">
@@ -92,6 +100,14 @@
                             <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/reference') ?>">
                                 <span class="pcoded-micon"><i class="fa fa-files-o"></i></span> 
                                 <span class="pcoded-mtext">Manage Reference</span>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if(App\Http\Controllers\admin\BaseController::checkRight(26)){ ?>
+                        <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['attype'])[2] ?>">
+                            <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/attype') ?>">
+                                <span class="pcoded-micon"><i class="fa fa-files-o"></i></span> 
+                                <span class="pcoded-mtext">Manage Attendance Types</span>
                             </a>
                         </li>
                     <?php } ?>

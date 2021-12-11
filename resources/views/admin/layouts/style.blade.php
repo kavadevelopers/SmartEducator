@@ -18,6 +18,8 @@
         color:#fc0;
     }*/
 
+
+
     .tbl-whitespace td{
         white-space: normal;
     }

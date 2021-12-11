@@ -226,16 +226,20 @@ class LeadsController extends BaseController
 
 	public function status(Request $rec)
 	{
+		$adate = NULL;
+		if ($rec->status == "Appointment fixed" || $rec->status == "Reschedule") {
+			$adate = $rec->date?date('Y-m-d H:i:s',strtotime($rec->date)):NULL;
+		}
 		$data = [
 			'lead'			=> $rec->eid,
 			'status'		=> $rec->status,
 			'notes'			=> $rec->notes?$rec->notes:'',
-			'adate'			=> $rec->date?date('Y-m-d H:i:s',strtotime($rec->date)):NULL,
+			'adate'			=> $adate,
 			'cat'			=> date('Y-m-d H:i:s'),
 			'cby'			=> Session::get('AdminId')
 		];
 		DB::table('leads_status')->insert($data);
-		DB::table('leads')->where('id',$rec->eid)->update(['status' => $rec->status,'adate' => $rec->date?date('Y-m-d H:i:s',strtotime($rec->date)):NULL]);
+		DB::table('leads')->where('id',$rec->eid)->update(['status' => $rec->status,'adate' => $adate]);
 
 
 		Session::flash('success', 'Lead status changed.'); 
@@ -308,6 +312,7 @@ class LeadsController extends BaseController
 				'type'	=> 'lead',
 				'main'	=> $id,
 				'cby'	=> Session::get('AdminId'),
+				'cat'		=> date('Y-m-d H:i:s')
 			]);
 			Session::flash('success', 'Delete Request sent to admin'); 	
 		}

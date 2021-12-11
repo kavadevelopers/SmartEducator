@@ -79,6 +79,7 @@
                                         <option value="Not interested" <?= $rec->status&&$rec->status=='Not interested'?'selected':'' ?>>Not interested</option>
                                         <option value="Deal closed" <?= $rec->status&&$rec->status=='Deal closed'?'selected':'' ?>>Deal closed</option>
                                         <option value="Appointment fixed" <?= $rec->status&&$rec->status=='Appointment fixed'?'selected':'' ?>>Appointment fixed</option>
+                                        <option value="Reschedule" <?= $rec->status&&$rec->status=='Reschedule'?'selected':'' ?>>Reschedule</option>
                                     </select>
                                 </div>
                             </div>
@@ -176,7 +177,7 @@
                                             <td><?= $value->email ?></td>
                                             <td class="text-center">
                                                 <?= ucfirst($value->status) ?>
-                                                <?php if($value->status == "Appointment fixed"){ ?>
+                                                <?php if($value->status == "Appointment fixed" || $value->status == "Reschedule"){ ?>
                                                     <br><small>At : <?= date('d-m-Y h:i A',strtotime($value->adate)); ?></small>
                                                 <?php } ?>
                                             </td>
@@ -626,7 +627,7 @@
                                                                 <div class="card">
                                                                     <div class="card-block">
                                                                         <div class="timeline-details">
-                                                                            <div class="chat-header">{{ $value->status }}<?= $value->status == 'Appointment fixed'?'<small> -at '.$value->adate.'</small>':'' ?></div>
+                                                                            <div class="chat-header">{{ $value->status }}<?= $value->status == 'Appointment fixed'|| $value->status == "Reschedule"?'<small> -at '.$value->adate.'</small>':'' ?></div>
                                                                             <p class="text-muted">{{ nl2br($value->notes) }}</p>
                                                                             <p class="text-muted text-right"><small>At : {{ ($value->cat) }} by {{ $user->name }}</small></p>
                                                                         </div>

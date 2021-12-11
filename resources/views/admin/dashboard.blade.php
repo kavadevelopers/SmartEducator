@@ -111,7 +111,7 @@
                                         <td><?= $value->email ?></td>
                                         <td class="text-center">
                                             <?= ucfirst($value->status) ?>
-                                            <?php if($value->status == "Appointment fixed"){ ?>
+                                            <?php if($value->status == "Appointment fixed" || $value->status == "Reschedule"){ ?>
                                                 <br><small>At : <?= date('d-m-Y h:i A',strtotime($value->adate)); ?></small>
                                             <?php } ?>
                                         </td>

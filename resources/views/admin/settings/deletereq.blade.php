@@ -53,6 +53,11 @@
                                             <?php $students = DB::table('students')->where('id',$value->main)->first(); ?>
                                             <?= $students->name ?>
                                         <?php } ?>
+                                        <?php if($value->type == "attendance"){ ?>
+                                            <?php $attend = DB::table('manage_attendance')->where('id',$value->main)->first(); ?>
+                                            <?php $em = DB::table('z_user')->where('id',$attend->employee)->first(); ?>
+                                            <?= $em->name ?>
+                                        <?php } ?>
                                     </td>
                                     <td>
                                         <?= DB::table('z_user')->where('id',$value->cby)->first()->name ?>

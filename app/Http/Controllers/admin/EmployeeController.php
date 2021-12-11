@@ -64,6 +64,7 @@ class EmployeeController extends BaseController
 				'type'	=> 'employee',
 				'main'	=> $id,
 				'cby'	=> Session::get('AdminId'),
+				'cat'		=> date('Y-m-d H:i:s')
 			]);
 			Session::flash('success', 'Delete Request sent to admin'); 	
 		}

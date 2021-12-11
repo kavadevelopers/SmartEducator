@@ -257,10 +257,26 @@ Route::post('/savecontact', 'HomeController@saveContactForm');
 	//students routes
 
 
-//leads routes
+//reference routes
 	Route::get('/admin/reference', 'admin\LeadsController@reference');
 	Route::post('/admin/reference/save', 'admin\LeadsController@save_reference');
 	Route::get('/admin/reference/edit/{id}', 'admin\LeadsController@edit_reference');
 	Route::post('/admin/reference/edit', 'admin\LeadsController@update_reference');
 	Route::get('/admin/reference/{id}', 'admin\LeadsController@referenceDel');
-//leads routes
+//reference routes
+
+	//attype routes
+	Route::get('/admin/attype', 'admin\AttendanceController@attype');
+	Route::post('/admin/attype/save', 'admin\AttendanceController@save_attype');
+	Route::get('/admin/attype/edit/{id}', 'admin\AttendanceController@edit_attype');
+	Route::post('/admin/attype/edit', 'admin\AttendanceController@update_attype');
+	Route::get('/admin/attype/{id}', 'admin\AttendanceController@attypeDel');
+//attype routes
+
+	//attype routes
+	Route::get('/admin/attendance', 'admin\AttendanceController@attendance');
+	Route::post('/admin/attendance', 'admin\AttendanceController@attendance');
+	Route::post('/admin/attendance/download', 'admin\AttendanceController@attendanceDownload');
+	Route::post('/admin/attendance/save', 'admin\AttendanceController@attendance_save');
+	Route::get('/admin/attendance/{id}', 'admin\AttendanceController@atDelete');
+	//attype routes

@@ -1,0 +1,70 @@
+.calendar-box {
+
+}
+
+.atCalandarContainer .buttons-container {
+  cursor: pointer;
+}
+
+.atCalandarContainer .week {
+  overflow: hidden;
+}
+
+.atCalandarContainer .week.highlight {
+  background: #efefef;
+}
+
+/* weekend */
+.atCalandarContainer .week .day:first-child, .week .day:last-child {
+  /*color: orange;*/
+}
+
+/* sunday */
+.atCalandarContainer .atCalandarContainer .week .day:first-child {
+  /*color: red;*/
+}
+
+.atCalandarContainer .day {
+  display: inline-block;
+  float: left;
+  width: 14.28%;
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.atCalandarContainer .day.disabled span {
+  color: #AAA;
+}
+
+/* vertical highlight */
+.atCalandarContainer .week .day.highlight span {
+  /*color: blue;*/
+}
+
+.atCalandarContainer .day.selected span {
+  background: orange;
+}
+
+.atCalandarContainer .day.today span {
+  font-weight: bold;
+}
+
+.atCalandarContainer .months-container.hidden, .weeks-container.hidden {
+  display: none;
+}
+
+.atCalandarContainer .months-wrapper {
+  overflow: hidden;
+}
+
+.atCalandarContainer .months-wrapper .month {
+  display: inline-block;
+  float: left;
+  width: 25%;
+  text-align: center;
+  cursor: pointer;
+}
+.atCalandarContainer .months-wrapper .month.one-third {
+  width: 33.33%;
+}

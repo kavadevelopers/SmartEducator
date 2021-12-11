@@ -30,6 +30,8 @@ class SettingsController extends BaseController
 				DB::table('z_user')->where('id',$item->main)->update(['df' => 'yes']);
 			}else if ($item->type == "student") {
 				DB::table('students')->where('id',$item->main)->delete();
+			}else if ($item->type == "attendance") {
+				DB::table('manage_attendance')->where('id',$item->main)->delete();
 			}
 
 			DB::table('delete_approval')->where('id',$id)->delete();

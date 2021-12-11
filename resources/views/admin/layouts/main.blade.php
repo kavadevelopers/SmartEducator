@@ -55,6 +55,13 @@
     <script src="<?= url('public/admin/') ?>/assets/photoswipe/photoswipe.min.js"></script> 
     <script src="<?= url('public/admin/') ?>/assets/photoswipe/photoswipe-ui-default.min.js"></script> 
 
+    <link rel="stylesheet" type="text/css" href="<?= url('public/admin/') ?>/assets/simple-calendar/style.css">
+    <script type="text/javascript" src="<?= url('public/admin/') ?>/assets/simple-calendar/script.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="<?= url('public/admin/') ?>/assets/calander.js/style.css">
+    <link rel="stylesheet" type="text/css" href="<?= url('public/admin/') ?>/assets/calander.js/theme.css">
+    <script type="text/javascript" src="<?= url('public/admin/') ?>/assets/calander.js/script.min.js"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>

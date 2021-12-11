@@ -119,7 +119,8 @@ class ExpensesController extends BaseController
 			DB::table('delete_approval')->insert([
 				'type'	=> 'expenses',
 				'main'	=> $id,
-				'cby'	=> Session::get('AdminId')
+				'cby'	=> Session::get('AdminId'),
+				'cat'	=> date('Y-m-d H:i:s')
 			]);
 			Session::flash('success', 'Delete Request sent to admin'); 	
 		}
