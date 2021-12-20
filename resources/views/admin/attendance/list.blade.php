@@ -80,9 +80,12 @@
                             </div>
                         </div>
                         <div class="col-md-12 text-right">
+                            <a href="{{ App\Http\Controllers\admin\BaseController::aUrl('/attendance') }}" class="btn btn-danger" type="submit">
+                                <i class="fa fa-retweet"></i> Reset Filter
+                            </a>
                             <button class="btn btn-warning" type="submit">
                                 <i class="fa fa-filter"></i> Filter
-                            </button>        
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -102,7 +105,7 @@
                                 <th>Employee</th>
                                 <th>Type</th>
                                 <th>Remarks</th>
-                                <th class="text-center">Created At</th>
+                                <th class="text-center">Created On</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -129,7 +132,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>    
+            </div>
         </div>
 
     </div>

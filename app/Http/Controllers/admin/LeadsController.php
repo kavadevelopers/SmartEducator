@@ -25,9 +25,9 @@ class LeadsController extends BaseController
 		$data = [
 	    	'df'		=> "yes"
 	    ];
-	    DB::table('manage_reference')->where('id',$id)->update($data);	
+	    DB::table('manage_reference')->where('id',$id)->update($data);
 
-	    Session::flash('success', 'Reference deleted.'); 
+	    Session::flash('success', 'Reference deleted.');
 	    return Redirect()->back();
 	}
 
@@ -36,7 +36,7 @@ class LeadsController extends BaseController
 		$data['_title'] = 'Manage Reference';
 		$data['list'] 	= DB::table('manage_reference')->where('df','')->get();
 		$data['_e']		= 0;
-		return view('admin.leads.reference',$data);	
+		return view('admin.leads.reference',$data);
 	}
 
 	public function edit_reference($id)
@@ -45,7 +45,7 @@ class LeadsController extends BaseController
 		$data['list'] 	= DB::table('manage_reference')->where('df','')->get();
 		$data['item'] 	= DB::table('manage_reference')->where('id',$id)->first();
 		$data['_e']		= 1;
-		return view('admin.leads.reference',$data);	
+		return view('admin.leads.reference',$data);
 	}
 
 	public function update_reference(Request $rec)
@@ -53,9 +53,9 @@ class LeadsController extends BaseController
 		$data = [
 	    	'name'		=> $rec->name
 	    ];
-	    DB::table('manage_reference')->where('id',$rec->id)->update($data);	
+	    DB::table('manage_reference')->where('id',$rec->id)->update($data);
 
-	    Session::flash('success', 'Reference updated.'); 
+	    Session::flash('success', 'Reference updated.');
 	    return Redirect($this->aUrl('/reference'));
 	}
 
@@ -65,9 +65,9 @@ class LeadsController extends BaseController
 	    	'name'		=> $rec->name,
 	    	'df'		=> ""
 	    ];
-	    DB::table('manage_reference')->insert($data);	
+	    DB::table('manage_reference')->insert($data);
 
-	    Session::flash('success', 'Reference created.'); 
+	    Session::flash('success', 'Reference created.');
 	    return Redirect()->back();
 	}
 
@@ -75,13 +75,13 @@ class LeadsController extends BaseController
 	{
 		DB::table('leads')->whereIn('id',explode(',', $rec->leads))->update(['cby' => $rec->employee]);
 
-		Session::flash('success', 'Employee Assigned'); 
+		Session::flash('success', 'Employee Assigned');
 	    return Redirect()->back();
 	}
 
 	public function export()
 	{
-		Excel::create('LeadsExport-'.date('Y-m-d H:i:s'), function($excel) {	
+		Excel::create('LeadsExport-'.date('Y-m-d H:i:s'), function($excel) {
 			$excel->sheet('Data', function($sheet) {
 				$sheet->cell('A1:M1',function($cell){ $cell->setFontWeight('bold'); $cell->setFontSize(14); });
 				$sheet->cell('A1', function($cell) {$cell->setValue('Sr. No.');   });
@@ -131,6 +131,13 @@ class LeadsController extends BaseController
 			$data = Excel::load($path, function($reader) {})->get();
 			if(!empty($data) && $data->count()){
 				foreach ($data->toArray() as $key => $value) {
+					$empId = "";
+					if ($value['employee_name'] != "") {
+						$employeeRow = DB::table('z_user')->where('df','')->where('name',$value['employee_name'])->first();
+						if ($employeeRow) {
+							$empId = $employeeRow->id;
+						}
+					}
 					 $data = [
 						'name'			=> $this->checkColumn($value['name']),
 						'mobile'		=> $this->checkColumn($value['mobile']),
@@ -144,6 +151,7 @@ class LeadsController extends BaseController
 						'reference'		=> $this->checkColumn($value['reference']),
 						'remarks'		=> $this->checkColumn($value['remarks']),
 						'status'		=> 'new',
+						'cby'			=> $empId,
 						'cat'			=> date('Y-m-d H:i:s')
 					];
 
@@ -156,24 +164,24 @@ class LeadsController extends BaseController
 				}
 
 				if(!empty($insert)){
-					DB::table('leads')->insert($insert);	
-					Session::flash('success', 'Leads Imported'); 
+					DB::table('leads')->insert($insert);
+					Session::flash('success', 'Leads Imported');
 	    			return Redirect($this->aUrl('/leads'));
 				}else{
-					Session::flash('error', 'No Data Found in File'); 
-	    			return Redirect($this->aUrl('/leads'));	
+					Session::flash('error', 'No Data Found in File');
+	    			return Redirect($this->aUrl('/leads'));
 				}
 			}else{
-				Session::flash('error', 'No Data Found in File'); 
+				Session::flash('error', 'No Data Found in File');
 	    		return Redirect($this->aUrl('/leads'));
 			}
 		}else{
-			Session::flash('error', 'Not a valid Excel file.'); 
+			Session::flash('error', 'Not a valid Excel file.');
 	    	return Redirect($this->aUrl('/leads'));
 		}
 	}
 
-	
+
 
 	public function list(Request $rec)
 	{
@@ -205,7 +213,7 @@ class LeadsController extends BaseController
 		}else{
 			$data['list'] 	= $query->orderby('id','desc')->where('cby',Session::get('AdminId'))->get();
 		}
-		return view('admin.leads.list',$data);		
+		return view('admin.leads.list',$data);
 	}
 
 	public function view($id)
@@ -221,7 +229,7 @@ class LeadsController extends BaseController
 	{
 		$data['_title'] = 'Add Lead';
 		$data['type'] 	= 'add';
-		return view('admin.leads.list',$data);	
+		return view('admin.leads.list',$data);
 	}
 
 	public function status(Request $rec)
@@ -239,10 +247,10 @@ class LeadsController extends BaseController
 			'cby'			=> Session::get('AdminId')
 		];
 		DB::table('leads_status')->insert($data);
-		DB::table('leads')->where('id',$rec->eid)->update(['status' => $rec->status,'adate' => $adate]);
+		DB::table('leads')->where('id',$rec->eid)->update(['status' => $rec->status,'adate' => $adate,'uat'				=> date('Y-m-d H:i:s')]);
 
 
-		Session::flash('success', 'Lead status changed.'); 
+		Session::flash('success', 'Lead status changed.');
 	    return Redirect()->back();
 	}
 
@@ -251,13 +259,13 @@ class LeadsController extends BaseController
 		$data = [
 			'name'			=> $rec->name,
 			'mobile'		=> $rec->mobile,
-			'email'			=> $rec->email,
-			'address'		=> $rec->address,
-			'quo'			=> $rec->quo,
-			'passing'		=> $rec->passing,
-			'enquiry'		=> $rec->enquiry,
-			'dob'			=> date('Y-m-d',strtotime($rec->dob)),
-			'age'			=> $rec->age,
+			'email'				=> $rec->email?$rec->email:'',
+			'address'			=> $rec->address?$rec->address:'',
+			'quo'				=> $rec->quo?$rec->quo:'',
+			'passing'			=> $rec->passing?$rec->passing:'',
+			'enquiry'			=> $rec->enquiry?$rec->enquiry:'',
+			'dob'				=> $rec->dob?date('Y-m-d',strtotime($rec->dob)):NULL,
+			'age'				=> $rec->age?$rec->age:'',
 			'reference'		=> $rec->reference?$rec->reference:'',
 			'remarks'		=> $rec->remarks?$rec->remarks:'',
 			'status'		=> 'new',
@@ -265,32 +273,33 @@ class LeadsController extends BaseController
 			'cat'			=> date('Y-m-d H:i:s')
 		];
 
-		DB::table('leads')->insert($data);	
+		DB::table('leads')->insert($data);
 
-		Session::flash('success', 'Lead saved.'); 
+		Session::flash('success', 'Lead saved.');
 	    return Redirect($this->aUrl('/leads'));
 	}
 
 	public function update(Request $rec)
 	{
 		$data = [
-			'name'			=> $rec->name,
-			'mobile'		=> $rec->mobile,
-			'email'			=> $rec->email,
-			'address'		=> $rec->address,
-			'quo'			=> $rec->quo,
-			'passing'		=> $rec->passing,
-			'enquiry'		=> $rec->enquiry,
-			'dob'			=> date('Y-m-d',strtotime($rec->dob)),
-			'age'			=> $rec->age,
-			'reference'		=> $rec->reference?$rec->reference:'',
-			'remarks'		=> $rec->remarks?$rec->remarks:'',
-			'cby'			=> 	$rec->employee?$rec->employee:''
+			'name'				=> $rec->name,
+			'mobile'			=> $rec->mobile,
+			'email'				=> $rec->email?$rec->email:'',
+			'address'			=> $rec->address?$rec->address:'',
+			'quo'				=> $rec->quo?$rec->quo:'',
+			'passing'			=> $rec->passing?$rec->passing:'',
+			'enquiry'			=> $rec->enquiry?$rec->enquiry:'',
+			'dob'				=> $rec->dob?date('Y-m-d',strtotime($rec->dob)):NULL,
+			'age'				=> $rec->age?$rec->age:'',
+			'reference'			=> $rec->reference?$rec->reference:'',
+			'remarks'			=> $rec->remarks?$rec->remarks:'',
+			'cby'				=> 	$rec->employee?$rec->employee:'',
+			'uat'				=> date('Y-m-d H:i:s')
 		];
 
-		DB::table('leads')->where('id',$rec->id)->update($data);	
+		DB::table('leads')->where('id',$rec->id)->update($data);
 
-		Session::flash('success', 'Lead saved.'); 
+		Session::flash('success', 'Lead saved.');
 	    return Redirect($this->aUrl('/leads'));
 	}
 
@@ -306,7 +315,7 @@ class LeadsController extends BaseController
 	{
 		if (Session::get('AdminId') == "1") {
 			DB::table('leads')->where('id',$id)->delete();
-			Session::flash('success', 'Lead deleted.'); 	
+			Session::flash('success', 'Lead deleted.');
 		}else{
 			DB::table('delete_approval')->insert([
 				'type'	=> 'lead',
@@ -314,7 +323,7 @@ class LeadsController extends BaseController
 				'cby'	=> Session::get('AdminId'),
 				'cat'		=> date('Y-m-d H:i:s')
 			]);
-			Session::flash('success', 'Delete Request sent to admin'); 	
+			Session::flash('success', 'Delete Request sent to admin');
 		}
 	    return Redirect($this->aUrl('/leads'));
 	}

@@ -52,9 +52,12 @@
                             </div>
                         </div>
                         <div class="col-md-12 text-right">
+                            <a href="{{ App\Http\Controllers\admin\BaseController::aUrl('/expenses') }}" class="btn btn-danger" type="submit">
+                                <i class="fa fa-retweet"></i> Reset Filter
+                            </a>
                             <button class="btn btn-warning" type="submit">
                                 <i class="fa fa-filter"></i> Filter
-                            </button>        
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -75,7 +78,9 @@
                                 <th>Description</th>
                                 <th>Remarks</th>
                                 <th class="text-right">Amount (Rs.)</th>
-                                <th class="text-center">Action</th>
+                                <?php if(Session::get('AdminId') == "1"){ ?>
+                                    <th class="text-center">Action</th>
+                                <?php } ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -86,12 +91,20 @@
                                     </td>
                                     <td><?= $value->descr ?></td>
                                     <td><small><?= $value->notes ?></small></td>
-                                    <td class="text-right"><?= $value->amount ?> rs.</td>
+                                    <td class="text-right">
+                                        @if ($value->amount > 0)
+                                            <span style="color:green;">{{ $value->amount }} rs.</span>
+                                        @else
+                                            <span style="color:red;">{{ $value->amount }} rs.</span>
+                                        @endif
+                                    </td>
                                     <td class="text-center">
-                                        <?php if(App\Http\Controllers\admin\BaseController::isNotDeleteSent($value->id,'expenses')){ ?>
-                                        <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/expenses/'.$value->id) ?>" class="btn btn-danger btn-mini btn-delete" title="delete">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
+                                        <?php if(Session::get('AdminId') == "1"){ ?>
+                                            <?php if(App\Http\Controllers\admin\BaseController::isNotDeleteSent($value->id,'expenses')){ ?>
+                                            <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/expenses/'.$value->id) ?>" class="btn btn-danger btn-mini btn-delete" title="delete">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                            <?php } ?>
                                         <?php } ?>
                                     </td>
                                 </tr>
@@ -106,7 +119,7 @@
                         </tfoot>
                     </table>
                 </div>
-            </div>    
+            </div>
         </div>
 
     </div>
@@ -133,4 +146,3 @@
 </script>
 
 @stop
-

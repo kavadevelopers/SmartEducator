@@ -27,7 +27,7 @@
                                 <tr>
                                     <th class="text-center">Date</th>
                                     <th>Description</th>
-                                    <th>Amount</th>
+                                    <th>Amount <small>(put minus if debit)</small></th>
                                     <th>Remarks</th>
                                     <th class="text-center"></th>
                                 </tr>
@@ -41,7 +41,7 @@
                                         <input type="text" class="form-control" name="desc[]" placeholder="Description" value="">
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control decimal-num" name="amount[]" placeholder="Amount" value="">
+                                        <input type="text" class="form-control minus-decimal-num" name="amount[]" placeholder="Amount" value="">
                                     </td>
                                     <td>
                                         <textarea class="form-control" name="notes[]" placeholder="Remarks" value=""></textarea>
@@ -49,7 +49,7 @@
                                     <td>
                                          <a href="#" class="btn btn-danger btn-mini remove-row"><i class="fa fa-trash"></i></a>
                                     </td>
-                                </tr>                            
+                                </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -68,7 +68,7 @@
                             <i class="fa fa-save"></i> Save
                         </button>
                     </div>
-                </div>    
+                </div>
             </div>
     </div>
         </form>
@@ -83,7 +83,7 @@
         });
         $(document).on('click','.add-row', function(e){
             e.preventDefault();
-            text = '<tr>';    
+            text = '<tr>';
                 text += '<td>';
                     text += '<input type="text" class="form-control datepicker" name="date[]" placeholder="Date" value="<?= date('d-m-Y') ?>">';
                 text += '</td>';
@@ -91,7 +91,7 @@
                     text += '<input type="text" class="form-control" name="desc[]" placeholder="Description" value="">';
                 text += '</td>';
                 text += '<td>';
-                    text += '<input type="text" class="form-control decimal-num" name="amount[]" placeholder="Amount" value="">';
+                    text += '<input type="text" class="form-control minus-decimal-num" name="amount[]" placeholder="Amount" value="">';
                 text += '</td>';
                 text += '<td>';
                     text += '<textarea class="form-control" name="notes[]" placeholder="Remarks" value=""></textarea>';
@@ -113,4 +113,3 @@
     })
 </script>
 @stop
-

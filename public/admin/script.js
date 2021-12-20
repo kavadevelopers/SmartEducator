@@ -34,7 +34,7 @@ function doAjax(params) {
         type        : requestType,
         data        : data,
         dataType    : _dataType,
-        url         : url     
+        url         : url
     }).done(function(data) {
         setTimeout(function () {
             hideAjaxLoader();
@@ -64,7 +64,7 @@ function delete_confirm(url) {
 	},
 	function(isConfirm) {
 		if (isConfirm) {
-			
+
 		} else {
 			return false;
 		}
@@ -74,16 +74,15 @@ function delete_confirm(url) {
 $(function(){
     $('.select2').select2();
 
-    
+
 	$(document).on('keydown','.decimal-num', function(event){
 
-        
 		if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46 || event.keyCode == 190 || event.keyCode == 110) {
 
 		} else {
 			event.preventDefault();
 		}
-		
+
 		if($(this).val().indexOf('.') !== -1 && event.keyCode == 190)
 			event.preventDefault();
 
@@ -98,7 +97,7 @@ $(function(){
         } else {
             event.preventDefault();
         }
-        
+
         if($(this).val().indexOf('.') !== -1 && event.keyCode == 190)
             event.preventDefault();
 
@@ -121,12 +120,12 @@ $(function(){
             // Ctrl+C or Cmd+C pressed?
             if ((event.ctrlKey || event.metaKey) && event.keyCode == 67) {
 
-                
+
             }
 
             // Ctrl+V or Cmd+V pressed?
             else if ((event.ctrlKey || event.metaKey) && event.keyCode == 86) {
-                
+
             }
 
             // Ctrl+X or Cmd+X pressed?
@@ -134,7 +133,7 @@ $(function(){
              // Do stuff.
             } else{
                 event.preventDefault();
-            } 
+            }
 		}
 
 	});
@@ -187,15 +186,15 @@ $(function(){
                 $(".checkBox").prop("checked", true);
             } else {
                 $(".checkBox").prop("checked", false);
-            }                
+            }
         });
 
 
     $('.checkBox').click(function(){
-        if($(".checkBox").length == $(".checkBox:checked").length) { 
+        if($(".checkBox").length == $(".checkBox:checked").length) {
             $(".checkAll").prop("checked", true);
         }else {
-            $(".checkAll").prop("checked", false);            
+            $(".checkAll").prop("checked", false);
         }
     });
 })
@@ -203,10 +202,10 @@ $(function(){
 
 function readFile(input) {
     if (input.files && input.files[0]) {
-        
+
         var FileSize = input.files[0].size / 1024 / 1024; // in MB
         var extension = input.files[0].name.substring(input.files[0].name.lastIndexOf('.')+1);
-        
+
         if (FileSize > 2) {
             alert("Maxiumum File Size Is 2 Mb.");
             input.value = '';
@@ -234,10 +233,10 @@ function readFile(input) {
 
 function pdfImageAllowed(input) {
     if (input.files && input.files[0]) {
-        
+
         var FileSize = input.files[0].size / 1024 / 1024; // in MB
         var extension = input.files[0].name.substring(input.files[0].name.lastIndexOf('.')+1);
-        
+
         if (FileSize > 5) {
             alert("Maxiumum File Size Is 4 Mb.");
             input.value = '';
@@ -245,7 +244,7 @@ function pdfImageAllowed(input) {
         }
         else{
             if (extension == 'jpg' || extension == 'png' || extension == 'jpeg' || extension == 'pdf') {
-                
+
             }
             else
             {
@@ -259,10 +258,10 @@ function pdfImageAllowed(input) {
 
 function excelAlowed(input) {
     if (input.files && input.files[0]) {
-        
+
         var FileSize = input.files[0].size / 1024 / 1024; // in MB
         var extension = input.files[0].name.substring(input.files[0].name.lastIndexOf('.')+1);
-        
+
         if (FileSize > 2) {
             alert("Maxiumum File Size Is 2 Mb.");
             input.value = '';
@@ -290,27 +289,27 @@ function excelAlowed(input) {
 
 function maxSizeFile(input) {
     if (input.files && input.files[0]) {
-        
+
         var FileSize = input.files[0].size / 1024 / 1024; // in MB
         var extension = input.files[0].name.substring(input.files[0].name.lastIndexOf('.')+1);
-        
+
         if (FileSize > 2) {
             alert("Maxiumum Image Size Is 2 Mb.");
             input.value = '';
             return false;
         }
         else{
-            
+
         }
     }
 }
 
 function readFileImage(input) {
     if (input.files && input.files[0]) {
-        
+
         var FileSize = input.files[0].size / 1024 / 1024; // in MB
         var extension = input.files[0].name.substring(input.files[0].name.lastIndexOf('.')+1);
-        
+
         if (FileSize > 2) {
             alert("Maxiumum Image Size Is 2 Mb.");
             input.value = '';
@@ -318,7 +317,7 @@ function readFileImage(input) {
         }
         else{
             if (extension == 'jpg' || extension == 'png' || extension == 'jpeg') {
-                
+
             }
             else
             {
@@ -332,10 +331,10 @@ function readFileImage(input) {
 
 function readFileExcel(input) {
     if (input.files && input.files[0]) {
-        
+
         var FileSize = input.files[0].size / 1024 / 1024; // in MB
         var extension = input.files[0].name.substring(input.files[0].name.lastIndexOf('.')+1);
-        
+
         if (FileSize > 2) {
             alert("Maxiumum Image Size Is 2 Mb.");
             input.value = '';
@@ -343,7 +342,7 @@ function readFileExcel(input) {
         }
         else{
             if (extension == 'xlsx' || extension == 'xls') {
-                
+
             }
             else
             {

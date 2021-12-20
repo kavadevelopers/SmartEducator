@@ -33,6 +33,7 @@
                     </a>
                 <?php } ?>
                 <?php if ($type == "view") { ?>
+
                     <a href="#" onclick="window.history.go(-1); return false;" class="btn btn-danger btn-mini">
                         <i class="fa fa-arrow-left"></i> Back
                     </a>
@@ -94,7 +95,7 @@
                                 <div class="form-group">
                                     <label>Employee</label>
                                     <select class="form-control" name="employee">
-                                        <option value="">-- Select Employee --</option>
+                                        <option value="">unassigned</option>
                                         <?php foreach(DB::table('z_user')->where('id','!=','1')->get() as $val){ ?>
                                             <option value="<?= $val->id ?>" <?= $rec->employee&&$rec->employee==$val->id?'selected':'' ?>><?= $val->name ?></option>
                                         <?php } ?>
@@ -115,9 +116,12 @@
                                 </div>
                             </div>
                             <div class="col-md-12 text-right">
+                                <a href="{{ App\Http\Controllers\admin\BaseController::aUrl('/leads') }}" class="btn btn-danger" type="submit">
+                                    <i class="fa fa-retweet"></i> Reset Filter
+                                </a>
                                 <button class="btn btn-warning" type="submit">
                                     <i class="fa fa-filter"></i> Filter
-                                </button>        
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -146,15 +150,16 @@
                                             </div>
                                         </th>
                                         <?php } ?>
+                                        <th></th>
                                         <th>#</th>
                                         <th>Name</th>
                                         <th>Mobile</th>
-                                        <th>Email</th>
                                         <th class="text-center">Status</th>
                                         <?php if(Session::get('AdminId') == "1"){ ?>
-                                            <th>Employee</th>   
+                                            <th>Employee</th>
                                         <?php } ?>
-                                        <th class="text-center">Created At</th>
+                                        <th class="text-center">Created On</th>
+                                        <th class="text-center">Updated On</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -171,10 +176,14 @@
                                                 </div>
                                             </td>
                                             <?php } ?>
+                                            <td class="text-center">
+                                                <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/view/'.$value->id) ?>" class="btn btn-success btn-mini" title="View">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            </td>
                                             <td class="text-center"><?= $value->id ?></td>
                                             <td><?= $value->name ?></td>
                                             <td><?= $value->mobile ?></td>
-                                            <td><?= $value->email ?></td>
                                             <td class="text-center">
                                                 <?= ucfirst($value->status) ?>
                                                 <?php if($value->status == "Appointment fixed" || $value->status == "Reschedule"){ ?>
@@ -185,6 +194,8 @@
                                                 <td>
                                                     <?php if($value->cby != "" && DB::table('z_user')->where('id',$value->cby)->first()){ ?>
                                                         <small><?= DB::table('z_user')->where('id',$value->cby)->first()->name ?></small>
+                                                    <?php }else{ ?>
+                                                        <small>unassigned</small>
                                                     <?php } ?>
                                                 </td>
                                             <?php } ?>
@@ -192,18 +203,13 @@
                                                 <small><?= $value->cat ?></small>
                                             </td>
                                             <td class="text-center">
-                                                <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/view/'.$value->id) ?>" class="btn btn-success btn-mini" title="View">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
+                                                <small><?= $value->uat ?></small>
+                                            </td>
+                                            <td class="text-center">
+
                                                 <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/edit/'.$value->id) ?>" class="btn btn-primary btn-mini" title="Edit">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
-                                                <br>
-                                                <?php if(App\Http\Controllers\admin\BaseController::isNotDeleteSent($value->id,'lead')){ ?>
-                                                <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/'.$value->id) ?>" class="btn btn-danger btn-mini btn-delete" title="delete">
-                                                    <i class="fa fa-trash"></i>
-                                                </a>
-                                                <?php } ?>
                                                 <a href="#" class="btn btn-success btn-mini btn-statuschange" data-values="<?= htmlspecialchars(json_encode($value), ENT_QUOTES, 'UTF-8'); ?>" data-adate="<?= $value->adate; ?>" title="Change Status">
                                                     <i class="fa fa-check"></i>
                                                 </a>
@@ -213,7 +219,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>    
+                    </div>
                 </div>
 
             </div>
@@ -268,7 +274,7 @@
 
                         if (isAllChecked == 0) {
                             $("#checkedAll").prop("checked", true);
-                        }     
+                        }
                     }
                     else {
                         $("#checkedAll").prop("checked", false);
@@ -285,7 +291,7 @@
                         console.log(list.toString());
                     }else{
                         PNOTY('please select at least one Lead','error');
-                        return false;    
+                        return false;
                     }
                 });
             })
@@ -333,59 +339,59 @@
                                 <label>Name <span class="-req">*</span></label>
                                 <input name="name" type="text" class="form-control" value="<?= old("name") ?>" placeholder="Name" required>
                             </div>
-                        </div> 
+                        </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Mobile <small>(Add comma saparated value if multiple)</small><span class="-req">*</span></label>
                                 <input name="mobile" type="text" class="form-control" value="<?= old("mobile") ?>" placeholder="Mobile" required>
                             </div>
-                        </div> 
+                        </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Email <span class="-req">*</span></label>
-                                <input name="email" type="email" class="form-control" value="<?= old("email") ?>" placeholder="Email" required>
+                                <label>Email</label>
+                                <input name="email" type="email" class="form-control" value="<?= old("email") ?>" placeholder="Email" >
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Address <span class="-req">*</span></label>
-                                <textarea name="address" type="text" class="form-control" value="<?= old("address") ?>" placeholder="Address" required></textarea>
+                                <label>Address</label>
+                                <textarea name="address" type="text" class="form-control" value="<?= old("address") ?>" placeholder="Address" ></textarea>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>PREVIOUS QUALIFICATION <span class="-req">*</span></label>
-                                <textarea name="quo" type="text" class="form-control" value="<?= old("quo") ?>" placeholder="PREVIOUS QUALIFICATION" required></textarea>
-                            </div>
-                        </div> 
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>YEAR OF PASSING <span class="-req">*</span></label>
-                                <input name="passing" type="text" class="form-control" value="<?= old("passing") ?>" placeholder="YEAR OF PASSING" required>
+                                <label>PREVIOUS QUALIFICATION</label>
+                                <textarea name="quo" type="text" class="form-control" value="<?= old("quo") ?>" placeholder="PREVIOUS QUALIFICATION" ></textarea>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>ENQUIRY FOR <span class="-req">*</span></label>
-                                <textarea name="enquiry" type="text" class="form-control" value="<?= old("enquiry") ?>" placeholder="ENQUIRY FOR" required></textarea>
+                                <label>YEAR OF PASSING</label>
+                                <input name="passing" type="text" class="form-control" value="<?= old("passing") ?>" placeholder="YEAR OF PASSING" >
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>DOB <span class="-req">*</span></label>
-                                <input name="dob" type="text" class="form-control datepicker" value="<?= old("dob") ?>" placeholder="DOB" required>
+                                <label>ENQUIRY FOR</label>
+                                <textarea name="enquiry" type="text" class="form-control" value="<?= old("enquiry") ?>" placeholder="ENQUIRY FOR" ></textarea>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Age <span class="-req">*</span></label>
-                                <input name="age" type="text" class="form-control numbers" value="<?= old("age") ?>" placeholder="Age" required>
+                                <label>DOB</label>
+                                <input name="dob" type="text" class="form-control datepicker" value="<?= old("dob") ?>" placeholder="DOB" >
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Reference <span class="-req">*</span></label>
-                                <select class="form-control" name="reference" required>
+                                <label>Age</label>
+                                <input name="age" type="text" class="form-control numbers" value="<?= old("age") ?>" placeholder="Age" >
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Reference</label>
+                                <select class="form-control" name="reference">
                                     <option value="">-- Select --</option>
                                     <?php foreach(DB::table('manage_reference')->where('df','')->get() as $val){ ?>
                                         <option value="<?= $val->name ?>"><?= $val->name ?></option>
@@ -398,13 +404,13 @@
                                 <label>Remarks</label>
                                 <textarea name="remarks" type="text" class="form-control" value="<?= old("remarks") ?>" placeholder="Remarks"></textarea>
                             </div>
-                        </div> 
+                        </div>
                         <?php if(Session::get('AdminId') == '1'){ ?>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Employee</label>
                                     <select class="form-control" name="employee" >
-                                        <option value="">-- Select Employee --</option>
+                                        <option value="">unassigned</option>
                                         <?php foreach(DB::table('z_user')->where('id','!=','1')->get() as $val){ ?>
                                             <option value="<?= $val->id ?>"><?= $val->name ?></option>
                                         <?php } ?>
@@ -427,7 +433,7 @@
             </div>
             </form>
         </div>
-    
+
     <?php }else if ($type == "edit") { ?>
         <div class="page-body">
             <form method="post" action="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/edit') ?>" enctype="multipart/form-data">
@@ -440,59 +446,59 @@
                                 <label>Name <span class="-req">*</span></label>
                                 <input name="name" type="text" class="form-control" value="<?= old("name",$item->name) ?>" placeholder="Name" required>
                             </div>
-                        </div> 
+                        </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Mobile <small>(Add comma saparated value if multiple)</small><span class="-req">*</span></label>
                                 <input name="mobile" type="text" class="form-control" value="<?= old("mobile",$item->mobile) ?>" placeholder="Mobile" required>
                             </div>
-                        </div> 
+                        </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Email <span class="-req">*</span></label>
-                                <input name="email" type="email" class="form-control" value="<?= old("email",$item->email) ?>" placeholder="Email" required>
+                                <label>Email</label>
+                                <input name="email" type="email" class="form-control" value="<?= old("email",$item->email) ?>" placeholder="Email" >
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Address <span class="-req">*</span></label>
-                                <textarea name="address" type="text" class="form-control" placeholder="Address" required><?= old("address",$item->address) ?></textarea>
+                                <label>Address</label>
+                                <textarea name="address" type="text" class="form-control" placeholder="Address"><?= old("address",$item->address) ?></textarea>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>PREVIOUS QUALIFICATION <span class="-req">*</span></label>
-                                <textarea name="quo" type="text" class="form-control" placeholder="PREVIOUS QUALIFICATION" required><?= old("quo",$item->quo) ?></textarea>
-                            </div>
-                        </div> 
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>YEAR OF PASSING <span class="-req">*</span></label>
-                                <input name="passing" type="text" class="form-control" value="<?= old("passing",$item->passing) ?>" placeholder="YEAR OF PASSING" required>
+                                <label>PREVIOUS QUALIFICATION</label>
+                                <textarea name="quo" type="text" class="form-control" placeholder="PREVIOUS QUALIFICATION"><?= old("quo",$item->quo) ?></textarea>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>ENQUIRY FOR <span class="-req">*</span></label>
-                                <textarea name="enquiry" type="text" class="form-control" placeholder="ENQUIRY FOR" required><?= old("enquiry",$item->enquiry) ?></textarea>
+                                <label>YEAR OF PASSING</label>
+                                <input name="passing" type="text" class="form-control" value="<?= old("passing",$item->passing) ?>" placeholder="YEAR OF PASSING">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>DOB <span class="-req">*</span></label>
-                                <input name="dob" type="text" class="form-control datepicker" value="<?= old("dob",date('d-m-Y',strtotime($item->dob))) ?>" placeholder="DOB" required>
+                                <label>ENQUIRY FOR</label>
+                                <textarea name="enquiry" type="text" class="form-control" placeholder="ENQUIRY FOR"><?= old("enquiry",$item->enquiry) ?></textarea>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Age <span class="-req">*</span></label>
-                                <input name="age" type="text" class="form-control numbers" value="<?= old("age",$item->age) ?>" placeholder="Age" required>
+                                <label>DOB </label>
+                                <input name="dob" type="text" class="form-control datepicker" value="<?= old("dob",$item->dob?date('d-m-Y',strtotime($item->dob)):'') ?>" placeholder="DOB">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Reference <span class="-req">*</span></label>
-                                <select class="form-control" name="reference" required>
+                                <label>Age</label>
+                                <input name="age" type="text" class="form-control numbers" value="<?= old("age",$item->age) ?>" placeholder="Age">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Reference</label>
+                                <select class="form-control" name="reference">
                                     <option value="">-- Select --</option>
                                     <?php foreach(DB::table('manage_reference')->where('df','')->get() as $val){ ?>
                                         <option value="<?= $val->name ?>" <?= $item->reference==$val->name?'selected':'' ?>><?= $val->name ?></option>
@@ -505,13 +511,13 @@
                                 <label>Remarks</label>
                                 <textarea name="remarks" type="text" class="form-control" placeholder="Remarks"><?= old("remarks",$item->remarks) ?></textarea>
                             </div>
-                        </div> 
+                        </div>
                         <?php if(Session::get('AdminId') == '1'){ ?>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Employee</label>
                                     <select class="form-control" name="employee" >
-                                        <option value="">-- Select Employee --</option>
+                                        <option value="">unassigned</option>
                                         <?php foreach(DB::table('z_user')->where('id','!=','1')->get() as $val){ ?>
                                             <option value="<?= $val->id ?>" <?= $item->cby==$val->id?'selected':'' ?>><?= $val->name ?></option>
                                         <?php } ?>
@@ -524,6 +530,11 @@
                     </div>
                 </div>
                 <div class="card-footer text-right">
+                    <?php if(App\Http\Controllers\admin\BaseController::isNotDeleteSent($item->id,'lead')){ ?>
+                        <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/'.$item->id) ?>" class="btn btn-danger btn-delete" title="delete">
+                            <i class="fa fa-trash"></i> Delete
+                        </a>
+                    <?php } ?>
                     <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads') ?>" class="btn btn-danger">
                         <i class="fa fa-arrow-left"></i> Back
                     </a>
@@ -612,8 +623,12 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th scope="row">Created At</th>
+                                                                    <th scope="row">Created On</th>
                                                                     <td><?= $item->cat ?></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">Updated On</th>
+                                                                    <td><?= $item->uat ?></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -633,7 +648,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>    
+                                                            </div>
                                                         <?php endforeach ?>
                                                     </div>
                                                 </div>

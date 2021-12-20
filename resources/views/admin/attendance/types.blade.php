@@ -25,8 +25,8 @@
                         <div class="card-block">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Reference Name <span class="-req">*</span></label>
-                                    <input name="name" type="text" class="form-control"  placeholder="Reference Name" required>
+                                    <label>Type <span class="-req">*</span></label>
+                                    <input name="name" type="text" class="form-control"  placeholder="Type" required>
                                 </div>
                             </div>
                         </div>
@@ -46,8 +46,8 @@
                         <div class="card-block">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Name <span class="-req">*</span></label>
-                                    <input name="name" type="text" class="form-control" value="<?= $item->name ?>"  placeholder="Name" required>
+                                    <label>Type <span class="-req">*</span></label>
+                                    <input name="name" type="text" class="form-control" value="<?= $item->name ?>"  placeholder="Type" required>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>    
+            </div>
         </div>
     </div>
 </div>
