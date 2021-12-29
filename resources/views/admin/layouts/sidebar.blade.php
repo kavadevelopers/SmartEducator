@@ -104,12 +104,12 @@
                         </li>
                     <?php } ?>
                     <?php if(App\Http\Controllers\admin\BaseController::checkRight(26)){ ?>
-                        <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['attype'])[2] ?>">
+                        <!-- <li class="<?= App\Http\Controllers\admin\BaseController::menu(2,['attype'])[2] ?>">
                             <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/attype') ?>">
                                 <span class="pcoded-micon"><i class="fa fa-files-o"></i></span> 
                                 <span class="pcoded-mtext">Manage Attendance Types</span>
                             </a>
-                        </li>
+                        </li> -->
                     <?php } ?>
                     
                     <div class="pcoded-navigatio-lavel"></div>
