@@ -155,9 +155,7 @@ class LeadsController extends BaseController
 						'cat'			=> date('Y-m-d H:i:s')
 					];
 
-					if (Session::get('AdminId') == "1") {
-						$data['cby']	= "";
-					}else{
+					if ($empId == "") {
 						$data['cby']	= Session::get('AdminId');
 					}
 					$insert[] = $data;

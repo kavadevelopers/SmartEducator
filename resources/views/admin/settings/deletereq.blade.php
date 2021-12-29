@@ -33,47 +33,64 @@
                         </thead>
                         <tbody>
                             <?php foreach ($list as $key => $value) { ?>
-                                <tr>
-                                    <td class="text-center"><?= $key +1  ?></td>
-                                    <td class="text-center"><?= ucfirst($value->type) ?></td>
-                                    <td>
-                                        <?php if($value->type == "lead"){ ?>
-                                            <?php $lead = DB::table('leads')->where('id',$value->main)->first(); ?>
-                                            #<?= $lead->id ?>-<?= $lead->name ?>
-                                        <?php } ?>
-                                        <?php if($value->type == "expenses"){ ?>
-                                            <?php $ex = DB::table('expenses')->where('id',$value->main)->first(); ?>
-                                            <?= $ex->descr ?>
-                                        <?php } ?>
-                                        <?php if($value->type == "employee"){ ?>
-                                            <?php $em = DB::table('z_user')->where('id',$value->main)->first(); ?>
-                                            <?= $em->name ?>
-                                        <?php } ?>
-                                        <?php if($value->type == "student"){ ?>
-                                            <?php $students = DB::table('students')->where('id',$value->main)->first(); ?>
-                                            <?= $students->name ?>
-                                        <?php } ?>
-                                        <?php if($value->type == "attendance"){ ?>
-                                            <?php $attend = DB::table('manage_attendance')->where('id',$value->main)->first(); ?>
-                                            <?php $em = DB::table('z_user')->where('id',$attend->employee)->first(); ?>
-                                            <?= $em->name ?>
-                                        <?php } ?>
-                                    </td>
-                                    <td>
-                                        <?= DB::table('z_user')->where('id',$value->cby)->first()->name ?>
-                                    </td>
-                                    <td class="text-center">
-                                        <?= date('d-m-Y h:i A',strtotime($value->cat)) ?>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/deletereq/'.$value->id.'/1') ?>" class="btn btn-primary btn-mini">
-                                            <i class="fa fa-check"></i>
-                                        </a>
-                                        <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/deletereq/'.$value->id.'/2') ?>" class="btn btn-danger btn-mini">
-                                            <i class="fa fa-times"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                <?php if($value->type == "lead"){ ?>
+                                    <?php $row = DB::table('leads')->where('id',$value->main)->first(); ?>
+                                <?php } ?>
+                                <?php if($value->type == "expenses"){ ?>
+                                    <?php $row = DB::table('expenses')->where('id',$value->main)->first(); ?>
+                                <?php } ?>
+                                <?php if($value->type == "employee"){ ?>
+                                    <?php $row = DB::table('z_user')->where('id',$value->main)->first(); ?>
+                                <?php } ?>
+                                <?php if($value->type == "student"){ ?>
+                                    <?php $row = DB::table('students')->where('id',$value->main)->first(); ?>
+                                <?php } ?>
+                                <?php if($value->type == "attendance"){ ?>
+                                    <?php $row = DB::table('manage_attendance')->where('id',$value->main)->first(); ?>
+                                <?php } ?>
+                                <?php if($row){ ?>
+                                    <tr>
+                                        <td class="text-center"><?= $key +1  ?></td>
+                                        <td class="text-center"><?= ucfirst($value->type) ?></td>
+                                        <td>
+                                            <?php if($value->type == "lead"){ ?>
+                                                <?php $lead = DB::table('leads')->where('id',$value->main)->first(); ?>
+                                                #<?= $lead->id ?>-<?= $lead->name ?>
+                                            <?php } ?>
+                                            <?php if($value->type == "expenses"){ ?>
+                                                <?php $ex = DB::table('expenses')->where('id',$value->main)->first(); ?>
+                                                <?= $ex->descr ?>
+                                            <?php } ?>
+                                            <?php if($value->type == "employee"){ ?>
+                                                <?php $em = DB::table('z_user')->where('id',$value->main)->first(); ?>
+                                                <?= $em->name ?>
+                                            <?php } ?>
+                                            <?php if($value->type == "student"){ ?>
+                                                <?php $students = DB::table('students')->where('id',$value->main)->first(); ?>
+                                                <?= $students->name ?>
+                                            <?php } ?>
+                                            <?php if($value->type == "attendance"){ ?>
+                                                <?php $attend = DB::table('manage_attendance')->where('id',$value->main)->first(); ?>
+                                                <?php $em = DB::table('z_user')->where('id',$attend->employee)->first(); ?>
+                                                <?= $em->name ?>
+                                            <?php } ?>
+                                        </td>
+                                        <td>
+                                            <?= DB::table('z_user')->where('id',$value->cby)->first()->name ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= date('d-m-Y h:i A',strtotime($value->cat)) ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/deletereq/'.$value->id.'/1') ?>" class="btn btn-primary btn-mini">
+                                                <i class="fa fa-check"></i>
+                                            </a>
+                                            <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/deletereq/'.$value->id.'/2') ?>" class="btn btn-danger btn-mini">
+                                                <i class="fa fa-times"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
                             <?php } ?>
                         </tbody>
                     </table>
