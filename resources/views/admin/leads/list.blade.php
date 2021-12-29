@@ -13,6 +13,9 @@
             </div>
             <div class="col-md-6 text-right">
                 <?php if ($type == "list") { ?>
+                    <a href="#" class="btn btn-success btn-mini btn-bulk-status-change">
+                        <i class="fa fa-check"></i> Status change
+                    </a>
                     <?php if(Session::get('AdminId') == "1"){ ?>
                         <a href="#" class="btn btn-success btn-mini btnAssignEmployee">
                             <i class="fa fa-link"></i> Assign Employee
@@ -28,6 +31,7 @@
                         <i class="fa fa-upload"></i> Import
                     </a>
                     <?php } ?>
+
                     <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/add') ?>" class="btn btn-primary btn-mini">
                         <i class="fa fa-plus"></i> Add
                     </a>
@@ -75,6 +79,7 @@
                                         <option value="">-- Select Status --</option>
                                         <option value="new" <?= $rec->status&&$rec->status=='new'?'selected':'' ?>>New</option>
                                         <option value="Busy" <?= $rec->status&&$rec->status=='Busy'?'selected':'' ?>>Busy</option>
+                                        <option value="Visitor" <?= $rec->status&&$rec->status=='Visitor'?'selected':'' ?>>Visitor</option>
                                         <option value="Switch off" <?= $rec->status&&$rec->status=='Switch off'?'selected':'' ?>>Switch off</option>
                                         <option value="Not reachable" <?= $rec->status&&$rec->status=='Not reachable'?'selected':'' ?>>Not reachable</option>
                                         <option value="Not interested" <?= $rec->status&&$rec->status=='Not interested'?'selected':'' ?>>Not interested</option>
@@ -131,12 +136,62 @@
     </div>
     <?php } ?>
     <?php if ($type == "list") { ?>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                var datatableLead = $('#table-dt2').DataTable({
+                    "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-12't>><'row'<'col-md-4'i><'col-md-4 text-center'><'col-md-4'p>>",
+                    order : [],
+                    'retrive' : true,
+                    "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
+                    "drawCallback" : function(settings){
+                        var pageinfo = this.api().page.info();
+                        $('#leadPagesTotal').html(pageinfo.pages);
+
+                        opHtml = "";
+                        start = 0;
+                        length = pageinfo.length;
+                        for (var i = 1;i <= pageinfo.pages; i++) {
+                            pagenumber = i - 1;
+                            opHtml += '<option value="'+pagenumber+'">Page '+i+'</option>';
+                        }
+                        $('#pageListDt').html(opHtml);
+                        $('#pageListDt').val(pageinfo.page);
+                    }
+                });
+
+                $('#pageListDt').change(function() {
+                    num = parseInt($(this).val());
+                    datatableLead.page(num).draw(false);
+                });
+            });
+        </script>
+
         <div class="page-body">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
+                        <div class="card-header text-right">
+                            <div class="row">
+                                <div class="col-md-9">
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Goto&nbsp;&nbsp;</span>
+                                        </div>
+                                        <select name="" id="pageListDt" class="form-control form-control-sm">
+                                            <option>page 1</option>
+                                        </select>
+                                        <!-- <div class="input-group-append">
+                                            <span class="input-group-text">&nbsp;of&nbsp;&nbsp;<span id="leadPagesTotal"></span> </span>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card-block table-responsive">
-                            <table class="table table-bordered table-mini table-dt">
+                            <table class="table table-bordered table-mini table-dt2" id="table-dt2">
                                 <thead>
                                     <tr>
                                         <?php if(Session::get('AdminId') == "1"){ ?>

@@ -6,7 +6,7 @@
 		});
 
 		$('.table-dt').DataTable({
-            "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-12't>><'row'<'col-md-6'i><'col-md-6'p>>",
+            "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-12't>><'row'<'col-md-4'i><'col-md-4 text-center'><'col-md-4'p>>",
             order : [],
             "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
         });
@@ -41,6 +41,19 @@
 			openCalander();
         });
 
+		$(document).on('click','.btn-bulk-status-change', function(e){
+            e.preventDefault();
+            if($(".checkSingle:checked").length > 0){
+            	$('#changeStatusBulk').modal('show');
+            	var list = $(".checkSingle:checked").map(function () {
+                    return this.value;
+                }).get();
+                $('#changeStatusBulk input[name=leads]').val(list.toString());
+            }else{
+                PNOTY('please select at least one Lead','error');
+                return false;
+            }
+        });
 
 		$(document).on('click','.btn-statuschange', function(e){
             e.preventDefault();
@@ -55,6 +68,17 @@
         });
 
         $(document).on('change','#changeStatus select[name=status]', function(e){
+            if ($(this).val() == "Appointment fixed" || $(this).val() == "Reschedule") {
+                $('.apDateContainer').show();
+                $('.apDateContainer input[name=date]').attr('required',true);
+            }else{
+                $('.apDateContainer').hide();
+                $('.apDateContainer input[name=date]').removeAttr('required');
+                $('.apDateContainer input[name=date]').val('');
+            }
+        });    
+
+        $(document).on('change','#changeStatusBulk select[name=status]', function(e){
             if ($(this).val() == "Appointment fixed" || $(this).val() == "Reschedule") {
                 $('.apDateContainer').show();
                 $('.apDateContainer input[name=date]').attr('required',true);

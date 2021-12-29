@@ -24,15 +24,13 @@ class AttendanceController extends BaseController
 
 		Excel::create('Attendance-'.date('Y-m-d H:i:s'), function($excel) use($rec){	
 			$excel->sheet('Data', function($sheet) use($rec) {
-				$sheet->cell('A1:E1',function($cell){  $cell->setFontWeight('bold'); $cell->setFontSize(14); });
-				$sheet->cell('A2:E2',function($cell){  $cell->setFontWeight('bold'); $cell->setFontSize(14); });
-				$sheet->mergeCells('A1:E1');
+				$sheet->cell('A1:C1',function($cell){  $cell->setFontWeight('bold'); $cell->setFontSize(14); });
+				$sheet->cell('A2:C2',function($cell){  $cell->setFontWeight('bold'); $cell->setFontSize(14); });
+				$sheet->mergeCells('A1:C1');
 				$sheet->cell('A1', function($cell) {$cell->setValue('Attendance');   });
 				$sheet->cell('A2', function($cell) {$cell->setValue('Date');   });
 				$sheet->cell('B2', function($cell) {$cell->setValue('Employee');   });
                 $sheet->cell('C2', function($cell) {$cell->setValue('Type');   });
-                $sheet->cell('D2', function($cell) {$cell->setValue('Remarks');   });
-                $sheet->cell('E2', function($cell) {$cell->setValue('At');   });
 
                 $query = DB::table('manage_attendance');
 
@@ -43,25 +41,23 @@ class AttendanceController extends BaseController
 					$query->where('type',$rec->type);
 				}
 				if ($rec->from) {
-					$query->where('dt','>=',date('Y-m-d',strtotime($rec->from)));
+					$query->where('cat','>=',date('Y-m-d',strtotime($rec->from)).' 00:00:00');
 				}
 				if ($rec->to) {
-					$query->where('dt','<=',date('Y-m-d',strtotime($rec->to)));
+					$query->where('cat','<=',date('Y-m-d',strtotime($rec->to)).' 23:59:59');
 				}
 
 				if ($rec->employee || $rec->type || $rec->from || $rec->to) {
-					$list 	= $query->orderby('dt','desc')->get();
+					$list 	= $query->orderby('cat','desc')->get();
 				}else{
-					$list 	= $query->orderby('dt','desc')->limit(200)->get();
+					$list 	= $query->orderby('cat','desc')->limit(200)->get();
 				}
                 foreach($list as $key => $item) {
                 	$em = DB::table('z_user')->where('id',$item->employee)->first();
 					$i= $key+3;
-					$sheet->cell('A'.$i, date('d M Y',strtotime($item->dt)));
+					$sheet->cell('A'.$i, date('d M Y h:i A',strtotime($item->cat)));
 					$sheet->cell('B'.$i, $em->name);
 	                $sheet->cell('C'.$i, $item->type);
-	                $sheet->cell('D'.$i, $item->remarks);
-	                $sheet->cell('E'.$i, $item->cat);
 				}
 			});
 		})->export('xlsx');
@@ -112,16 +108,16 @@ class AttendanceController extends BaseController
 			$query->where('type',$rec->type);
 		}
 		if ($rec->from) {
-			$query->where('dt','>=',date('Y-m-d',strtotime($rec->from)));
+			$query->where('cat','>=',date('Y-m-d',strtotime($rec->from)).' 00:00:00');
 		}
 		if ($rec->to) {
-			$query->where('dt','<=',date('Y-m-d',strtotime($rec->to)));
+			$query->where('cat','<=',date('Y-m-d',strtotime($rec->to)).' 23:59:59');
 		}
 
 		if ($rec->employee || $rec->type || $rec->from || $rec->to) {
-			$data['list'] 	= $query->orderby('dt','desc')->get();
+			$data['list'] 	= $query->orderby('cat','desc')->get();
 		}else{
-			$data['list'] 	= $query->orderby('dt','desc')->limit(200)->get();
+			$data['list'] 	= $query->orderby('cat','desc')->limit(200)->get();
 		}
 		return view('admin.attendance.list',$data);		
 	}

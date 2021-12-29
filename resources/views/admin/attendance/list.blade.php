@@ -19,9 +19,9 @@
                 <i class="fa fa-download"></i> Download
             </button>
             <?php } ?>
-            <a href="#" class="btn btn-success btn-mini btnTakeAttendance">
+            <!-- <a href="#" class="btn btn-success btn-mini btnTakeAttendance">
                 <i class="fa fa-plus"></i> Add
-            </a>
+            </a> -->
         </div>
     </div>
 </div>
@@ -50,9 +50,8 @@
                                 <label>Type</label>
                                 <select class="form-control" name="type">
                                     <option value="">-- Select --</option>
-                                    <?php foreach(DB::table('manage_attendance_types')->where('df','')->get() as $val){ ?>
-                                        <option value="<?= $val->name ?>" <?= $rec->type&&$rec->type==$val->name?'selected':'' ?>><?= $val->name ?></option>
-                                    <?php } ?>
+                                    <option value="login" <?= $rec->type&&$rec->type=='login'?'selected':'' ?>>login</option>
+                                    <option value="logout" <?= $rec->type&&$rec->type=='logout'?'selected':'' ?>>logout</option>
                                 </select>
                             </div>
                         </div>
@@ -104,8 +103,6 @@
                                 <th class="text-center">Date</th>
                                 <th>Employee</th>
                                 <th>Type</th>
-                                <th>Remarks</th>
-                                <th class="text-center">Created On</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -113,13 +110,9 @@
                             <?php foreach ($list as $key => $value) { ?>
                                 <?php $em = DB::table('z_user')->where('id',$value->employee)->first(); ?>
                                 <tr>
-                                    <td class="text-center"><?= date('d-m-Y',strtotime($value->dt)) ?></td>
+                                    <td class="text-center"><?= date('d-m-Y h:i A',strtotime($value->cat)) ?></td>
                                     <td><?= $em->name ?></td>
                                     <td><?= $value->type ?></td>
-                                    <td><?= nl2br($value->remarks) ?></td>
-                                    <td class="text-center">
-                                        <small><?= $value->cat ?></small>
-                                    </td>
                                     <td class="text-center">
                                         <?php if(App\Http\Controllers\admin\BaseController::isNotDeleteSent($value->id,'attendance')){ ?>
                                         <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/attendance/'.$value->id) ?>" class="btn btn-danger btn-mini btn-delete" title="delete">

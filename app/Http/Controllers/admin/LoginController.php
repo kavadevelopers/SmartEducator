@@ -29,6 +29,17 @@ class LoginController extends BaseController
 			$user = DB::table('z_user')->where('username',$rec->user)->where('df','')->first();
 			if($user){
 				if ($user->password == md5($rec->pass)) {
+					if($user->id != "1"){
+						$data = [
+							'type'			=> 'login',
+							'employee'		=> $user->id,
+							'ip'			=> $this->getIp(),
+							'remarks'		=> '',
+							'cat'			=> date('Y-m-d H:i:s')
+						];
+						DB::table('manage_attendance')->insert($data);
+					}
+
 					Session::put('AdminId',$user->id);
     				Session::put('AdminType',$user->user_type);
     				return $this->retJson(array(0,'Login Successfull...',''));	
@@ -41,8 +52,32 @@ class LoginController extends BaseController
 		}
 	}
 
+	public function getIp(){
+	    foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key){
+	        if (array_key_exists($key, $_SERVER) === true){
+	            foreach (explode(',', $_SERVER[$key]) as $ip){
+	                $ip = trim($ip); // just to be safe
+	                if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false){
+	                    return $ip;
+	                }
+	            }
+	        }
+	    }
+	    return request()->ip(); // it will return server ip when no client ip found
+	}
+
 	public function logout()
 	{
+		if($user->id != "1"){
+			$data = [
+				'type'			=> 'logout',
+				'employee'		=> Session::get('AdminId'),
+				'ip'			=> $this->getIp(),
+				'remarks'		=> '',
+				'cat'			=> date('Y-m-d H:i:s')
+			];
+			DB::table('manage_attendance')->insert($data);
+		}
 		Session::forget('AdminId');
 		Session::forget('AdminType');
 		return Redirect($this->aUrl('/'));
