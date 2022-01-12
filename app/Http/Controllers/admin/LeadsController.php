@@ -223,6 +223,11 @@ class LeadsController extends BaseController
 		return view('admin.leads.list',$data);
 	}
 
+	public function viewPost(Request $rec)
+	{
+		return $this->retJson(['_return' => true,'lead' => $rec->lead,'data' => $this->printViewLead($rec->lead)]);
+	}
+
 	public function add()
 	{
 		$data['_title'] = 'Add Lead';
@@ -248,8 +253,10 @@ class LeadsController extends BaseController
 		DB::table('leads')->where('id',$rec->eid)->update(['status' => $rec->status,'adate' => $adate,'uat'				=> date('Y-m-d H:i:s')]);
 
 
-		Session::flash('success', 'Lead status changed.');
-	    return Redirect()->back();
+		// Session::flash('success', 'Lead status changed.');
+	 //    return Redirect()->back();
+
+		return $this->retJson(['_return' => true,'lead' => $rec->eid,'data' => $this->printLead($rec->eid)]);
 	}
 
 	public function statusbulk(Request $rec)
@@ -300,6 +307,24 @@ class LeadsController extends BaseController
 	    return Redirect($this->aUrl('/leads'));
 	}
 
+	public function deleteLead(Request $rec)
+	{
+		if (Session::get('AdminId') == "1") {
+			DB::table('leads')->where('id',$rec->lead)->delete();
+			$message = 'Lead deleted.';
+			return $this->retJson(['_return' => true,'msg' => $message,'lead' => $rec->lead]);		
+		}else{
+			DB::table('delete_approval')->insert([
+				'type'	=> 'lead',
+				'main'	=> $rec->lead,
+				'cby'	=> Session::get('AdminId'),
+				'cat'		=> date('Y-m-d H:i:s')
+			]);
+			$message = 'Delete Request sent to admin';
+			return $this->retJson(['_return' => false,'msg' => $message,'lead' => $rec->lead,'data' => $this->printLead($rec->lead)]);		
+		}
+	}
+
 	public function update(Request $rec)
 	{
 		$data = [
@@ -318,10 +343,9 @@ class LeadsController extends BaseController
 			'uat'				=> date('Y-m-d H:i:s')
 		];
 
-		DB::table('leads')->where('id',$rec->id)->update($data);
+		DB::table('leads')->where('id',$rec->lead)->update($data);
 
-		Session::flash('success', 'Lead saved.');
-	    return Redirect($this->aUrl('/leads'));
+		return $this->retJson(['_return' => true,'lead' => $rec->lead,'data' => $this->printLead($rec->lead)]);
 	}
 
 	public function edit($id)

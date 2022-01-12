@@ -220,55 +220,8 @@
                                 </thead>
                                 <tbody>
                                     <?php foreach ($list as $key => $value) { ?>
-                                        <tr>
-                                            <?php if(Session::get('AdminId') == "1"){ ?>
-                                            <td class="text-center">
-                                                <div class="checkbox-fade fade-in-primary d-">
-                                                    <label>
-                                                        <input type="checkbox" name="cus[]" value="<?= $value->id ?>" class="checkSingle">
-                                                        <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <?php } ?>
-                                            <td class="text-center">
-                                                <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/view/'.$value->id) ?>" class="btn btn-success btn-mini" title="View">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                            </td>
-                                            <td class="text-center"><?= $value->id ?></td>
-                                            <td><?= $value->name ?></td>
-                                            <td><?= $value->mobile ?></td>
-                                            <td class="text-center">
-                                                <?= ucfirst($value->status) ?>
-                                                <?php if($value->status == "Appointment fixed" || $value->status == "Reschedule"){ ?>
-                                                    <br><small>At : <?= date('d-m-Y h:i A',strtotime($value->adate)); ?></small>
-                                                <?php } ?>
-                                            </td>
-                                            <?php if(Session::get('AdminId') == "1"){ ?>
-                                                <td>
-                                                    <?php if($value->cby != "" && DB::table('z_user')->where('id',$value->cby)->first()){ ?>
-                                                        <small><?= DB::table('z_user')->where('id',$value->cby)->first()->name ?></small>
-                                                    <?php }else{ ?>
-                                                        <small>unassigned</small>
-                                                    <?php } ?>
-                                                </td>
-                                            <?php } ?>
-                                            <td class="text-center">
-                                                <small><?= $value->cat ?></small>
-                                            </td>
-                                            <td class="text-center">
-                                                <small><?= $value->uat ?></small>
-                                            </td>
-                                            <td class="text-center">
-
-                                                <a href="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/edit/'.$value->id) ?>" class="btn btn-primary btn-mini" title="Edit">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a href="#" class="btn btn-success btn-mini btn-statuschange" data-values="<?= htmlspecialchars(json_encode($value), ENT_QUOTES, 'UTF-8'); ?>" data-adate="<?= $value->adate; ?>" title="Change Status">
-                                                    <i class="fa fa-check"></i>
-                                                </a>
-                                            </td>
+                                        <tr id="lead0<?= $value->id ?>">
+                                            <?= App\Http\Controllers\admin\BaseController::printLead($value->id) ?>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
@@ -343,13 +296,107 @@
                         }).get();
                         $('#bulkEmployeeModal input[name=leads]').val(list.toString());
                         $('#bulkEmployeeModal').modal('show');
-                        console.log(list.toString());
                     }else{
                         PNOTY('please select at least one Lead','error');
                         return false;
                     }
                 });
-            })
+
+                $(document).on('click','.deleteLead', function(e){
+                    e.preventDefault();
+                    if (confirm('Are you sure?')) {
+                        var AjaxParam = {
+                            'url'       : '<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/delete') ?>',
+                            'data'      : $('#editLeadModal form').serialize(),
+                            'dataType'  : 'json',
+                            'successCb' : callBackDeleteLead
+                        };
+                        doAjax(AjaxParam);
+                    }
+                });
+
+                $(document).on('click','.btnEdit', function(e){
+                    e.preventDefault();
+                    data = $(this).data('values');
+                    $('#editLeadModal input[name=lead]').val(data.id);
+                    $('#editLeadModal input[name=name]').val(data.name);
+                    $('#editLeadModal input[name=mobile]').val(data.mobile);
+                    $('#editLeadModal input[name=email]').val(data.email);
+                    $('#editLeadModal textarea[name=address]').val(data.address);
+                    $('#editLeadModal textarea[name=quo]').val(data.quo);
+                    $('#editLeadModal input[name=passing]').val(data.passing);
+                    $('#editLeadModal textarea[name=enquiry]').val(data.enquiry);
+                    $('#editLeadModal input[name=age]').val(data.age);
+                    $('#editLeadModal select[name=reference]').val(data.reference);
+                    $('#editLeadModal select[name=employee]').val(data.cby);
+                    $('#editLeadModal textarea[name=remarks]').val(data.remarks);
+                    dobFor = new Date(data.dob);
+                    $('#editLeadModal .datepicker').datepicker({
+                        format: 'dd-mm-yyyy',
+                        todayHighlight:'TRUE',
+                        autoclose: true,
+                        "setDate" : dobFor
+                    }).keydown(function(e) {
+                        return false;
+                    }).datepicker("update", dobFor);
+                    $('#editLeadModal').modal('show');
+                });     
+
+                $(document).on('submit','#editLeadModal form', function(e){
+                    e.preventDefault();
+                    var AjaxParam = {
+                        'url'       : '<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/edit') ?>',
+                        'data'      : $(this).serialize(),
+                        'dataType'  : 'json',
+                        'successCb' : callBackEditLead
+                    };
+                    doAjax(AjaxParam);
+                }); 
+
+                $(document).on('submit','#changeStatus form', function(e){
+                    e.preventDefault();
+                    var AjaxParam = {
+                        'url'       : '<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/status') ?>',
+                        'data'      : $(this).serialize(),
+                        'dataType'  : 'json',
+                        'successCb' : callBackStatus
+                    };
+                    doAjax(AjaxParam);
+                }); 
+                $(document).on('click','.btnLeadView', function(e){
+                    e.preventDefault();
+                    var AjaxParam = {
+                        'url'       : '<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/view') ?>',
+                        'data'      : {_token : '<?= csrf_token() ?>',lead:$(this).data('id')},
+                        'dataType'  : 'json',
+                        'successCb' : callBackLeadView
+                    };
+                    doAjax(AjaxParam);
+                });                               
+            });
+            function callBackLeadView(res) {
+                $('#viewLeadModal').modal('show');
+                $('#viewLeadModal .modal-body').html(res.data);
+            }
+            function callBackStatus(res) {
+                PNOTY('Status changed','success');
+                $('#lead0'+res.lead).html(res.data);
+                $('#changeStatus').modal('hide');
+            }
+            function callBackEditLead(res) {
+                PNOTY('Lead Saved','success');
+                $('#lead0'+res.lead).html(res.data);
+                $('#editLeadModal').modal('hide');
+            }
+            function callBackDeleteLead(res) {
+                PNOTY(res.msg,'success');
+                $('#editLeadModal').modal('hide');
+                if (res._return) {
+                    $('#lead0'+res.lead).remove();
+                }else{
+                    $('#lead0'+res.lead).html(res.data);
+                }
+            }
         </script>
         <div class="modal fade" id="bulkEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <form method="post" action="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/assign/') ?>" enctype="multipart/form-data">
@@ -382,6 +429,141 @@
                 </div>
             </form>
         </div>
+
+        <div class="modal fade" id="viewLeadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content" style="background: #f6f7f9;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" style="color: #1d262d;">View Lead</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="background: #f6f7f9;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editLeadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <form method="post" action="" enctype="multipart/form-data">
+            {{ csrf_field() }}
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content" style="background: #f6f7f9;">
+                        <div class="modal-header">
+                            <h5 class="modal-title" style="color: #1d262d;">Edit Lead</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Name <span class="-req">*</span></label>
+                                        <input name="name" type="text" class="form-control" value="<?= old("name") ?>" placeholder="Name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Mobile <small>(Add comma saparated value if multiple)</small><span class="-req">*</span></label>
+                                        <input name="mobile" type="text" class="form-control" value="<?= old("mobile") ?>" placeholder="Mobile" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input name="email" type="email" class="form-control" value="<?= old("email") ?>" placeholder="Email" >
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <textarea name="address" type="text" class="form-control" value="<?= old("address") ?>" placeholder="Address" ></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>PREVIOUS QUALIFICATION</label>
+                                        <textarea name="quo" type="text" class="form-control" value="<?= old("quo") ?>" placeholder="PREVIOUS QUALIFICATION" ></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>YEAR OF PASSING</label>
+                                        <input name="passing" type="text" class="form-control" value="<?= old("passing") ?>" placeholder="YEAR OF PASSING" >
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>ENQUIRY FOR</label>
+                                        <textarea name="enquiry" type="text" class="form-control" value="<?= old("enquiry") ?>" placeholder="ENQUIRY FOR" ></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>DOB</label>
+                                        <input name="dob" type="text" class="form-control datepicker" value="<?= old("dob") ?>" placeholder="DOB" >
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Age</label>
+                                        <input name="age" type="text" class="form-control numbers" value="<?= old("age") ?>" placeholder="Age" >
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Reference</label>
+                                        <select class="form-control" name="reference">
+                                            <option value="">-- Select --</option>
+                                            <?php foreach(DB::table('manage_reference')->where('df','')->get() as $val){ ?>
+                                                <option value="<?= $val->name ?>"><?= $val->name ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Remarks</label>
+                                        <textarea name="remarks" type="text" class="form-control" value="<?= old("remarks") ?>" placeholder="Remarks"></textarea>
+                                    </div>
+                                </div>
+                                <?php if(Session::get('AdminId') == '1'){ ?>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Employee</label>
+                                            <select class="form-control" name="employee" >
+                                                <option value="">unassigned</option>
+                                                <?php foreach(DB::table('z_user')->where('id','!=','1')->get() as $val){ ?>
+                                                    <option value="<?= $val->id ?>"><?= $val->name ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                <?php }else{ ?>
+                                    <input type="hidden" name="employee" value="<?= Session::get('AdminId') ?>">
+                                <?php } ?>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger deleteLead" title="delete">
+                                <i class="fa fa-trash"></i> Delete
+                            </button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                <i class="fa fa-arrow-left"></i> Back
+                            </button>
+                            <button class="btn btn-success" type="submit">
+                                <i class="fa fa-save"></i> Save
+                            </button>
+                            <input type="hidden" name="lead" >
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
     <?php }else if ($type == "add") { ?>
         <div class="page-body">
             <form method="post" action="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/add') ?>" enctype="multipart/form-data">

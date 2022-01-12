@@ -18,7 +18,10 @@
         color:#fc0;
     }*/
 
-
+    .modal-xl {
+	    width: 90%;
+	   	max-width:1200px;
+	}
 
     .tbl-whitespace td{
         white-space: normal;

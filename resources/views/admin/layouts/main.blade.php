@@ -278,7 +278,11 @@
             PNOTY('<?= Session::get('success'); ?>','success');
         <?php } ?>
     </script>
-
+    <style type="text/css">
+        .ui-pnotify{
+            z-index: 999999999 !important;
+        }
+    </style>
     @include('admin.layouts.style')
     @include('admin.layouts.script')
     @include('admin.layouts.modals')

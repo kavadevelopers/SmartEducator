@@ -41,7 +41,7 @@ function doAjax(params) {
             if (typeof success === "function") {
                 success(data);
             }
-        }, 1000);
+        }, 10);
     }).fail(function(jqXHR, textStatus, errorThrown) {
         hideAjaxLoader();
         PNOTY('Ajax Error','error');
