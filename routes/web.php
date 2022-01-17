@@ -215,6 +215,7 @@ Route::post('/savecontact', 'HomeController@saveContactForm');
 	Route::post('/admin/leads/edit', 'admin\LeadsController@update');
 	Route::post('/admin/leads/delete', 'admin\LeadsController@deleteLead');
 	Route::post('/admin/leads/status', 'admin\LeadsController@status');
+	Route::post('/admin/leads/statusn', 'admin\LeadsController@statusn');
 	Route::post('/admin/leads/statusbulk', 'admin\LeadsController@statusbulk');
 	Route::get('/admin/leads/edit/{id}', 'admin\LeadsController@edit');
 	Route::get('/admin/leads/view/{id}', 'admin\LeadsController@view');

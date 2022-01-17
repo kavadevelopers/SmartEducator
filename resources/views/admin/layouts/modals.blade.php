@@ -64,7 +64,7 @@
 
 
 <div class="modal fade" id="changeStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <form method="post" action="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/status/') ?>" enctype="multipart/form-data">
+    <form method="post" action="<?= App\Http\Controllers\admin\BaseController::aUrl('/leads/statusn/') ?>" enctype="multipart/form-data">
     {{ csrf_field() }}
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="background: #f6f7f9;">

@@ -259,6 +259,28 @@ class LeadsController extends BaseController
 		return $this->retJson(['_return' => true,'lead' => $rec->eid,'data' => $this->printLead($rec->eid)]);
 	}
 
+	public function statusn(Request $rec)
+	{
+		$adate = NULL;
+		if ($rec->status == "Appointment fixed" || $rec->status == "Reschedule") {
+			$adate = $rec->date?date('Y-m-d H:i:s',strtotime($rec->date)):NULL;
+		}
+		$data = [
+			'lead'			=> $rec->eid,
+			'status'		=> $rec->status,
+			'notes'			=> $rec->notes?$rec->notes:'',
+			'adate'			=> $adate,
+			'cat'			=> date('Y-m-d H:i:s'),
+			'cby'			=> Session::get('AdminId')
+		];
+		DB::table('leads_status')->insert($data);
+		DB::table('leads')->where('id',$rec->eid)->update(['status' => $rec->status,'adate' => $adate,'uat'				=> date('Y-m-d H:i:s')]);
+
+
+		Session::flash('success', 'Lead status changed.');
+	    return Redirect()->back();
+	}
+
 	public function statusbulk(Request $rec)
 	{
 		foreach(explode(',', $rec->leads) as $val){
