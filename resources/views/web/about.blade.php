@@ -22,16 +22,28 @@
 </section>
 <!-- End Team Section -->
 
-<section id="team contact-top" class="team section-bg p-0">
+<section id="team contact-top" class="team section-bg p-0 about-vision-block">
     <div class="row" data-aos="fade-up">
-        <div class="col">
+        <div class="col mobile-hide tab-hide">
         	<img src="<?= URL::asset("public/uploads/about/".$content->image) ?>" style="width:100%;">
         </div>
-        <div class="col">
-        	<div class="section-title" style="margin-top: 228px;">
-	            <h3><?= $content->title2 ?></h3>
-	            <div class="title-border"></div>
-	        </div>
+        <div class="col mobile-hide tab-hide" style="display:table;">
+        	<div class="" style="display:table-cell; vertical-align: middle;">
+                <div class="section-title" style="">
+                    <h3><?= $content->title2 ?></h3>
+                    <div class="title-border"></div>
+                </div>
+                <div class="content-dynamic width-90"><?= $content->content2 ?></div>   
+            </div>
+        </div>
+        <div class="col-sm-12 desktop-hide">
+            <img src="<?= URL::asset("public/uploads/about/".$content->image) ?>" style="width:100%;">
+        </div>
+        <div class="col-sm-12 desktop-hide">
+            <div class="section-title" style="">
+                <h3><?= $content->title2 ?></h3>
+                <div class="title-border"></div>
+            </div>
             <div class="content-dynamic width-90"><?= $content->content2 ?></div>
         </div>
     </div>
@@ -66,7 +78,7 @@
 <!-- End Clients Section -->
 
 <!-- ======= Founder section ======= -->
-<section id="team contact-top" class="team section-bg">
+<section id="team contact-top" class="team section-bg mobile-hide tab-hide">
     <div class="container">
         <div class="row" style=" margin-top: 200px;">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -145,6 +157,49 @@
         
 
         
+    </div>
+</section>
+<section id="team contact-top" class="team section-bg desktop-hide">
+    <div class="container">
+        <div class="row" style=" margin-top: 200px;">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner" style="overflow: visible;">
+                    <?php foreach($teams as $ky => $vl){ ?>
+                        <div class="carousel-item <?= $ky == 0?'active':''; ?>">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="section-title-founder info-box-squre" style="padding: 20px;">
+                                        <h4 class="heading_founder"><?= $vl->title ?></h4>
+                                        <h6 class="founder_desc"><?= $vl->sub ?></h6>
+                                        <p class="founder_desc"><?= $vl->content ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>  
+                </div>
+            </div>
+        </div>
+        <div class="row text-center" style="margin-top: 20px;margin-bottom: 200px;">
+            <div class="col-lg-12">
+                <a href="#" class="our-partner-slider-btn team-slider-prev">
+                    <i class="fa fa-arrow-left"></i>
+                </a>
+                <a href="#" class="our-partner-slider-btn team-slider-next">
+                    <i class="fa fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div class="section-title-founder info-box-squre" style="padding: 20px;">
+                    <h4 class="heading_founder"><?= $content->cotitle ?></h4>
+                    <h6 class="founder_desc"><?= $content->cosubtitle ?></h6>
+                    <p class="founder_desc"><?= $content->cocontent ?></p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 <!-- End Founder section -->

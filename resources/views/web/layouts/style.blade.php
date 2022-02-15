@@ -1,4 +1,42 @@
 <style type="text/css">
+    .carousel-indicators{
+        margin-bottom: 0;
+    }
+    .about-vision-block .section-title{
+        /*margin-top: 228px;*/
+    }
+    @media only screen and (max-width: 768px) {
+        .about-vision-block .section-title{
+            margin-top: 0;
+        }
+        .about-vision-block .width-90{
+            width: 100% !important;
+        }
+        .about-vision-block .content-dynamic{
+            padding: 20px;
+        }
+        .star-block-of-review i{
+            font-size: 15px;
+        }
+        .review-text{
+            font-size: 10px;
+            line-height: 1;
+        }
+        .review2 {
+            top: 27%;
+        }
+        #hero {
+            height: auto;
+        }
+
+        #hero .container {
+            padding-top: 14px;
+        }
+
+        .map-block{
+            margin-top: 20px;
+        }
+    }
     @media only screen and (max-width: 768px) {
         .mobile-hide{
             display: none !important;
@@ -32,7 +70,19 @@
         
     }
 
-    @media (min-width:768px) and (max-width:992px) {
+    @media (min-width:767px) and (max-width:992px) {
+        .about-vision-block .section-title{
+            margin-top: 0;
+        }
+        .about-vision-block .width-90{
+            width: 100% !important;
+        }
+        .about-vision-block .content-dynamic{
+            padding: 20px;
+        }
+        .map-block{
+            margin-top: 20px;
+        }
         .tab-hide{
             display: none !important;
         }
